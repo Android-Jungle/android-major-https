@@ -17,6 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Text Model"
+        android:textAllCaps="false"
         android:onClick="onTextModel"/>
 
     <Button
@@ -24,6 +25,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Json Model"
+        android:textAllCaps="false"
         android:onClick="onJsonModel"/>
 
     <Button
@@ -31,6 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Download Binary Model"
+        android:textAllCaps="false"
         android:onClick="onDownloadModel"/>
 
     <Button
@@ -38,6 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Download File Model"
+        android:textAllCaps="false"
         android:onClick="onDownloadFileModel"/>
 
     <Button
@@ -45,5 +49,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Upload File Model"
+        android:textAllCaps="false"
         android:onClick="onUploadFileModel"/>
 </LinearLayout>
