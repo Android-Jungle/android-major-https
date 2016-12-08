@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">easy-http</string>
+    <string name="loading_now">Loading…</string>
+</resources>
