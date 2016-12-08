@@ -21,12 +21,13 @@ package com.jungle.easyhttp.demo;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import com.jungle.easyhttp.model.base.BizModelListener;
 import com.jungle.easyhttp.model.base.ModelMethod;
 import com.jungle.easyhttp.model.binary.DownloadRequestModel;
+import com.jungle.easyhttp.model.text.JsonRequestModel;
 import com.jungle.easyhttp.model.text.TextRequestModel;
 import com.jungle.easyhttp.request.EasyHttpManager;
 import com.jungle.easyhttp.request.queue.HttpRequestQueueFactory;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String DEMO_WEB_URL =
             "https://github.com/arnozhang/easy-http/blob/master/.gitignore";
     private static final String DEMO_JSON_URL =
-            "https://raw.githubusercontent.com/arnozhang/easy-http/master/sources/build.gradle";
+            "https://raw.githubusercontent.com/arnozhang/easy-http/master/docs/demo.json";
 
 
     @Override
@@ -49,10 +50,12 @@ public class MainActivity extends AppCompatActivity {
         EasyHttpManager.getInstance().setRequestQueueFactory(new HttpRequestQueueFactory(this));
     }
 
-    private void showToast(String message) {
-        if (!TextUtils.isEmpty(message)) {
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
-        }
+    private void showToast(int errorCode, String message) {
+        Log.e("Main", String.format("Error! errorCode = %d.", errorCode));
+
+        Toast.makeText(this,
+                String.format("Error: errorCode = %d, message = %s.", errorCode, message),
+                Toast.LENGTH_SHORT).show();
     }
 
     private Context getContext() {
@@ -72,7 +75,24 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(int errorCode, String message) {
-                        showToast(message);
+                        showToast(errorCode, message);
+                    }
+                });
+    }
+
+    public void onJsonModel(View view) {
+        JsonRequestModel
+                .newModel(GithubUserInfo.class)
+                .url(DEMO_JSON_URL)
+                .method(ModelMethod.GET)
+                .loadWithProgress(this, new BizModelListener<GithubUserInfo>() {
+                    @Override
+                    public void onSuccess(Map<String, String> headers, GithubUserInfo response) {
+                    }
+
+                    @Override
+                    public void onError(int errorCode, String message) {
+                        showToast(errorCode, message);
                     }
                 });
     }
@@ -81,15 +101,17 @@ public class MainActivity extends AppCompatActivity {
         DownloadRequestModel
                 .newModel()
                 .url(DEMO_JSON_URL)
-                .load(new BizModelListener<byte[]>() {
+                .method(ModelMethod.GET)
+                .loadWithProgress(this, new BizModelListener<byte[]>() {
                     @Override
                     public void onSuccess(Map<String, String> headers, byte[] response) {
-
+                        String content = new String(response);
+                        TextViewerActivity.start(getContext(), content);
                     }
 
                     @Override
                     public void onError(int errorCode, String message) {
-                        showToast(message);
+                        showToast(errorCode, message);
                     }
                 });
     }
