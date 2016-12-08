@@ -18,14 +18,19 @@
 
 package com.jungle.easyhttp.demo;
 
+import android.Manifest;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import com.jungle.easyhttp.model.base.BizModelListener;
+import com.jungle.easyhttp.model.base.ModelLoadLifeListener;
 import com.jungle.easyhttp.model.base.ModelMethod;
+import com.jungle.easyhttp.model.binary.DownloadFileRequestModel;
 import com.jungle.easyhttp.model.binary.DownloadRequestModel;
 import com.jungle.easyhttp.model.text.JsonRequestModel;
 import com.jungle.easyhttp.model.text.TextRequestModel;
@@ -117,5 +122,33 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onDownloadFileModel(View view) {
+        final String file = Environment.getExternalStorageDirectory().getPath() + "/demo.json";
+        String loadingText = String.format("Downloading File: \n%s", file);
+
+        DownloadFileRequestModel
+                .newModel()
+                .url(DEMO_JSON_URL)
+                .filePath(file)
+                .lifeListener(new ModelLoadLifeListener<DownloadFileRequestModel>() {
+                    @Override
+                    public void onBeforeLoad(DownloadFileRequestModel model) {
+                        ActivityCompat.requestPermissions(MainActivity.this,
+                                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                                100);
+                    }
+                })
+                .loadWithProgress(getContext(), loadingText, new BizModelListener<String>() {
+                    @Override
+                    public void onSuccess(Map<String, String> headers, String response) {
+                        Toast.makeText(getContext(), String.format(
+                                "Download file SUCCESS! file = %s.", file), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(int errorCode, String message) {
+                        message = String.valueOf(errorCode) + " : " + message;
+                        showToast(errorCode, message);
+                    }
+                });
     }
 }

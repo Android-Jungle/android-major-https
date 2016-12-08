@@ -18,6 +18,7 @@
 
 package com.jungle.easyhttp.request.download;
 
+import android.text.TextUtils;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -47,6 +48,10 @@ public class BizDownloadFileRequest extends BizBaseRequest<BizDownloadFileRespon
 
     @Override
     protected Response<BizDownloadFileResponse> parseNetworkResponse(NetworkResponse response) {
+        if (TextUtils.isEmpty(mFilePath)) {
+            return Response.error(new VolleyError("Download file path must not be null!"));
+        }
+
         File file = new File(mFilePath);
         try {
             if (!file.exists()) {
