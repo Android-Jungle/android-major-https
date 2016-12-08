@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String DEMO_WEB_URL =
             "https://github.com/arnozhang/easy-http/blob/master/.gitignore";
+
     private static final String DEMO_JSON_URL =
             "https://raw.githubusercontent.com/arnozhang/easy-http/master/docs/demo.json";
 
