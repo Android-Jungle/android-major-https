@@ -1,5 +1,5 @@
 /**
- * Android Jungle-Share framework project.
+ * Android Jungle-Easy-Http framework project.
  *
  * Copyright 2016 Arno Zhang <zyfgood12@163.com>
  *
@@ -73,7 +73,7 @@ public class ProgressModelLoadManager {
     private ProgressModelLoadManager() {
     }
 
-    public void onCreate() {
+    private void onCreate() {
     }
 
     public void onTerminate() {

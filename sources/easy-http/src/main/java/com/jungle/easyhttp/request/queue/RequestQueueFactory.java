@@ -1,5 +1,5 @@
 /**
- * Android Jungle-Share framework project.
+ * Android Jungle-Easy-Http framework project.
  *
  * Copyright 2016 Arno Zhang <zyfgood12@163.com>
  *
@@ -18,7 +18,6 @@
 
 package com.jungle.easyhttp.request.queue;
 
-import android.content.Context;
 import com.android.volley.RequestQueue;
 
 public interface RequestQueueFactory {

@@ -1,5 +1,5 @@
 /**
- * Android Jungle-Share framework project.
+ * Android Jungle-Easy-Http framework project.
  *
  * Copyright 2016 Arno Zhang <zyfgood12@163.com>
  *
@@ -20,7 +20,7 @@ package com.jungle.easyhttp.model.binary;
 
 import com.jungle.easyhttp.model.base.AbstractBizModel;
 import com.jungle.easyhttp.model.base.BaseBizModel;
-import com.jungle.easyhttp.request.BizHttpManager;
+import com.jungle.easyhttp.request.EasyHttpManager;
 
 public class DownloadFileRequestModel extends BaseBizModel<DownloadFileRequestModel, String> {
 
@@ -55,6 +55,6 @@ public class DownloadFileRequestModel extends BaseBizModel<DownloadFileRequestMo
 
     @Override
     public int loadInternal() {
-        return BizHttpManager.getInstance().loadDownloadFileModel((Request) mRequest, this);
+        return EasyHttpManager.getInstance().loadDownloadFileModel((Request) mRequest, this);
     }
 }

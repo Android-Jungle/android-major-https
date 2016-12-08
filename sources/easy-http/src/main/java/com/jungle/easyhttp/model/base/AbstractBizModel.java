@@ -1,5 +1,5 @@
 /**
- * Android Jungle-Share framework project.
+ * Android Jungle-Easy-Http framework project.
  *
  * Copyright 2016 Arno Zhang <zyfgood12@163.com>
  *
@@ -21,7 +21,7 @@ package com.jungle.easyhttp.model.base;
 import android.content.Context;
 import android.support.annotation.StringRes;
 import com.jungle.easyhttp.model.ui.ProgressModelLoadManager;
-import com.jungle.easyhttp.request.BizHttpManager;
+import com.jungle.easyhttp.request.EasyHttpManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -237,7 +237,7 @@ public abstract class AbstractBizModel<Impl extends AbstractBizModel, Data> {
     }
 
     public void cancel() {
-        BizHttpManager.getInstance().cancelBizModel(mRequest.getSeqId());
+        EasyHttpManager.getInstance().cancelBizModel(mRequest.getSeqId());
     }
 
     public BizModelListener<Data> getListener() {

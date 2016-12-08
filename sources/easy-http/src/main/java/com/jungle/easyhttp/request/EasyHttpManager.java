@@ -1,5 +1,5 @@
 /**
- * Android Jungle-Share framework project.
+ * Android Jungle-Easy-Http framework project.
  *
  * Copyright 2016 Arno Zhang <zyfgood12@163.com>
  *
@@ -49,17 +49,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class BizHttpManager {
+public class EasyHttpManager {
 
     private static final int DEFAULT_TIMEOUT_MS = 20 * 1000;
     private static final int UPLOAD_TIMEOUT_MS = 40 * 1000;
 
 
-    private static BizHttpManager mInstance;
+    private static EasyHttpManager mInstance;
 
-    public static BizHttpManager getInstance() {
+    public static EasyHttpManager getInstance() {
         if (mInstance == null) {
-            mInstance = new BizHttpManager();
+            mInstance = new EasyHttpManager();
             mInstance.onCreate();
         }
 
@@ -98,7 +98,7 @@ public class BizHttpManager {
     private ExtraHeadersFiller mExtraHeadersFiller;
 
 
-    public void onCreate() {
+    private void onCreate() {
         setUploadTimeoutMilliseconds(UPLOAD_TIMEOUT_MS);
         setDefaultTimeoutMilliseconds(DEFAULT_TIMEOUT_MS);
     }
@@ -319,7 +319,7 @@ public class BizHttpManager {
         @SuppressWarnings("unchecked")
         @Override
         public void onSuccess(int seqId, BizBaseResponse<T> response) {
-            synchronized (BizHttpManager.this) {
+            synchronized (EasyHttpManager.this) {
                 RequestNode node = mRequestList.remove(seqId);
                 if (node == null || node.mListener == null) {
                     return;

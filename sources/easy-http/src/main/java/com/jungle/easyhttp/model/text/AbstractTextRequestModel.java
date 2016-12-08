@@ -1,5 +1,5 @@
 /**
- * Android Jungle-Share framework project.
+ * Android Jungle-Easy-Http framework project.
  *
  * Copyright 2016 Arno Zhang <zyfgood12@163.com>
  *
@@ -20,7 +20,7 @@ package com.jungle.easyhttp.model.text;
 
 import com.jungle.easyhttp.model.base.AbstractBizModel;
 import com.jungle.easyhttp.network.BaseRequestListener;
-import com.jungle.easyhttp.request.BizHttpManager;
+import com.jungle.easyhttp.request.EasyHttpManager;
 
 public abstract class AbstractTextRequestModel<Impl extends AbstractTextRequestModel, Data>
         extends AbstractBizModel<AbstractTextRequestModel<Impl, Data>, Data>
@@ -48,7 +48,7 @@ public abstract class AbstractTextRequestModel<Impl extends AbstractTextRequestM
 
     @Override
     public int loadInternal() {
-        return BizHttpManager.getInstance().loadTextModel((Request) mRequest, this);
+        return EasyHttpManager.getInstance().loadTextModel((Request) mRequest, this);
     }
 
     @SuppressWarnings("unchecked")

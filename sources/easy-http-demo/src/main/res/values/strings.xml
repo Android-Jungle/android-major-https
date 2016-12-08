@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">easy-http-demo</string>
+    <string name="title_text_viewer">TextViewer</string>
 </resources>
