@@ -1,5 +1,7 @@
 package com.jungle.easyhttp.demo;
 
+import java.util.List;
+
 public class GithubUserInfo {
 
     public static class Project {
@@ -11,5 +13,5 @@ public class GithubUserInfo {
     public String userName;
     public String site;
     public String[] languages;
-    public Project[] projects;
+    public List<Project> projects;
 }
