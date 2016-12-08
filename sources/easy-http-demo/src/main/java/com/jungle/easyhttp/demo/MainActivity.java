@@ -33,6 +33,7 @@ import com.jungle.easyhttp.model.base.ModelLoadLifeListener;
 import com.jungle.easyhttp.model.base.ModelMethod;
 import com.jungle.easyhttp.model.binary.DownloadFileRequestModel;
 import com.jungle.easyhttp.model.binary.DownloadRequestModel;
+import com.jungle.easyhttp.model.binary.UploadRequestModel;
 import com.jungle.easyhttp.model.text.JsonRequestModel;
 import com.jungle.easyhttp.model.text.TextRequestModel;
 import com.jungle.easyhttp.request.EasyHttpManager;
@@ -48,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
     private static final String DEMO_JSON_URL =
             "https://raw.githubusercontent.com/arnozhang/easy-http/master/docs/demo.json";
 
+    private static final String DEMO_UPLOAD_URL =
+            "https://raw.githubusercontent.com/upload_test";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
         Toast.makeText(this,
                 String.format("Error: errorCode = %d, message = %s.", errorCode, message),
-                Toast.LENGTH_SHORT).show();
+                Toast.LENGTH_LONG).show();
     }
 
     private Context getContext() {
@@ -126,8 +130,12 @@ public class MainActivity extends AppCompatActivity {
                 });
     }
 
+    private String getDemoFilePath() {
+        return Environment.getExternalStorageDirectory().getPath() + "/demo.json";
+    }
+
     public void onDownloadFileModel(View view) {
-        final String file = Environment.getExternalStorageDirectory().getPath() + "/demo.json";
+        final String file = getDemoFilePath();
         String loadingText = String.format("Downloading File: \n%s", file);
 
         DownloadFileRequestModel
@@ -151,7 +159,27 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(int errorCode, String message) {
-                        message = String.valueOf(errorCode) + " : " + message;
+                        showToast(errorCode, message);
+                    }
+                });
+    }
+
+    public void onUploadFileModel(View view) {
+        final String file = getDemoFilePath();
+
+        UploadRequestModel
+                .newModel()
+                .url(DEMO_UPLOAD_URL)
+                .addFormItem(file)
+                .loadWithProgress(this, "Uploading...", new BizModelListener<String>() {
+                    @Override
+                    public void onSuccess(Map<String, String> headers, String response) {
+                        Toast.makeText(getContext(), String.format(
+                                "Upload file SUCCESS! file = %s.", file), Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onError(int errorCode, String message) {
                         showToast(errorCode, message);
                     }
                 });
