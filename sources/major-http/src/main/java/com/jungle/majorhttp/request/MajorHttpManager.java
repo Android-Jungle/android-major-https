@@ -199,6 +199,13 @@ public class MajorHttpManager {
             BizBaseRequest<?> request,
             BaseRequestListener listener) {
 
+        if (mRequestQueue == null) {
+            String message = "RequestQueue is null!"
+                    + "use **setRequestQueueFactory** to initialize RequestQueue first!";
+            listener.onError(seqId, CommonError.REQUEST_QUEUE_NOT_INITIALIZED, message);
+            return;
+        }
+
         if (request instanceof BizUploadRequest) {
             request.setRetryPolicy(mUploadRetryPolicy);
         } else {

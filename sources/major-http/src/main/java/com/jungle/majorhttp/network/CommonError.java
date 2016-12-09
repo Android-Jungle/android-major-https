@@ -23,8 +23,9 @@ import com.android.volley.VolleyError;
 public class CommonError {
 
     public static final int SUCCESS = 0;
-    public static final int FAILED = -1;
-    public static final int PARSE_BODY_ERROR = -2;
+    public static final int FAILED = -4000;
+    public static final int PARSE_BODY_ERROR = -40001;
+    public static final int REQUEST_QUEUE_NOT_INITIALIZED = -4002;
 
 
     public static int fromError(VolleyError error) {
