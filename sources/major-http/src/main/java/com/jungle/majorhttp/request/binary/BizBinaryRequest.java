@@ -58,7 +58,7 @@ public class BizBinaryRequest extends BizBaseRequest<BizBinaryResponse> {
     @Override
     protected Response<BizBinaryResponse> parseNetworkResponse(NetworkResponse response) {
         return Response.success(
-                new BizBinaryResponse(response.data, response.headers),
+                new BizBinaryResponse(response, response.data),
                 HttpHeaderParser.parseCacheHeaders(response));
     }
 }

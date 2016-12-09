@@ -18,16 +18,16 @@
 
 package com.jungle.majorhttp.request;
 
-import java.util.Map;
+import com.android.volley.NetworkResponse;
 
 public class BizBaseResponse<T> {
 
     public T mContent;
-    public Map<String, String> mHeaders;
+    public NetworkResp mNetworkResp;
 
 
-    public BizBaseResponse(T content, Map<String, String> headers) {
+    public BizBaseResponse(NetworkResponse response, T content) {
         mContent = content;
-        mHeaders = headers;
+        mNetworkResp = new NetworkResp(response);
     }
 }

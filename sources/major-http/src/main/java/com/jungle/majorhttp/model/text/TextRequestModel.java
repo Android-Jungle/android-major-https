@@ -18,7 +18,7 @@
 
 package com.jungle.majorhttp.model.text;
 
-import java.util.Map;
+import com.jungle.majorhttp.request.NetworkResp;
 
 public class TextRequestModel extends AbstractTextRequestModel<TextRequestModel, String> {
 
@@ -28,7 +28,7 @@ public class TextRequestModel extends AbstractTextRequestModel<TextRequestModel,
 
 
     @Override
-    public void onSuccess(int seqId, Map<String, String> headers, String response) {
-        mListener.onSuccess(headers, response);
+    public void onSuccess(int seqId, NetworkResp networkResp, String response) {
+        mListener.onSuccess(networkResp, response);
     }
 }

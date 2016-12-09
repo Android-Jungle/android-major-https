@@ -39,10 +39,10 @@ import com.jungle.majorhttp.model.text.JsonRequestModel;
 import com.jungle.majorhttp.model.text.TextRequestModel;
 import com.jungle.majorhttp.network.HttpsUtils;
 import com.jungle.majorhttp.request.MajorHttpManager;
+import com.jungle.majorhttp.request.NetworkResp;
 import com.jungle.majorhttp.request.queue.HttpsRequestQueueFactory;
 
 import java.util.Locale;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                 .method(ModelMethod.GET)
                 .loadWithProgress(this, new BizModelListener<String>() {
                     @Override
-                    public void onSuccess(Map<String, String> headers, String response) {
+                    public void onSuccess(NetworkResp networkResp, String response) {
                         TextViewerActivity.start(getContext(), response);
                     }
 
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                 .method(ModelMethod.GET)
                 .load(new BizModelListener<GithubUserInfo>() {
                     @Override
-                    public void onSuccess(Map<String, String> headers, GithubUserInfo response) {
+                    public void onSuccess(NetworkResp networkResp, GithubUserInfo response) {
                         String info = JSON.toJSONString(response, SerializerFeature.PrettyFormat);
                         info = "Load Json object success!\n\n" + info;
                         TextViewerActivity.start(getContext(), info);
@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
                 .method(ModelMethod.GET)
                 .loadWithProgress(this, new BizModelListener<byte[]>() {
                     @Override
-                    public void onSuccess(Map<String, String> headers, byte[] response) {
+                    public void onSuccess(NetworkResp networkResp, byte[] response) {
                         String content = new String(response);
                         TextViewerActivity.start(getContext(), content);
                     }
@@ -169,7 +169,7 @@ public class MainActivity extends AppCompatActivity {
                 })
                 .loadWithProgress(getContext(), loadingText, new BizModelListener<String>() {
                     @Override
-                    public void onSuccess(Map<String, String> headers, String response) {
+                    public void onSuccess(NetworkResp networkResp, String response) {
                         Toast.makeText(getContext(), String.format(
                                 "Download file SUCCESS! file = %s.", file), Toast.LENGTH_SHORT).show();
                     }
@@ -190,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
                 .addFormItem(file)
                 .loadWithProgress(this, "Uploading...", new BizModelListener<String>() {
                     @Override
-                    public void onSuccess(Map<String, String> headers, String response) {
+                    public void onSuccess(NetworkResp networkResp, String response) {
                         Toast.makeText(getContext(), String.format(
                                 "Upload file SUCCESS! file = %s.", file), Toast.LENGTH_SHORT).show();
                     }

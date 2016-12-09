@@ -38,7 +38,7 @@ public class BizDownloadRequest extends BizBaseRequest<BizDownloadResponse> {
     @Override
     protected Response<BizDownloadResponse> parseNetworkResponse(NetworkResponse response) {
         return Response.success(
-                new BizDownloadResponse(response.data, response.headers),
+                new BizDownloadResponse(response, response.data),
                 HttpHeaderParser.parseCacheHeaders(response));
     }
 }

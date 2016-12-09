@@ -18,11 +18,11 @@
 
 package com.jungle.majorhttp.network;
 
-import java.util.Map;
+import com.jungle.majorhttp.request.NetworkResp;
 
 public interface BaseRequestListener<T> {
 
-    void onSuccess(int seqId, Map<String, String> headers, T response);
+    void onSuccess(int seqId, NetworkResp networkResp, T response);
 
     void onError(int seqId, int errorCode, String message);
 }

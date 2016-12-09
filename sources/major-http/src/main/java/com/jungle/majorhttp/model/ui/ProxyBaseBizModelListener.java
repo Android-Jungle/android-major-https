@@ -19,8 +19,7 @@
 package com.jungle.majorhttp.model.ui;
 
 import com.jungle.majorhttp.model.base.BizModelListener;
-
-import java.util.Map;
+import com.jungle.majorhttp.request.NetworkResp;
 
 public class ProxyBaseBizModelListener<T> implements BizModelListener<T> {
 
@@ -32,9 +31,9 @@ public class ProxyBaseBizModelListener<T> implements BizModelListener<T> {
     }
 
     @Override
-    public void onSuccess(Map<String, String> headers, T response) {
+    public void onSuccess(NetworkResp networkResp, T response) {
         if (mImplListener != null) {
-            mImplListener.onSuccess(headers, response);
+            mImplListener.onSuccess(networkResp, response);
         }
     }
 

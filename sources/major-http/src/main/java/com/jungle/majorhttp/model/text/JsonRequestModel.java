@@ -21,6 +21,7 @@ package com.jungle.majorhttp.model.text;
 import android.text.TextUtils;
 import com.alibaba.fastjson.JSON;
 import com.jungle.majorhttp.network.CommonError;
+import com.jungle.majorhttp.request.NetworkResp;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Map;
@@ -54,19 +55,19 @@ public class JsonRequestModel<T> extends AbstractTextRequestModel<JsonRequestMod
     }
 
     @Override
-    public void onSuccess(int seqId, Map<String, String> headers, String response) {
+    public void onSuccess(int seqId, NetworkResp networkResp, String response) {
         if (mListener == null) {
             return;
         }
 
         if (TextUtils.isEmpty(response)) {
-            mListener.onSuccess(headers, null);
+            mListener.onSuccess(networkResp, null);
             return;
         }
 
         try {
             T data = JSON.parseObject(response, mResponseDataClazz);
-            mListener.onSuccess(headers, data);
+            mListener.onSuccess(networkResp, data);
         } catch (Exception e) {
             e.printStackTrace();
             mListener.onError(CommonError.PARSE_BODY_ERROR, e.getMessage());

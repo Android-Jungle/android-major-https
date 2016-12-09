@@ -18,11 +18,11 @@
 
 package com.jungle.majorhttp.model.base;
 
-import java.util.Map;
+import com.jungle.majorhttp.request.NetworkResp;
 
 public interface BizModelListener<T> {
 
-    void onSuccess(Map<String, String> headers, T response);
+    void onSuccess(NetworkResp networkResp, T response);
 
     void onError(int errorCode, String message);
 }

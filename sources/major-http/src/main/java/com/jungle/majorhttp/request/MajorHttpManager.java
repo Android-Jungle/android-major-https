@@ -247,7 +247,7 @@ public class MajorHttpManager {
                         return;
                     }
 
-                    listener.onSuccess(seqId, response.mHeaders, response.mContent);
+                    listener.onSuccess(seqId, response.mNetworkResp, response.mContent);
                 }
             };
 
@@ -263,7 +263,7 @@ public class MajorHttpManager {
                         return;
                     }
 
-                    listener.onSuccess(seqId, response.mHeaders, response.mContent);
+                    listener.onSuccess(seqId, response.mNetworkResp, response.mContent);
                 }
             };
 
@@ -279,7 +279,7 @@ public class MajorHttpManager {
                         return;
                     }
 
-                    listener.onSuccess(seqId, response.mHeaders, response.mContent);
+                    listener.onSuccess(seqId, response.mNetworkResp, response.mContent);
                 }
             };
 
@@ -295,7 +295,7 @@ public class MajorHttpManager {
                         return;
                     }
 
-                    listener.onSuccess(seqId, response.mHeaders, response.mContent);
+                    listener.onSuccess(seqId, response.mNetworkResp, response.mContent);
                 }
             };
 
@@ -311,7 +311,7 @@ public class MajorHttpManager {
                         return;
                     }
 
-                    listener.onSuccess(seqId, response.mHeaders, response.mContent);
+                    listener.onSuccess(seqId, response.mNetworkResp, response.mContent);
                 }
             };
 

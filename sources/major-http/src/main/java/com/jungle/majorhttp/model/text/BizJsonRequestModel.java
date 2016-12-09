@@ -22,8 +22,7 @@ import android.text.TextUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.jungle.majorhttp.network.CommonError;
-
-import java.util.Map;
+import com.jungle.majorhttp.request.NetworkResp;
 
 /**
  * Using json data as follows:
@@ -49,13 +48,13 @@ public class BizJsonRequestModel<T> extends JsonRequestModel<T> {
     }
 
     @Override
-    public void onSuccess(int seqId, Map<String, String> headers, String response) {
+    public void onSuccess(int seqId, NetworkResp networkResp, String response) {
         if (mListener == null) {
             return;
         }
 
         if (TextUtils.isEmpty(response)) {
-            mListener.onSuccess(headers, null);
+            mListener.onSuccess(networkResp, null);
             return;
         }
 
@@ -76,7 +75,7 @@ public class BizJsonRequestModel<T> extends JsonRequestModel<T> {
 
         try {
             T data = json.getObject("data", mResponseDataClazz);
-            mListener.onSuccess(headers, data);
+            mListener.onSuccess(networkResp, data);
         } catch (Exception e) {
             e.printStackTrace();
             mListener.onError(CommonError.PARSE_BODY_ERROR, e.getMessage());

@@ -18,13 +18,12 @@
 
 package com.jungle.majorhttp.request.download;
 
+import com.android.volley.NetworkResponse;
 import com.jungle.majorhttp.request.BizBaseResponse;
-
-import java.util.Map;
 
 public class BizDownloadResponse extends BizBaseResponse<byte[]> {
 
-    public BizDownloadResponse(byte[] content, Map<String, String> headers) {
-        super(content, headers);
+    public BizDownloadResponse(NetworkResponse response, byte[] content) {
+        super(response, content);
     }
 }

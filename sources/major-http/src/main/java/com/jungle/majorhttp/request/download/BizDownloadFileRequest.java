@@ -87,7 +87,7 @@ public class BizDownloadFileRequest extends BizBaseRequest<BizDownloadFileRespon
         }
 
         return Response.success(
-                new BizDownloadFileResponse(mFilePath, response.headers),
+                new BizDownloadFileResponse(response, mFilePath),
                 HttpHeaderParser.parseCacheHeaders(response));
     }
 }

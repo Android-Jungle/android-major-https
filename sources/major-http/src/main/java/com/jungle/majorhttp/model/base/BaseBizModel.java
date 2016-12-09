@@ -19,17 +19,16 @@
 package com.jungle.majorhttp.model.base;
 
 import com.jungle.majorhttp.network.BaseRequestListener;
-
-import java.util.Map;
+import com.jungle.majorhttp.request.NetworkResp;
 
 public abstract class BaseBizModel<Impl extends BaseBizModel, Data>
         extends AbstractBizModel<Impl, Data>
         implements BaseRequestListener<Data> {
 
     @Override
-    public void onSuccess(int seqId, Map<String, String> headers, Data response) {
+    public void onSuccess(int seqId, NetworkResp networkResp, Data response) {
         if (mListener != null) {
-            mListener.onSuccess(headers, response);
+            mListener.onSuccess(networkResp, response);
         }
     }
 

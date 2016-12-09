@@ -18,13 +18,12 @@
 
 package com.jungle.majorhttp.request.binary;
 
+import com.android.volley.NetworkResponse;
 import com.jungle.majorhttp.request.BizBaseResponse;
-
-import java.util.Map;
 
 public class BizBinaryResponse extends BizBaseResponse<byte[]> {
 
-    public BizBinaryResponse(byte[] content, Map<String, String> headers) {
-        super(content, headers);
+    public BizBinaryResponse(NetworkResponse response, byte[] content) {
+        super(response, content);
     }
 }

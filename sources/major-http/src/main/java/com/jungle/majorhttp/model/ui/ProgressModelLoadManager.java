@@ -29,11 +29,11 @@ import android.widget.TextView;
 import com.jungle.majorhttp.R;
 import com.jungle.majorhttp.model.base.AbstractBizModel;
 import com.jungle.majorhttp.model.base.BizModelListener;
+import com.jungle.majorhttp.request.NetworkResp;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 public class ProgressModelLoadManager {
 
@@ -93,9 +93,9 @@ public class ProgressModelLoadManager {
         BizModelListener<T> listener = model.getListener();
         int seqId = model.load(new ProxyBaseBizModelListener<T>(listener) {
             @Override
-            public void onSuccess(Map<String, String> headers, T response) {
+            public void onSuccess(NetworkResp networkResp, T response) {
                 hideLoading(model.getSeqId());
-                super.onSuccess(headers, response);
+                super.onSuccess(networkResp, response);
             }
 
             @Override

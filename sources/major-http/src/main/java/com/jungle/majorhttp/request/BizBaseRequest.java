@@ -18,6 +18,7 @@
 
 package com.jungle.majorhttp.request;
 
+import android.text.TextUtils;
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
@@ -25,12 +26,14 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
 public abstract class BizBaseRequest<T extends BizBaseResponse> extends Request<T> {
 
     protected int mSeqId;
+    private String mRedirectUrl;
     protected Map<String, ?> mRequestParams;
     protected Map<String, String> mRequestHeaders;
     protected ExtraHeadersFiller mExtraHeadersFiller;
@@ -48,10 +51,21 @@ public abstract class BizBaseRequest<T extends BizBaseResponse> extends Request<
         mListener = listener;
         mRequestParams = params;
         mRequestHeaders = headers;
+
+        redirectRequest();
     }
 
     public void setExtraHeadersFiller(ExtraHeadersFiller filler) {
         mExtraHeadersFiller = filler;
+    }
+
+    @Override
+    public String getUrl() {
+        return mRedirectUrl != null ? mRedirectUrl : getOriginalUrl();
+    }
+
+    public String getOriginalUrl() {
+        return super.getUrl();
     }
 
     @Override
@@ -96,5 +110,48 @@ public abstract class BizBaseRequest<T extends BizBaseResponse> extends Request<
         }
 
         return content;
+    }
+
+    protected void redirectRequest() {
+        if (getMethod() != Method.GET) {
+            return;
+        }
+
+        String url = getOriginalUrl();
+        if (TextUtils.isEmpty(url)) {
+            return;
+        }
+
+        String encodeParams = encodeParameters(getParamsEncoding());
+        if (!url.contains("?")) {
+            url += "?" + encodeParams;
+        } else {
+            url += "&" + encodeParams;
+        }
+
+        mRedirectUrl = url;
+    }
+
+    protected String encodeParameters(String encoding) {
+        StringBuilder builder = new StringBuilder();
+
+        try {
+            if (mRequestParams != null && mRequestParams.size() > 0) {
+                for (Map.Entry<String, ?> entry : mRequestParams.entrySet()) {
+                    builder.append(URLEncoder.encode(entry.getKey(), encoding));
+                    builder.append('=');
+                    builder.append(URLEncoder.encode(String.valueOf(entry.getValue()), encoding));
+                    builder.append('&');
+                }
+
+                builder.deleteCharAt(builder.length() - 1);
+            }
+
+            return builder.toString();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

@@ -127,7 +127,7 @@ public class BizUploadRequest extends BizBaseRequest<BizUploadResponse> {
     @Override
     protected Response<BizUploadResponse> parseNetworkResponse(NetworkResponse response) {
         return Response.success(
-                new BizUploadResponse(getResponseContent(response), response.headers),
+                new BizUploadResponse(response, getResponseContent(response)),
                 HttpHeaderParser.parseCacheHeaders(response));
     }
 }
