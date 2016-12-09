@@ -59,7 +59,7 @@ TextRequestModel
                 showError(errorCode, message);
             }
         })
-        .loadWithProgress(this);
+        .load();
 ```
 
 或者只用一个统一的 Listener：
@@ -69,7 +69,7 @@ TextRequestModel
         .newModel()
         .url(DEMO_WEB_URL)
         .method(ModelMethod.GET)
-        .loadWithProgress(this, new ModelListener<String>() {
+        .load(new ModelListener<String>() {
             @Override
             public void onSuccess(NetworkResp networkResp, String response) {
                 TextViewerActivity.start(getContext(), response);
@@ -91,7 +91,7 @@ TextRequestModel
         .method(ModelMethod.GET)
         .success((networkResp, response) -> TextViewerActivity.start(getContext(), response))
         .error(this::showError)
-        .loadWithProgress(this);
+        .load();
 ```
 
 - Json 请求，使用 **`JsonRequestModel`**：
