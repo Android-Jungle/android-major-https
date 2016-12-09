@@ -80,6 +80,17 @@ public abstract class BizBaseRequest<T extends BizBaseResponse> extends Request<
         return super.getHeaders();
     }
 
+    @Override
+    public byte[] getPostBody() {
+        try {
+            return getBody();
+        } catch (AuthFailureError authFailureError) {
+            authFailureError.printStackTrace();
+        }
+
+        return null;
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     protected Map<String, String> getParams() throws AuthFailureError {

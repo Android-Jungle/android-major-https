@@ -46,11 +46,6 @@ public class BizTextRequest extends BizBaseRequest<BizTextResponse> {
     }
 
     @Override
-    public byte[] getPostBody() {
-        return getBody();
-    }
-
-    @Override
     public String getBodyContentType() {
         return PROTOCOL_CONTENT_TYPE;
     }
