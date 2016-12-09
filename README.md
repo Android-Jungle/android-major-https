@@ -3,8 +3,8 @@
 **major-http** 是一款 Android 上的 Http/Https 组件。内部使用 [Volley](https://android.googlesource.com/platform/frameworks/volley/) 作为底层 Http 组件。主要特性有：
 
 - 支持 GET、 POST、 DELETE、 PUT、 HEAD 等；
-- 支持 Http、 Https；
-- 对 Https 支持自定义证书验证、域名验证等；
+- 支持 Http、 **Https**；
+- 对 Https 支持**自定义证书验证**、**域名验证**等；
 - 支持 Text、 Binary、 Json、 文件下载、 文件上传等；
 - 支持 Json 自动解析为 POJO；
 - 接口简洁易用。
@@ -16,6 +16,11 @@ compile 'com.jungle.majorhttp:major-http:1.0.0'
 ```
 
 ### 2、使用方法
+
+> 使用预定义的各种 Model 来加载 URL，通过各种方法来设置加载参数。最后使用 **`load`** 或 **`loadWithProgress`** 来加载请求。
+>
+> **load** 只是在后台加载，界面上没有任何表现。
+> **loadWithProgress** 在加载的时候会弹出一个加载展示 Dialog，并在后台加载。请求返回后，将自动关闭 Dialog。
 
 ```java
 private static final String DEMO_WEB_URL =
@@ -84,7 +89,7 @@ JsonRequestModel
         });
 ```
 
-Json 解析为 POJO 的过程，使用 [fastjson](https://github.com/alibaba/fastjson)。
+> Json 解析为 POJO 的过程，使用 [fastjson](https://github.com/alibaba/fastjson)。
 
 - Binary / DownloadRequestModel 二进制数据请求，使用 `DownloadRequestModel`：
 
@@ -200,7 +205,7 @@ factory.setHostnameVerifier(new HttpsUtils.DomainHostNameVerifier(domains));
 MajorHttpManager.getInstance().setRequestQueueFactory(factory);
 ```
 
-Https 可以将证书文件放在 assets 文件夹下，或者放在 res/raw 文件夹下，然后在代码中创建相应的 `HttpsRequestQueueFactory`。通过 `HttpsRequestQueueFactory.setHostnameVerifier` 可以设置域名验证。
+> Https 可以将证书文件放在 assets 文件夹下，或者放在 res/raw 文件夹下，然后在代码中创建相应的 `HttpsRequestQueueFactory`。通过 `HttpsRequestQueueFactory.setHostnameVerifier` 可以设置域名验证。
 
 #### 3.3、Https 验证失败异常
 
