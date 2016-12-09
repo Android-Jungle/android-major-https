@@ -7,14 +7,15 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/text_content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:textSize="14sp"
             android:textColor="#333"
             android:lineSpacingMultiplier="1.3">
