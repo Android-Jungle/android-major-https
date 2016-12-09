@@ -18,7 +18,7 @@
 
 package com.jungle.majorhttp.model.base;
 
-import com.jungle.majorhttp.network.BaseRequestListener;
+import com.jungle.majorhttp.request.base.BaseRequestListener;
 import com.jungle.majorhttp.request.base.NetworkResp;
 
 public abstract class BaseModel<Impl extends BaseModel, Data>
