@@ -170,12 +170,12 @@ public class MajorHttpManager {
 
         int seqId = nextSeqId();
         request.seqId(seqId);
-        BizDownloadRequest uploadRequest = new BizDownloadRequest(
+        BizDownloadRequest downloadRequest = new BizDownloadRequest(
                 seqId, request.getUrl(), request.getRequestParams(),
                 request.getRequestHeaders(),
                 mBizDownloadRequestListener);
 
-        addRequestNode(seqId, request, uploadRequest, listener);
+        addRequestNode(seqId, request, downloadRequest, listener);
         return seqId;
     }
 
@@ -184,12 +184,12 @@ public class MajorHttpManager {
 
         int seqId = nextSeqId();
         request.seqId(seqId);
-        BizDownloadFileRequest uploadRequest = new BizDownloadFileRequest(
+        BizDownloadFileRequest downloadFileRequest = new BizDownloadFileRequest(
                 seqId, request.getUrl(), request.getRequestParams(),
                 request.getRequestHeaders(), request.getFilePath(),
                 mBizDownloadFileRequestListener);
 
-        addRequestNode(seqId, request, uploadRequest, listener);
+        addRequestNode(seqId, request, downloadFileRequest, listener);
         return seqId;
     }
 
