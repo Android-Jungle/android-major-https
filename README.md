@@ -33,6 +33,15 @@ private static final String DEMO_JSON_URL =
 
 private static final String DEMO_UPLOAD_URL =
         "https://raw.githubusercontent.com/upload_test";
+
+
+private void showToast(int errorCode, String message) {
+    message = String.format(Locale.getDefault(),
+            "Error: errorCode = %d, message = %s.", errorCode, message);
+
+    Log.e("Main", message);
+    Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+}
 ```
 
 - 文本请求，使用 **`TextRequestModel`**：
@@ -42,7 +51,29 @@ TextRequestModel
         .newModel()
         .url(DEMO_WEB_URL)
         .method(ModelMethod.GET)
-        .loadWithProgress(this, new BizModelListener<String>() {
+        .success(new ModelSuccessListener<String>() {
+            @Override
+            public void onSuccess(NetworkResp networkResp, String response) {
+                TextViewerActivity.start(getContext(), response);
+            }
+        })
+        .error(new ModelErrorListener() {
+            @Override
+            public void onError(int errorCode, String message) {
+                showToast(errorCode, message);
+            }
+        })
+        .loadWithProgress(this);
+```
+
+或者只用一个统一的 Listener：
+
+```java
+TextRequestModel
+        .newModel()
+        .url(DEMO_WEB_URL)
+        .method(ModelMethod.GET)
+        .loadWithProgress(this, new ModelListener<String>() {
             @Override
             public void onSuccess(NetworkResp networkResp, String response) {
                 TextViewerActivity.start(getContext(), response);
@@ -53,6 +84,18 @@ TextRequestModel
                 showToast(errorCode, message);
             }
         });
+```
+
+如果你支持 **Java8**，你还可以使用 **lambda** 表达式。可以看出使用 lambda 后，整个语法简洁了很多：
+
+```java
+TextRequestModel
+        .newModel()
+        .url(DEMO_WEB_URL)
+        .method(ModelMethod.GET)
+        .success((networkResp, response) -> TextViewerActivity.start(getContext(), response))
+        .error(this::showToast)
+        .loadWithProgress(this);
 ```
 
 - Json 请求，使用 **`JsonRequestModel`**：

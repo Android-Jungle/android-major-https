@@ -95,9 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 .newModel()
                 .url(DEMO_WEB_URL)
                 .method(ModelMethod.GET)
-                .success((networkResp, response) -> {
-                    TextViewerActivity.start(getContext(), response);
-                })
+                .success((networkResp, response) -> TextViewerActivity.start(getContext(), response))
                 .error(this::showToast)
                 .loadWithProgress(this);
     }
