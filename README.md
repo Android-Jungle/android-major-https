@@ -35,7 +35,7 @@ private static final String DEMO_UPLOAD_URL =
         "https://raw.githubusercontent.com/upload_test";
 
 
-private void showToast(int errorCode, String message) {
+private void showError(int errorCode, String message) {
     message = String.format(Locale.getDefault(),
             "Error: errorCode = %d, message = %s.", errorCode, message);
 
@@ -60,7 +60,7 @@ TextRequestModel
         .error(new ModelErrorListener() {
             @Override
             public void onError(int errorCode, String message) {
-                showToast(errorCode, message);
+                showError(errorCode, message);
             }
         })
         .loadWithProgress(this);
@@ -81,7 +81,7 @@ TextRequestModel
 
             @Override
             public void onError(int errorCode, String message) {
-                showToast(errorCode, message);
+                showError(errorCode, message);
             }
         });
 ```
@@ -94,7 +94,7 @@ TextRequestModel
         .url(DEMO_WEB_URL)
         .method(ModelMethod.GET)
         .success((networkResp, response) -> TextViewerActivity.start(getContext(), response))
-        .error(this::showToast)
+        .error(this::showError)
         .loadWithProgress(this);
 ```
 
@@ -129,7 +129,7 @@ JsonRequestModel
 
             @Override
             public void onError(int errorCode, String message) {
-                showToast(errorCode, message);
+                showError(errorCode, message);
             }
         });
 ```
@@ -152,7 +152,7 @@ DownloadRequestModel
 
             @Override
             public void onError(int errorCode, String message) {
-                showToast(errorCode, message);
+                showError(errorCode, message);
             }
         });
 ```
@@ -183,7 +183,7 @@ DownloadFileRequestModel
 
             @Override
             public void onError(int errorCode, String message) {
-                showToast(errorCode, message);
+                showError(errorCode, message);
             }
         });
 ```
@@ -206,7 +206,7 @@ UploadRequestModel
 
             @Override
             public void onError(int errorCode, String message) {
-                showToast(errorCode, message);
+                showError(errorCode, message);
             }
         });
 ```

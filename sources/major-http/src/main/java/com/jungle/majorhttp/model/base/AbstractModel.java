@@ -234,12 +234,21 @@ public abstract class AbstractModel<Impl extends AbstractModel, Data> {
         return listener(listener).load();
     }
 
+    public int load(ModelSuccessListener<Data> listener) {
+        return success(listener).load();
+    }
+
     public int loadWithProgress(Context context) {
         return MajorProgressLoadManager.getInstance().load(context, this, null);
     }
 
     public int loadWithProgress(Context context, ModelListener<Data> listener) {
         listener(listener);
+        return loadWithProgress(context);
+    }
+
+    public int loadWithProgress(Context context, ModelSuccessListener<Data> listener) {
+        success(listener);
         return loadWithProgress(context);
     }
 
@@ -252,6 +261,11 @@ public abstract class AbstractModel<Impl extends AbstractModel, Data> {
         return loadWithProgress(context, loadingText);
     }
 
+    public int loadWithProgress(Context context, String loadingText, ModelSuccessListener<Data> listener) {
+        success(listener);
+        return loadWithProgress(context, loadingText);
+    }
+
     public int loadWithProgress(Context context, @StringRes int loadingText) {
         return MajorProgressLoadManager.getInstance().load(
                 context, this, context.getString(loadingText));
@@ -259,6 +273,11 @@ public abstract class AbstractModel<Impl extends AbstractModel, Data> {
 
     public int loadWithProgress(Context context, @StringRes int loadingText, ModelListener<Data> listener) {
         listener(listener);
+        return loadWithProgress(context, loadingText);
+    }
+
+    public int loadWithProgress(Context context, @StringRes int loadingText, ModelSuccessListener<Data> listener) {
+        success(listener);
         return loadWithProgress(context, loadingText);
     }
 

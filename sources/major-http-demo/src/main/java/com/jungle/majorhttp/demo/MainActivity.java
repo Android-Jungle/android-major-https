@@ -35,7 +35,7 @@ import com.jungle.majorhttp.model.binary.DownloadFileRequestModel;
 import com.jungle.majorhttp.model.binary.DownloadRequestModel;
 import com.jungle.majorhttp.model.binary.UploadRequestModel;
 import com.jungle.majorhttp.model.listener.ModelListener;
-import com.jungle.majorhttp.model.listener.ModelLoadLifeListener;
+import com.jungle.majorhttp.model.listener.ModelSuccessListener;
 import com.jungle.majorhttp.model.text.JsonRequestModel;
 import com.jungle.majorhttp.model.text.TextRequestModel;
 import com.jungle.majorhttp.network.HttpsUtils;
@@ -105,17 +105,13 @@ public class MainActivity extends AppCompatActivity {
                 .newModel(GithubUserInfo.class)
                 .url(DEMO_JSON_URL)
                 .method(ModelMethod.GET)
-                .load(new ModelListener<GithubUserInfo>() {
+                .error(this::showError)
+                .load(new ModelSuccessListener<GithubUserInfo>() {
                     @Override
                     public void onSuccess(NetworkResp networkResp, GithubUserInfo response) {
                         String info = JSON.toJSONString(response, SerializerFeature.PrettyFormat);
                         info = "Load Json object success!\n\n" + info;
                         TextViewerActivity.start(getContext(), info);
-                    }
-
-                    @Override
-                    public void onError(int errorCode, String message) {
-                        showError(errorCode, message);
                     }
                 });
     }
@@ -151,25 +147,15 @@ public class MainActivity extends AppCompatActivity {
                 .newModel()
                 .url(DEMO_JSON_URL)
                 .filePath(file)
-                .lifeListener(new ModelLoadLifeListener<DownloadFileRequestModel>() {
-                    @Override
-                    public void onBeforeLoad(DownloadFileRequestModel model) {
-                        ActivityCompat.requestPermissions(MainActivity.this,
-                                new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                                100);
-                    }
+                .error(this::showError)
+                .lifeListener(model -> {
+                    ActivityCompat.requestPermissions(MainActivity.this,
+                            new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
                 })
-                .loadWithProgress(getContext(), loadingText, new ModelListener<String>() {
-                    @Override
-                    public void onSuccess(NetworkResp networkResp, String response) {
-                        Toast.makeText(getContext(), String.format(
-                                "Download file SUCCESS! file = %s.", file), Toast.LENGTH_SHORT).show();
-                    }
+                .loadWithProgress(getContext(), loadingText, (networkResp, response) -> {
+                    Toast.makeText(getContext(), String.format(
+                            "Download file SUCCESS! file = %s.", file), Toast.LENGTH_SHORT).show();
 
-                    @Override
-                    public void onError(int errorCode, String message) {
-                        showError(errorCode, message);
-                    }
                 });
     }
 
@@ -180,16 +166,12 @@ public class MainActivity extends AppCompatActivity {
                 .newModel()
                 .url(DEMO_UPLOAD_URL)
                 .addFormItem(file)
-                .loadWithProgress(this, "Uploading...", new ModelListener<String>() {
+                .error(this::showError)
+                .loadWithProgress(this, "Uploading...", new ModelSuccessListener<String>() {
                     @Override
                     public void onSuccess(NetworkResp networkResp, String response) {
                         Toast.makeText(getContext(), String.format(
                                 "Upload file SUCCESS! file = %s.", file), Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void onError(int errorCode, String message) {
-                        showError(errorCode, message);
                     }
                 });
     }
