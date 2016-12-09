@@ -18,5 +18,13 @@
 
 package com.jungle.majorhttp.model.listener;
 
+import com.jungle.majorhttp.request.base.NetworkResp;
+
 public interface ModelListener<T> extends ModelSuccessListener<T>, ModelErrorListener {
+
+    @Override
+    void onSuccess(NetworkResp networkResp, T response);
+
+    @Override
+    void onError(int errorCode, String message);
 }

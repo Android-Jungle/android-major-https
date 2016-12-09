@@ -95,17 +95,11 @@ public class MainActivity extends AppCompatActivity {
                 .newModel()
                 .url(DEMO_WEB_URL)
                 .method(ModelMethod.GET)
-                .loadWithProgress(this, new ModelListener<String>() {
-                    @Override
-                    public void onSuccess(NetworkResp networkResp, String response) {
-                        TextViewerActivity.start(getContext(), response);
-                    }
-
-                    @Override
-                    public void onError(int errorCode, String message) {
-                        showToast(errorCode, message);
-                    }
-                });
+                .success((networkResp, response) -> {
+                    TextViewerActivity.start(getContext(), response);
+                })
+                .error(this::showToast)
+                .loadWithProgress(this);
     }
 
     public void onJsonModel(View view) {
