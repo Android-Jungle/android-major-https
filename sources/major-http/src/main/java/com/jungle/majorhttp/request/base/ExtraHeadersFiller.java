@@ -16,13 +16,11 @@
  * limitations under the License.
  */
 
-package com.jungle.majorhttp.request;
+package com.jungle.majorhttp.request.base;
 
-import com.android.volley.VolleyError;
+import java.util.Map;
 
-public interface BizRequestListener<T> {
+public interface ExtraHeadersFiller {
 
-    void onSuccess(int seqId, BizBaseResponse<T> response);
-
-    void onError(int seqId, VolleyError error);
+    void fillHeaders(Map<String, String> params);
 }

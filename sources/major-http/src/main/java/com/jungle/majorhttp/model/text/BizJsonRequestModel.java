@@ -22,7 +22,7 @@ import android.text.TextUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.jungle.majorhttp.network.CommonError;
-import com.jungle.majorhttp.request.NetworkResp;
+import com.jungle.majorhttp.request.base.NetworkResp;
 
 /**
  * Using json data as follows:

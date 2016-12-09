@@ -19,7 +19,7 @@
 package com.jungle.majorhttp.model.ui;
 
 import com.jungle.majorhttp.model.base.BizModelListener;
-import com.jungle.majorhttp.request.NetworkResp;
+import com.jungle.majorhttp.request.base.NetworkResp;
 
 public class ProxyBaseBizModelListener<T> implements BizModelListener<T> {
 

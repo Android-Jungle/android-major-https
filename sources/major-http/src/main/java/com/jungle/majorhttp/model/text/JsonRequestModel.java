@@ -21,7 +21,7 @@ package com.jungle.majorhttp.model.text;
 import android.text.TextUtils;
 import com.alibaba.fastjson.JSON;
 import com.jungle.majorhttp.network.CommonError;
-import com.jungle.majorhttp.request.NetworkResp;
+import com.jungle.majorhttp.request.base.NetworkResp;
 
 import java.io.UnsupportedEncodingException;
 import java.util.Map;

@@ -16,11 +16,18 @@
  * limitations under the License.
  */
 
-package com.jungle.majorhttp.request;
+package com.jungle.majorhttp.request.base;
 
-import java.util.Map;
+import com.android.volley.NetworkResponse;
 
-public interface ExtraHeadersFiller {
+public class BizBaseResponse<T> {
 
-    void fillHeaders(Map<String, String> params);
+    public T mContent;
+    public NetworkResp mNetworkResp;
+
+
+    public BizBaseResponse(NetworkResponse response, T content) {
+        mContent = content;
+        mNetworkResp = new NetworkResp(response);
+    }
 }

@@ -39,7 +39,7 @@ import com.jungle.majorhttp.model.text.JsonRequestModel;
 import com.jungle.majorhttp.model.text.TextRequestModel;
 import com.jungle.majorhttp.network.HttpsUtils;
 import com.jungle.majorhttp.request.MajorHttpManager;
-import com.jungle.majorhttp.request.NetworkResp;
+import com.jungle.majorhttp.request.base.NetworkResp;
 import com.jungle.majorhttp.request.queue.HttpsRequestQueueFactory;
 
 import java.util.Locale;

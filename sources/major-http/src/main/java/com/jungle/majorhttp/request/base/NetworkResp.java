@@ -1,4 +1,4 @@
-package com.jungle.majorhttp.request;
+package com.jungle.majorhttp.request.base;
 
 import com.android.volley.NetworkResponse;
 

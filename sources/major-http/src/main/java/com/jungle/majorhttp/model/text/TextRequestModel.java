@@ -18,7 +18,7 @@
 
 package com.jungle.majorhttp.model.text;
 
-import com.jungle.majorhttp.request.NetworkResp;
+import com.jungle.majorhttp.request.base.NetworkResp;
 
 public class TextRequestModel extends AbstractTextRequestModel<TextRequestModel, String> {
 

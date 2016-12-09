@@ -29,7 +29,7 @@ import android.widget.TextView;
 import com.jungle.majorhttp.R;
 import com.jungle.majorhttp.model.base.AbstractBizModel;
 import com.jungle.majorhttp.model.base.BizModelListener;
-import com.jungle.majorhttp.request.NetworkResp;
+import com.jungle.majorhttp.request.base.NetworkResp;
 
 import java.util.Iterator;
 import java.util.LinkedList;

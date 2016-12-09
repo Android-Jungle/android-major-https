@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.jungle.majorhttp.request;
+package com.jungle.majorhttp.request.base;
 
 import android.text.TextUtils;
 import com.android.volley.AuthFailureError;

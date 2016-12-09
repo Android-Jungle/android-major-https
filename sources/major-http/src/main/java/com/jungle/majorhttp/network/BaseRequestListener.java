@@ -18,7 +18,7 @@
 
 package com.jungle.majorhttp.network;
 
-import com.jungle.majorhttp.request.NetworkResp;
+import com.jungle.majorhttp.request.base.NetworkResp;
 
 public interface BaseRequestListener<T> {
 

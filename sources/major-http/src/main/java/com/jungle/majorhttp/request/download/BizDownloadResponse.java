@@ -19,7 +19,7 @@
 package com.jungle.majorhttp.request.download;
 
 import com.android.volley.NetworkResponse;
-import com.jungle.majorhttp.request.BizBaseResponse;
+import com.jungle.majorhttp.request.base.BizBaseResponse;
 
 public class BizDownloadResponse extends BizBaseResponse<byte[]> {
 

@@ -19,7 +19,7 @@
 package com.jungle.majorhttp.request.binary;
 
 import com.android.volley.NetworkResponse;
-import com.jungle.majorhttp.request.BizBaseResponse;
+import com.jungle.majorhttp.request.base.BizBaseResponse;
 
 public class BizBinaryResponse extends BizBaseResponse<byte[]> {
 

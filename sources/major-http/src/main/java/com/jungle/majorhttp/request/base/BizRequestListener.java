@@ -16,18 +16,13 @@
  * limitations under the License.
  */
 
-package com.jungle.majorhttp.request;
+package com.jungle.majorhttp.request.base;
 
-import com.android.volley.NetworkResponse;
+import com.android.volley.VolleyError;
 
-public class BizBaseResponse<T> {
+public interface BizRequestListener<T> {
 
-    public T mContent;
-    public NetworkResp mNetworkResp;
+    void onSuccess(int seqId, BizBaseResponse<T> response);
 
-
-    public BizBaseResponse(NetworkResponse response, T content) {
-        mContent = content;
-        mNetworkResp = new NetworkResp(response);
-    }
+    void onError(int seqId, VolleyError error);
 }
