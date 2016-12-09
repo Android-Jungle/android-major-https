@@ -21,13 +21,34 @@ package com.jungle.majorhttp.model.base;
 import com.android.volley.Request;
 
 public enum ModelMethod {
+
     GET,
-    POST;
+    DELETE,
+    POST,
+    PUT,
+    HEAD,
+    OPTIONS,
+    TRACE,
+    PATCH;
 
 
     public int toVolleyMethod() {
-        if (this == POST) {
+        if (this == GET) {
+            return Request.Method.GET;
+        } else if (this == POST) {
             return Request.Method.POST;
+        } else if (this == DELETE) {
+            return Request.Method.DELETE;
+        } else if (this == PUT) {
+            return Request.Method.PUT;
+        } else if (this == HEAD) {
+            return Request.Method.HEAD;
+        } else if (this == OPTIONS) {
+            return Request.Method.OPTIONS;
+        } else if (this == TRACE) {
+            return Request.Method.TRACE;
+        } else if (this == PATCH) {
+            return Request.Method.PATCH;
         }
 
         return Request.Method.GET;

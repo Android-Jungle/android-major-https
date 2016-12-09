@@ -41,6 +41,7 @@ import com.jungle.majorhttp.network.HttpsUtils;
 import com.jungle.majorhttp.request.MajorHttpManager;
 import com.jungle.majorhttp.request.queue.HttpsRequestQueueFactory;
 
+import java.util.Locale;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
@@ -58,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
+
         String[] certs = {
                 "zhihu.cer",
                 "github.cer",
@@ -78,7 +79,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showToast(int errorCode, String message) {
-        message = String.format("Error: errorCode = %d, message = %s.", errorCode, message);
+        message = String.format(Locale.getDefault(),
+                "Error: errorCode = %d, message = %s.", errorCode, message);
+
         Log.e("Main", message);
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
