@@ -20,7 +20,7 @@ compile 'com.jungle.majorhttp:major-http:1.0.0'
 > 使用预定义的各种 Model 来加载 URL，通过各种方法来设置加载参数。最后使用 **`load`** 或 **`loadWithProgress`** 来加载请求。
 >
 > **load** 只是在后台加载，界面上没有任何表现。
-> **loadWithProgress** 在加载的时候会弹出一个加载展示 Dialog，并在后台加载。请求返回后，将自动关闭 Dialog。
+> **loadWithProgress** 在加载的时候会弹出一个加载展示 Dialog（该对话框样式可自定义），并在后台加载。请求返回后，将自动关闭 Dialog。
 
 <br>
 
