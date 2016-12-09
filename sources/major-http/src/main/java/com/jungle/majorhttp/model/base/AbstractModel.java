@@ -22,6 +22,7 @@ import android.content.Context;
 import android.support.annotation.StringRes;
 import com.jungle.majorhttp.manager.MajorHttpManager;
 import com.jungle.majorhttp.manager.MajorProgressLoadManager;
+import com.jungle.majorhttp.model.listener.BothProxyModelListener;
 import com.jungle.majorhttp.model.listener.ModelErrorListener;
 import com.jungle.majorhttp.model.listener.ModelListener;
 import com.jungle.majorhttp.model.listener.ModelLoadLifeListener;
@@ -278,21 +279,7 @@ public abstract class AbstractModel<Impl extends AbstractModel, Data> {
     }
 
     public ModelListener<Data> getListener() {
-        return new ModelListener<Data>() {
-            @Override
-            public void onError(int errorCode, String message) {
-                if (mErrorListener != null) {
-                    mErrorListener.onError(errorCode, message);
-                }
-            }
-
-            @Override
-            public void onSuccess(NetworkResp networkResp, Data response) {
-                if (mSuccessListener != null) {
-                    mSuccessListener.onSuccess(networkResp, response);
-                }
-            }
-        };
+        return new BothProxyModelListener<Data>(mSuccessListener, mErrorListener);
     }
 
     protected void doSuccess(NetworkResp networkResp, Data response) {
