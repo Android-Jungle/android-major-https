@@ -127,9 +127,8 @@ DownloadFileRequestModel
         .lifeListener(new ModelLoadLifeListener<DownloadFileRequestModel>() {
             @Override
             public void onBeforeLoad(DownloadFileRequestModel model) {
-                ActivityCompat.requestPermissions(MainActivity.this,
-                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
-                        100);
+                ActivityCompat.requestPermissions(context,
+                        new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 100);
             }
         })
         .loadWithProgress(getContext(), loadingText, new BizModelListener<String>() {
