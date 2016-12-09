@@ -29,7 +29,6 @@ import com.jungle.easyhttp.model.binary.BinaryRequestModel;
 import com.jungle.easyhttp.model.binary.DownloadFileRequestModel;
 import com.jungle.easyhttp.model.binary.DownloadRequestModel;
 import com.jungle.easyhttp.model.binary.UploadRequestModel;
-import com.jungle.easyhttp.model.text.AbstractTextRequestModel;
 import com.jungle.easyhttp.network.BaseRequestListener;
 import com.jungle.easyhttp.network.CommonError;
 import com.jungle.easyhttp.request.binary.BizBinaryRequest;
@@ -124,7 +123,7 @@ public class EasyHttpManager {
     }
 
     public synchronized int loadTextModel(
-            AbstractTextRequestModel.Request request, BaseRequestListener<String> listener) {
+            AbstractBizModel.Request request, BaseRequestListener<String> listener) {
 
         int seqId = nextSeqId();
         request.seqId(seqId);
