@@ -90,7 +90,12 @@ public class BizUploadRequest extends BizBaseRequest<BizUploadResponse> {
         int index = 0;
         ByteArrayOutputStream stream = new ByteArrayOutputStream(size);
         for (UploadFormItem item : mFormItems) {
-            StringBuffer buffer = new StringBuffer();
+            byte[] content = item.getFormContent();
+            if (content == null) {
+                continue;
+            }
+
+            StringBuilder buffer = new StringBuilder();
             buffer.append("--").append(UPLOAD_BOUNDARY).append("\r\n");
             buffer.append("Content-Disposition: form-data;")
                     .append(" name=\"").append("files").append(index).append("\";")
@@ -101,7 +106,7 @@ public class BizUploadRequest extends BizBaseRequest<BizUploadResponse> {
 
             try {
                 stream.write(buffer.toString().getBytes("utf-8"));
-                stream.write(item.getFormContent());
+                stream.write(content);
                 stream.write("\r\n".getBytes("utf-8"));
             } catch (IOException e) {
                 e.printStackTrace();
