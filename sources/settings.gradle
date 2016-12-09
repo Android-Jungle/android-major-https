@@ -1,1 +1,1 @@
-include ':easy-http-demo', ':easy-http'
+include ':major-http-demo', ':major-http'

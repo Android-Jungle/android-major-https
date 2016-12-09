@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">major-http-demo</string>
+    <string name="title_text_viewer">TextViewer</string>
+</resources>
