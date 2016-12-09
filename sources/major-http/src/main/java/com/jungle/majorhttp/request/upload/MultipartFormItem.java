@@ -18,12 +18,14 @@
 
 package com.jungle.majorhttp.request.upload;
 
-import com.android.volley.NetworkResponse;
-import com.jungle.majorhttp.request.base.BizBaseResponse;
+public interface MultipartFormItem {
 
-public class BizUploadResponse extends BizBaseResponse<String> {
+    public static final String OCTET_MIME_TYPE = "application/octet-stream";
 
-    public BizUploadResponse(NetworkResponse response, String content) {
-        super(response, content);
-    }
+
+    String getFormName();
+
+    byte[] getFormContent();
+
+    String getMimeType();
 }

@@ -18,24 +18,37 @@
 
 package com.jungle.majorhttp.request.upload;
 
-public class BinaryUploadFormItem implements UploadFormItem {
+public class BinaryMultipartFormItem implements MultipartFormItem {
 
-    private String mFileName;
-    private byte[] mFormContent;
+    protected String mFormName;
+    protected byte[] mFormContent;
+    protected String mMimeType = OCTET_MIME_TYPE;
 
 
-    public BinaryUploadFormItem(String fileName, byte[] content) {
-        mFileName = fileName;
+    public BinaryMultipartFormItem() {
+    }
+
+    public BinaryMultipartFormItem(String formName, byte[] content) {
+        this(formName, null, content);
+    }
+
+    public BinaryMultipartFormItem(String formName, String mimeType, byte[] content) {
+        mFormName = formName;
         mFormContent = content;
+        mMimeType = mimeType != null ? mimeType : OCTET_MIME_TYPE;
     }
 
     @Override
-    public String getFileName() {
-        return mFileName;
+    public String getFormName() {
+        return mFormName;
     }
 
-    @Override
     public byte[] getFormContent() {
         return mFormContent;
+    }
+
+    @Override
+    public String getMimeType() {
+        return mMimeType;
     }
 }

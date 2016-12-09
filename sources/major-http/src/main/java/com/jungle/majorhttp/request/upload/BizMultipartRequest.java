@@ -30,19 +30,19 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-public class BizUploadRequest extends BizBaseRequest<BizUploadResponse> {
+public class BizMultipartRequest extends BizBaseRequest<BizMultipartResponse> {
 
     private static final String UPLOAD_CONTENT_TYPE = "multipart/form-data";
     private static final String UPLOAD_BOUNDARY = "biz-upload-request-";
 
 
-    private List<UploadFormItem> mFormItems;
+    private List<MultipartFormItem> mFormItems;
 
 
-    public BizUploadRequest(
-            int seqId, String url, List<UploadFormItem> list,
+    public BizMultipartRequest(
+            int seqId, String url, List<MultipartFormItem> list,
             Map<String, String> headers,
-            BizRequestListener<BizUploadResponse> listener) {
+            BizRequestListener<BizMultipartResponse> listener) {
 
         super(seqId, Method.POST, url, null, headers, listener);
 
@@ -62,7 +62,7 @@ public class BizUploadRequest extends BizBaseRequest<BizUploadResponse> {
         }
 
         int size = 0;
-        for (UploadFormItem item : mFormItems) {
+        for (MultipartFormItem item : mFormItems) {
             byte[] content = item.getFormContent();
             size += content != null ? content.length : 0;
         }
@@ -89,7 +89,7 @@ public class BizUploadRequest extends BizBaseRequest<BizUploadResponse> {
 
         int index = 0;
         ByteArrayOutputStream stream = new ByteArrayOutputStream(size);
-        for (UploadFormItem item : mFormItems) {
+        for (MultipartFormItem item : mFormItems) {
             byte[] content = item.getFormContent();
             if (content == null) {
                 continue;
@@ -99,9 +99,9 @@ public class BizUploadRequest extends BizBaseRequest<BizUploadResponse> {
             buffer.append("--").append(UPLOAD_BOUNDARY).append("\r\n");
             buffer.append("Content-Disposition: form-data;")
                     .append(" name=\"").append("files").append(index).append("\";")
-                    .append(" filename=\"").append(item.getFileName()).append("\"\r\n");
+                    .append(" filename=\"").append(item.getFormName()).append("\"\r\n");
 
-            buffer.append("Content-Type: application/octet-stream\r\n");
+            buffer.append("Content-Type: ").append(item.getMimeType()).append("\r\n");
             buffer.append("Content-Transfer-Encoding: binary\r\n\r\n");
 
             try {
@@ -125,9 +125,9 @@ public class BizUploadRequest extends BizBaseRequest<BizUploadResponse> {
     }
 
     @Override
-    protected Response<BizUploadResponse> parseNetworkResponse(NetworkResponse response) {
+    protected Response<BizMultipartResponse> parseNetworkResponse(NetworkResponse response) {
         return Response.success(
-                new BizUploadResponse(response, getResponseContent(response)),
+                new BizMultipartResponse(response, getResponseContent(response)),
                 HttpHeaderParser.parseCacheHeaders(response));
     }
 }

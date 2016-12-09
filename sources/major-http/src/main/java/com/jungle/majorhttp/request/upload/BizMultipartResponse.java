@@ -18,9 +18,12 @@
 
 package com.jungle.majorhttp.request.upload;
 
-public interface UploadFormItem {
+import com.android.volley.NetworkResponse;
+import com.jungle.majorhttp.request.base.BizBaseResponse;
 
-    String getFileName();
+public class BizMultipartResponse extends BizBaseResponse<String> {
 
-    byte[] getFormContent();
+    public BizMultipartResponse(NetworkResponse response, String content) {
+        super(response, content);
+    }
 }

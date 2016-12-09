@@ -44,8 +44,8 @@ import com.jungle.majorhttp.request.download.BizDownloadResponse;
 import com.jungle.majorhttp.request.queue.RequestQueueFactory;
 import com.jungle.majorhttp.request.text.BizTextRequest;
 import com.jungle.majorhttp.request.text.BizTextResponse;
-import com.jungle.majorhttp.request.upload.BizUploadRequest;
-import com.jungle.majorhttp.request.upload.BizUploadResponse;
+import com.jungle.majorhttp.request.upload.BizMultipartRequest;
+import com.jungle.majorhttp.request.upload.BizMultipartResponse;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -160,7 +160,7 @@ public class MajorHttpManager {
 
         int seqId = nextSeqId();
         request.seqId(seqId);
-        BizUploadRequest uploadRequest = new BizUploadRequest(
+        BizMultipartRequest uploadRequest = new BizMultipartRequest(
                 seqId, request.getUrl(), request.getFormItems(),
                 request.getRequestHeaders(),
                 mBizUploadRequestListener);
@@ -216,7 +216,7 @@ public class MajorHttpManager {
             return;
         }
 
-        if (request instanceof BizUploadRequest) {
+        if (request instanceof BizMultipartRequest) {
             request.setRetryPolicy(mUploadRetryPolicy);
         } else {
             request.setRetryPolicy(mDefaultRetryPolicy);
@@ -283,12 +283,12 @@ public class MajorHttpManager {
                 }
             };
 
-    private WrappedRequestListener<BizUploadResponse> mBizUploadRequestListener =
-            new WrappedRequestListener<BizUploadResponse>() {
+    private WrappedRequestListener<BizMultipartResponse> mBizUploadRequestListener =
+            new WrappedRequestListener<BizMultipartResponse>() {
                 @Override
                 protected void handleSuccess(int seqId,
-                        BaseRequestListener<BizUploadResponse> listener,
-                        BizBaseResponse<BizUploadResponse> response) {
+                        BaseRequestListener<BizMultipartResponse> listener,
+                        BizBaseResponse<BizMultipartResponse> response) {
 
                     if (response == null) {
                         listener.onSuccess(seqId, null, null);

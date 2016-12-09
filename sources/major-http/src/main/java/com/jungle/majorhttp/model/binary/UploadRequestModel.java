@@ -18,12 +18,12 @@
 
 package com.jungle.majorhttp.model.binary;
 
+import com.jungle.majorhttp.manager.MajorHttpManager;
 import com.jungle.majorhttp.model.base.AbstractBizModel;
 import com.jungle.majorhttp.model.base.BaseBizModel;
-import com.jungle.majorhttp.manager.MajorHttpManager;
-import com.jungle.majorhttp.request.upload.BinaryUploadFormItem;
+import com.jungle.majorhttp.request.upload.BinaryMultipartFormItem;
 import com.jungle.majorhttp.request.upload.FileUploadFormItem;
-import com.jungle.majorhttp.request.upload.UploadFormItem;
+import com.jungle.majorhttp.request.upload.MultipartFormItem;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -38,20 +38,20 @@ public class UploadRequestModel extends BaseBizModel<UploadRequestModel, String>
 
     public static class Request extends AbstractBizModel.Request {
 
-        private List<UploadFormItem> mFormItems = new ArrayList<>();
+        private List<MultipartFormItem> mFormItems = new ArrayList<>();
 
-        public Request addFormItem(UploadFormItem item) {
+        public Request addFormItem(MultipartFormItem item) {
             mFormItems.add(item);
             return this;
         }
 
-        public List<UploadFormItem> getFormItems() {
+        public List<MultipartFormItem> getFormItems() {
             return mFormItems;
         }
     }
 
 
-    public UploadRequestModel addFormItem(UploadFormItem item) {
+    public UploadRequestModel addFormItem(MultipartFormItem item) {
         ((Request) mRequest).addFormItem(item);
         return this;
     }
@@ -69,7 +69,7 @@ public class UploadRequestModel extends BaseBizModel<UploadRequestModel, String>
             return this;
         }
 
-        return addFormItem(new BinaryUploadFormItem(fileName, content));
+        return addFormItem(new BinaryMultipartFormItem(fileName, content));
     }
 
     @Override

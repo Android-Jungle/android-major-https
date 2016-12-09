@@ -18,26 +18,36 @@
 
 package com.jungle.majorhttp.request.upload;
 
+import android.text.TextUtils;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
-public class FileUploadFormItem implements UploadFormItem {
+public class FileUploadFormItem extends BinaryMultipartFormItem {
 
     private String mFilePath;
-    private byte[] mFormContent;
 
 
     public FileUploadFormItem() {
     }
 
     public FileUploadFormItem(String filePath) {
-        mFilePath = filePath;
+        this(filePath, null, null);
     }
 
-    public String getFileName() {
-        return new File(mFilePath).getName();
+    public FileUploadFormItem(String filePath, byte[] content) {
+        this(filePath, null, content);
+    }
+
+    public FileUploadFormItem(String filePath, String mimeType) {
+        this(filePath, mimeType, null);
+    }
+
+    public FileUploadFormItem(String filePath, String mimeType, byte[] content) {
+        super(new File(filePath).getName(), mimeType, content);
+        mFilePath = filePath;
     }
 
     public byte[] getFormContent() {
@@ -48,7 +58,16 @@ public class FileUploadFormItem implements UploadFormItem {
         return mFormContent;
     }
 
+    @Override
+    public String getMimeType() {
+        return mMimeType;
+    }
+
     public static byte[] getFileContent(String filePath) {
+        if (TextUtils.isEmpty(filePath)) {
+            return null;
+        }
+
         FileInputStream stream = null;
         try {
             stream = new FileInputStream(filePath);
