@@ -18,10 +18,10 @@
 
 package com.jungle.majorhttp.model.binary;
 
-import com.jungle.majorhttp.model.base.BaseBizModel;
 import com.jungle.majorhttp.manager.MajorHttpManager;
+import com.jungle.majorhttp.model.base.BaseModel;
 
-public class BinaryRequestModel extends BaseBizModel<BinaryRequestModel, byte[]> {
+public class BinaryRequestModel extends BaseModel<BinaryRequestModel, byte[]> {
 
     public static BinaryRequestModel newModel() {
         return new BinaryRequestModel();

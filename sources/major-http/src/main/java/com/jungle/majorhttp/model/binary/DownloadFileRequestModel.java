@@ -18,18 +18,18 @@
 
 package com.jungle.majorhttp.model.binary;
 
-import com.jungle.majorhttp.model.base.AbstractBizModel;
-import com.jungle.majorhttp.model.base.BaseBizModel;
 import com.jungle.majorhttp.manager.MajorHttpManager;
+import com.jungle.majorhttp.model.base.AbstractModel;
+import com.jungle.majorhttp.model.base.BaseModel;
 
-public class DownloadFileRequestModel extends BaseBizModel<DownloadFileRequestModel, String> {
+public class DownloadFileRequestModel extends BaseModel<DownloadFileRequestModel, String> {
 
     public static DownloadFileRequestModel newModel() {
         return new DownloadFileRequestModel();
     }
 
 
-    public static class Request extends AbstractBizModel.Request {
+    public static class Request extends AbstractModel.Request {
 
         private String mFilePath;
 

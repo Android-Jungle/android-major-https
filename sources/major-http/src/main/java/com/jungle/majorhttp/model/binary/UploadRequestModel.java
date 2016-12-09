@@ -19,8 +19,8 @@
 package com.jungle.majorhttp.model.binary;
 
 import com.jungle.majorhttp.manager.MajorHttpManager;
-import com.jungle.majorhttp.model.base.AbstractBizModel;
-import com.jungle.majorhttp.model.base.BaseBizModel;
+import com.jungle.majorhttp.model.base.AbstractModel;
+import com.jungle.majorhttp.model.base.BaseModel;
 import com.jungle.majorhttp.request.upload.BinaryMultipartFormItem;
 import com.jungle.majorhttp.request.upload.FileUploadFormItem;
 import com.jungle.majorhttp.request.upload.MultipartFormItem;
@@ -29,14 +29,14 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UploadRequestModel extends BaseBizModel<UploadRequestModel, String> {
+public class UploadRequestModel extends BaseModel<UploadRequestModel, String> {
 
     public static UploadRequestModel newModel() {
         return new UploadRequestModel();
     }
 
 
-    public static class Request extends AbstractBizModel.Request {
+    public static class Request extends AbstractModel.Request {
 
         private List<MultipartFormItem> mFormItems = new ArrayList<>();
 
@@ -73,7 +73,7 @@ public class UploadRequestModel extends BaseBizModel<UploadRequestModel, String>
     }
 
     @Override
-    protected AbstractBizModel.Request createRequest() {
+    protected AbstractModel.Request createRequest() {
         return new Request();
     }
 

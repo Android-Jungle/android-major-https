@@ -29,16 +29,16 @@ import android.view.View;
 import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.jungle.majorhttp.model.base.BizModelListener;
-import com.jungle.majorhttp.model.base.ModelLoadLifeListener;
+import com.jungle.majorhttp.manager.MajorHttpManager;
 import com.jungle.majorhttp.model.base.ModelMethod;
 import com.jungle.majorhttp.model.binary.DownloadFileRequestModel;
 import com.jungle.majorhttp.model.binary.DownloadRequestModel;
 import com.jungle.majorhttp.model.binary.UploadRequestModel;
+import com.jungle.majorhttp.model.listener.ModelListener;
+import com.jungle.majorhttp.model.listener.ModelLoadLifeListener;
 import com.jungle.majorhttp.model.text.JsonRequestModel;
 import com.jungle.majorhttp.model.text.TextRequestModel;
 import com.jungle.majorhttp.network.HttpsUtils;
-import com.jungle.majorhttp.manager.MajorHttpManager;
 import com.jungle.majorhttp.request.base.NetworkResp;
 import com.jungle.majorhttp.request.queue.HttpsRequestQueueFactory;
 
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
                 .newModel()
                 .url(DEMO_WEB_URL)
                 .method(ModelMethod.GET)
-                .loadWithProgress(this, new BizModelListener<String>() {
+                .loadWithProgress(this, new ModelListener<String>() {
                     @Override
                     public void onSuccess(NetworkResp networkResp, String response) {
                         TextViewerActivity.start(getContext(), response);
@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 .newModel(GithubUserInfo.class)
                 .url(DEMO_JSON_URL)
                 .method(ModelMethod.GET)
-                .load(new BizModelListener<GithubUserInfo>() {
+                .load(new ModelListener<GithubUserInfo>() {
                     @Override
                     public void onSuccess(NetworkResp networkResp, GithubUserInfo response) {
                         String info = JSON.toJSONString(response, SerializerFeature.PrettyFormat);
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
                 .newModel()
                 .url(DEMO_JSON_URL)
                 .method(ModelMethod.GET)
-                .loadWithProgress(this, new BizModelListener<byte[]>() {
+                .loadWithProgress(this, new ModelListener<byte[]>() {
                     @Override
                     public void onSuccess(NetworkResp networkResp, byte[] response) {
                         String content = new String(response);
@@ -167,7 +167,7 @@ public class MainActivity extends AppCompatActivity {
                                 100);
                     }
                 })
-                .loadWithProgress(getContext(), loadingText, new BizModelListener<String>() {
+                .loadWithProgress(getContext(), loadingText, new ModelListener<String>() {
                     @Override
                     public void onSuccess(NetworkResp networkResp, String response) {
                         Toast.makeText(getContext(), String.format(
@@ -188,7 +188,7 @@ public class MainActivity extends AppCompatActivity {
                 .newModel()
                 .url(DEMO_UPLOAD_URL)
                 .addFormItem(file)
-                .loadWithProgress(this, "Uploading...", new BizModelListener<String>() {
+                .loadWithProgress(this, "Uploading...", new ModelListener<String>() {
                     @Override
                     public void onSuccess(NetworkResp networkResp, String response) {
                         Toast.makeText(getContext(), String.format(

@@ -16,13 +16,7 @@
  * limitations under the License.
  */
 
-package com.jungle.majorhttp.model.base;
+package com.jungle.majorhttp.model.listener;
 
-import com.jungle.majorhttp.request.base.NetworkResp;
-
-public interface BizModelListener<T> {
-
-    void onSuccess(NetworkResp networkResp, T response);
-
-    void onError(int errorCode, String message);
+public interface ModelListener<T> extends ModelSuccessListener<T>, ModelErrorListener {
 }

@@ -16,9 +16,11 @@
  * limitations under the License.
  */
 
-package com.jungle.majorhttp.model.base;
+package com.jungle.majorhttp.model.listener;
 
-public interface ModelLoadLifeListener<T extends AbstractBizModel> {
+import com.jungle.majorhttp.model.base.AbstractModel;
+
+public interface ModelLoadLifeListener<T extends AbstractModel> {
 
     void onBeforeLoad(T model);
 }

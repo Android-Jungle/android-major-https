@@ -27,9 +27,9 @@ import android.view.View;
 import android.view.Window;
 import android.widget.TextView;
 import com.jungle.majorhttp.R;
-import com.jungle.majorhttp.model.base.AbstractBizModel;
-import com.jungle.majorhttp.model.base.BizModelListener;
-import com.jungle.majorhttp.model.base.ProxyModelListener;
+import com.jungle.majorhttp.model.base.AbstractModel;
+import com.jungle.majorhttp.model.listener.ModelListener;
+import com.jungle.majorhttp.model.listener.ProxyModelListener;
 import com.jungle.majorhttp.request.base.NetworkResp;
 
 import java.util.Iterator;
@@ -90,8 +90,8 @@ public class MajorProgressLoadManager {
         mLoadingDialogCreator = creator;
     }
 
-    public <T> int load(Context context, final AbstractBizModel<?, T> model, String loadingText) {
-        BizModelListener<T> listener = model.getListener();
+    public <T> int load(Context context, final AbstractModel<?, T> model, String loadingText) {
+        ModelListener<T> listener = model.getListener();
         int seqId = model.load(new ProxyModelListener<T>(listener) {
             @Override
             public void onSuccess(NetworkResp networkResp, T response) {

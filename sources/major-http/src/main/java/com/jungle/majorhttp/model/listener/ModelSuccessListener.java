@@ -16,31 +16,11 @@
  * limitations under the License.
  */
 
-package com.jungle.majorhttp.model.base;
+package com.jungle.majorhttp.model.listener;
 
-import com.jungle.majorhttp.model.base.BizModelListener;
 import com.jungle.majorhttp.request.base.NetworkResp;
 
-public class ProxyModelListener<T> implements BizModelListener<T> {
+public interface ModelSuccessListener<T> {
 
-    private BizModelListener<T> mImplListener;
-
-
-    public ProxyModelListener(BizModelListener<T> listener) {
-        mImplListener = listener;
-    }
-
-    @Override
-    public void onSuccess(NetworkResp networkResp, T response) {
-        if (mImplListener != null) {
-            mImplListener.onSuccess(networkResp, response);
-        }
-    }
-
-    @Override
-    public void onError(int errorCode, String message) {
-        if (mImplListener != null) {
-            mImplListener.onError(errorCode, message);
-        }
-    }
+    void onSuccess(NetworkResp networkResp, T response);
 }

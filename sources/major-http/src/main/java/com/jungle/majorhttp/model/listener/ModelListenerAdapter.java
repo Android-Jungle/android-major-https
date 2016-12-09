@@ -16,25 +16,17 @@
  * limitations under the License.
  */
 
-package com.jungle.majorhttp.model.binary;
+package com.jungle.majorhttp.model.listener;
 
-import com.jungle.majorhttp.manager.MajorHttpManager;
-import com.jungle.majorhttp.model.base.BaseModel;
+import com.jungle.majorhttp.request.base.NetworkResp;
 
-public class DownloadRequestModel extends BaseModel<DownloadRequestModel, byte[]> {
-
-    public static DownloadRequestModel newModel() {
-        return new DownloadRequestModel();
-    }
-
+public class ModelListenerAdapter<T> implements ModelListener<T> {
 
     @Override
-    protected Request createRequest() {
-        return new Request();
+    public void onSuccess(NetworkResp networkResp, T response) {
     }
 
     @Override
-    public int loadInternal() {
-        return MajorHttpManager.getInstance().loadDownloadModel(mRequest, this);
+    public void onError(int errorCode, String message) {
     }
 }

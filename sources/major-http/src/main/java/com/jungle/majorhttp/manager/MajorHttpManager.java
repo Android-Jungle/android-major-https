@@ -24,7 +24,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
-import com.jungle.majorhttp.model.base.AbstractBizModel;
+import com.jungle.majorhttp.model.base.AbstractModel;
 import com.jungle.majorhttp.model.binary.BinaryRequestModel;
 import com.jungle.majorhttp.model.binary.DownloadFileRequestModel;
 import com.jungle.majorhttp.model.binary.DownloadRequestModel;
@@ -127,7 +127,7 @@ public class MajorHttpManager {
     }
 
     public synchronized int loadTextModel(
-            AbstractBizModel.Request request, BaseRequestListener<String> listener) {
+            AbstractModel.Request request, BaseRequestListener<String> listener) {
 
         int seqId = nextSeqId();
         request.seqId(seqId);
@@ -205,7 +205,7 @@ public class MajorHttpManager {
 
     private void addRequestNode(
             int seqId,
-            AbstractBizModel.Request modelRequest,
+            AbstractModel.Request modelRequest,
             Request<?> request,
             BaseRequestListener listener) {
 

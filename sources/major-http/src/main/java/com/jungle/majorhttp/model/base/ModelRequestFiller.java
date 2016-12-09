@@ -20,5 +20,5 @@ package com.jungle.majorhttp.model.base;
 
 public interface ModelRequestFiller {
 
-    void fill(AbstractBizModel.Request request);
+    void fill(AbstractModel.Request request);
 }

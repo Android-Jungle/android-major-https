@@ -18,16 +18,16 @@
 
 package com.jungle.majorhttp.model.text;
 
-import com.jungle.majorhttp.model.base.AbstractBizModel;
-import com.jungle.majorhttp.network.BaseRequestListener;
 import com.jungle.majorhttp.manager.MajorHttpManager;
+import com.jungle.majorhttp.model.base.AbstractModel;
+import com.jungle.majorhttp.network.BaseRequestListener;
 
 public abstract class AbstractTextRequestModel<Impl extends AbstractTextRequestModel, Data>
-        extends AbstractBizModel<AbstractTextRequestModel<Impl, Data>, Data>
+        extends AbstractModel<AbstractTextRequestModel<Impl, Data>, Data>
         implements BaseRequestListener<String> {
 
     @Override
-    protected AbstractBizModel.Request createRequest() {
+    protected AbstractModel.Request createRequest() {
         return new Request();
     }
 

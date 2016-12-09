@@ -20,13 +20,15 @@ package com.jungle.majorhttp.model.base;
 
 import android.content.Context;
 import android.support.annotation.StringRes;
-import com.jungle.majorhttp.manager.MajorProgressLoadManager;
 import com.jungle.majorhttp.manager.MajorHttpManager;
+import com.jungle.majorhttp.manager.MajorProgressLoadManager;
+import com.jungle.majorhttp.model.listener.ModelListener;
+import com.jungle.majorhttp.model.listener.ModelLoadLifeListener;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class AbstractBizModel<Impl extends AbstractBizModel, Data> {
+public abstract class AbstractModel<Impl extends AbstractModel, Data> {
 
     public static final int INVALID_SEQ_ID = -1;
 
@@ -115,18 +117,18 @@ public abstract class AbstractBizModel<Impl extends AbstractBizModel, Data> {
     }
 
 
-    protected AbstractBizModel.Request mRequest;
+    protected AbstractModel.Request mRequest;
     protected ModelRequestFiller mModelFiller;
-    protected BizModelListener<Data> mListener;
+    protected ModelListener<Data> mListener;
     protected ModelLoadLifeListener<Impl> mLoadLifeListener;
 
 
-    public AbstractBizModel() {
+    public AbstractModel() {
         mRequest = createRequest();
     }
 
-    protected AbstractBizModel.Request createRequest() {
-        return new AbstractBizModel.Request();
+    protected AbstractModel.Request createRequest() {
+        return new AbstractModel.Request();
     }
 
     @SuppressWarnings("unchecked")
@@ -178,7 +180,7 @@ public abstract class AbstractBizModel<Impl extends AbstractBizModel, Data> {
     }
 
     @SuppressWarnings("unchecked")
-    public Impl listener(BizModelListener<Data> listener) {
+    public Impl listener(ModelListener<Data> listener) {
         mListener = listener;
         return (Impl) this;
     }
@@ -210,7 +212,7 @@ public abstract class AbstractBizModel<Impl extends AbstractBizModel, Data> {
 
     public abstract int loadInternal();
 
-    public int load(BizModelListener<Data> listener) {
+    public int load(ModelListener<Data> listener) {
         return listener(listener).load();
     }
 
@@ -218,7 +220,7 @@ public abstract class AbstractBizModel<Impl extends AbstractBizModel, Data> {
         return MajorProgressLoadManager.getInstance().load(context, this, null);
     }
 
-    public int loadWithProgress(Context context, BizModelListener<Data> listener) {
+    public int loadWithProgress(Context context, ModelListener<Data> listener) {
         listener(listener);
         return loadWithProgress(context);
     }
@@ -227,7 +229,7 @@ public abstract class AbstractBizModel<Impl extends AbstractBizModel, Data> {
         return MajorProgressLoadManager.getInstance().load(context, this, loadingText);
     }
 
-    public int loadWithProgress(Context context, String loadingText, BizModelListener<Data> listener) {
+    public int loadWithProgress(Context context, String loadingText, ModelListener<Data> listener) {
         listener(listener);
         return loadWithProgress(context, loadingText);
     }
@@ -237,7 +239,7 @@ public abstract class AbstractBizModel<Impl extends AbstractBizModel, Data> {
                 context, this, context.getString(loadingText));
     }
 
-    public int loadWithProgress(Context context, @StringRes int loadingText, BizModelListener<Data> listener) {
+    public int loadWithProgress(Context context, @StringRes int loadingText, ModelListener<Data> listener) {
         listener(listener);
         return loadWithProgress(context, loadingText);
     }
@@ -246,7 +248,7 @@ public abstract class AbstractBizModel<Impl extends AbstractBizModel, Data> {
         MajorHttpManager.getInstance().cancelBizModel(mRequest.getSeqId());
     }
 
-    public BizModelListener<Data> getListener() {
+    public ModelListener<Data> getListener() {
         return mListener;
     }
 
