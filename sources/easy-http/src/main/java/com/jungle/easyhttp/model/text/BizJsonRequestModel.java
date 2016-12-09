@@ -49,17 +49,6 @@ public class BizJsonRequestModel<T> extends JsonRequestModel<T> {
     }
 
     @Override
-    public int loadInternal() {
-        Map<String, Object> params = mRequest.getRequestParams();
-        if (!params.isEmpty()) {
-            AbstractTextRequestModel.Request request = (Request) mRequest;
-            request.requestBody(JSON.toJSONString(params));
-        }
-
-        return super.loadInternal();
-    }
-
-    @Override
     public void onSuccess(int seqId, Map<String, String> headers, String response) {
         if (mListener == null) {
             return;

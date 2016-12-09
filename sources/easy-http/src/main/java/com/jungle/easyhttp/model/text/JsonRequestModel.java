@@ -22,6 +22,7 @@ import android.text.TextUtils;
 import com.alibaba.fastjson.JSON;
 import com.jungle.easyhttp.network.CommonError;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 public class JsonRequestModel<T> extends AbstractTextRequestModel<JsonRequestModel<T>, T> {
@@ -36,6 +37,20 @@ public class JsonRequestModel<T> extends AbstractTextRequestModel<JsonRequestMod
 
     public JsonRequestModel(Class<T> clazz) {
         mResponseDataClazz = clazz;
+    }
+
+    @Override
+    public int loadInternal() {
+        Map<String, Object> params = mRequest.getRequestParams();
+        if (!params.isEmpty()) {
+            try {
+                body(JSON.toJSONString(params).getBytes("utf-8"));
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return super.loadInternal();
     }
 
     @Override

@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.jungle.easyhttp.request.json;
+package com.jungle.easyhttp.request.text;
 
 import com.jungle.easyhttp.request.BizBaseResponse;
 

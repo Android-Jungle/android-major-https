@@ -26,21 +26,6 @@ public abstract class AbstractTextRequestModel<Impl extends AbstractTextRequestM
         extends AbstractBizModel<AbstractTextRequestModel<Impl, Data>, Data>
         implements BaseRequestListener<String> {
 
-    public static class Request extends AbstractBizModel.Request {
-
-        private String mRequestBody;
-
-        public Request requestBody(String body) {
-            mRequestBody = body;
-            return this;
-        }
-
-        public String getRequestBody() {
-            return mRequestBody;
-        }
-    }
-
-
     @Override
     protected AbstractBizModel.Request createRequest() {
         return new Request();
@@ -49,12 +34,6 @@ public abstract class AbstractTextRequestModel<Impl extends AbstractTextRequestM
     @Override
     public int loadInternal() {
         return EasyHttpManager.getInstance().loadTextModel((Request) mRequest, this);
-    }
-
-    @SuppressWarnings("unchecked")
-    public Impl setRequestBody(String body) {
-        ((Request) mRequest).requestBody(body);
-        return (Impl) this;
     }
 
     @Override

@@ -16,12 +16,11 @@
  * limitations under the License.
  */
 
-package com.jungle.easyhttp.request.json;
+package com.jungle.easyhttp.request.text;
 
 import android.text.TextUtils;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.jungle.easyhttp.request.BizBaseRequest;
 import com.jungle.easyhttp.request.BizRequestListener;
@@ -38,12 +37,12 @@ public class BizTextRequest extends BizBaseRequest<BizTextResponse> {
 
 
     private String mRedirectUrl;
-    private String mRequestBody;
+    private byte[] mRequestBody;
 
 
     public BizTextRequest(
             int seqId, int method, String url,
-            Map<String, Object> params, Map<String, String> headers, String requestBody,
+            Map<String, Object> params, Map<String, String> headers, byte[] requestBody,
             BizRequestListener<BizTextResponse> listener) {
 
         super(seqId, method, url, params, headers, listener);
@@ -93,15 +92,7 @@ public class BizTextRequest extends BizBaseRequest<BizTextResponse> {
 
     @Override
     public byte[] getBody() {
-        try {
-            return mRequestBody == null ? null : mRequestBody.getBytes(PROTOCOL_CHARSET);
-        } catch (UnsupportedEncodingException uee) {
-            VolleyLog.wtf(
-                    "Unsupported Encoding while trying to get the bytes of %s using %s",
-                    mRequestBody, PROTOCOL_CHARSET);
-        }
-
-        return null;
+        return mRequestBody;
     }
 
     @Override

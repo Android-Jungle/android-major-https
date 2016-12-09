@@ -154,6 +154,12 @@ public abstract class AbstractBizModel<Impl extends AbstractBizModel, Data> {
     }
 
     @SuppressWarnings("unchecked")
+    public Impl body(byte[] body) {
+        mRequest.body(body);
+        return (Impl) this;
+    }
+
+    @SuppressWarnings("unchecked")
     public Impl paramCheckNull(String key, Object obj) {
         mRequest.param(key, obj);
         return (Impl) this;

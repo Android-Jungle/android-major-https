@@ -38,9 +38,9 @@ import com.jungle.easyhttp.request.download.BizDownloadFileRequest;
 import com.jungle.easyhttp.request.download.BizDownloadFileResponse;
 import com.jungle.easyhttp.request.download.BizDownloadRequest;
 import com.jungle.easyhttp.request.download.BizDownloadResponse;
-import com.jungle.easyhttp.request.json.BizTextRequest;
-import com.jungle.easyhttp.request.json.BizTextResponse;
 import com.jungle.easyhttp.request.queue.RequestQueueFactory;
+import com.jungle.easyhttp.request.text.BizTextRequest;
+import com.jungle.easyhttp.request.text.BizTextResponse;
 import com.jungle.easyhttp.request.upload.BizUploadRequest;
 import com.jungle.easyhttp.request.upload.BizUploadResponse;
 
@@ -131,7 +131,7 @@ public class EasyHttpManager {
         BizTextRequest jsonRequest = new BizTextRequest(
                 seqId, request.getRequestMethod().toVolleyMethod(),
                 request.getUrl(), request.getRequestParams(),
-                request.getRequestHeaders(), request.getRequestBody(),
+                request.getRequestHeaders(), request.getBody(),
                 mBizTextRequestListener);
 
         addRequestNode(seqId, request, jsonRequest, listener);

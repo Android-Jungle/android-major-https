@@ -28,6 +28,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.jungle.easyhttp.model.base.BizModelListener;
 import com.jungle.easyhttp.model.base.ModelLoadLifeListener;
 import com.jungle.easyhttp.model.base.ModelMethod;
@@ -99,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
                 .load(new BizModelListener<GithubUserInfo>() {
                     @Override
                     public void onSuccess(Map<String, String> headers, GithubUserInfo response) {
-                        String info = JSON.toJSONString(response);
+                        String info = JSON.toJSONString(response, SerializerFeature.PrettyFormat);
                         info = "Load Json object success!\n\n" + info;
                         TextViewerActivity.start(getContext(), info);
                     }
