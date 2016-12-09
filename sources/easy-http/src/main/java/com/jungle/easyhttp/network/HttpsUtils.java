@@ -127,11 +127,14 @@ public class HttpsUtils {
         return null;
     }
 
-    public static TrustManager[] createTrustManagerByCert(Certificate cert) {
+    public static TrustManager[] createTrustManagerByCerts(Certificate... certs) {
         try {
             KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType());
             keyStore.load(null, null);
-            keyStore.setCertificateEntry("ca", cert);
+
+            for (int i = 0; i < certs.length; ++i) {
+                keyStore.setCertificateEntry("ca_" + String.valueOf(i), certs[i]);
+            }
 
             TrustManagerFactory factory = TrustManagerFactory.getInstance(
                     TrustManagerFactory.getDefaultAlgorithm());

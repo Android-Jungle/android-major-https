@@ -19,6 +19,7 @@
 package com.jungle.easyhttp.request.queue;
 
 import android.content.Context;
+import android.support.annotation.RawRes;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
 import com.jungle.easyhttp.network.HttpsUtils;
@@ -27,6 +28,9 @@ import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSocketFactory;
 import java.security.cert.Certificate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class HttpsRequestQueueFactory implements RequestQueueFactory {
 
@@ -38,29 +42,52 @@ public class HttpsRequestQueueFactory implements RequestQueueFactory {
         return factory;
     }
 
+    public static HttpsRequestQueueFactory create(
+            Context context, @RawRes int certRawResId, String... domains) {
+
+        HttpsRequestQueueFactory factory = new HttpsRequestQueueFactory(context, certRawResId);
+        factory.setHostnameVerifier(new HttpsUtils.DomainHostNameVerifier(domains));
+        return factory;
+    }
+
 
     private Context mContext;
-    private Certificate mCertificate;
     private HostnameVerifier mHostnameVerifier;
+    private List<Certificate> mCertificateList = new ArrayList<>();
 
 
     public HttpsRequestQueueFactory(Context context) {
         mContext = context;
     }
 
-    public HttpsRequestQueueFactory(Context context, int certRawResId) {
+    public HttpsRequestQueueFactory(Context context, @RawRes int... certRawResIds) {
         mContext = context;
-        mCertificate = HttpsUtils.createCertificateByRawResource(mContext, certRawResId);
+        for (int certRawResId : certRawResIds) {
+            Certificate cert = HttpsUtils.createCertificateByRawResource(mContext, certRawResId);
+            if (cert != null) {
+                mCertificateList.add(cert);
+            }
+        }
     }
 
-    public HttpsRequestQueueFactory(Context context, String certAssetName) {
+    public HttpsRequestQueueFactory(Context context, String... certAssetNames) {
         mContext = context;
-        mCertificate = HttpsUtils.createCertificateByCrtAsset(mContext, certAssetName);
+        for (String certAssetName : certAssetNames) {
+            Certificate cert = HttpsUtils.createCertificateByCrtAsset(mContext, certAssetName);
+            if (cert != null) {
+                mCertificateList.add(cert);
+            }
+        }
     }
 
-    public HttpsRequestQueueFactory(Context context, Certificate certificate) {
+    public HttpsRequestQueueFactory(Context context, Certificate... certs) {
         mContext = context;
-        mCertificate = certificate;
+        Collections.addAll(mCertificateList, certs);
+    }
+
+    public HttpsRequestQueueFactory(Context context, List<Certificate> list) {
+        mContext = context;
+        mCertificateList.addAll(list);
     }
 
     public void setHostnameVerifier(HostnameVerifier hostnameVerifier) {
@@ -74,11 +101,15 @@ public class HttpsRequestQueueFactory implements RequestQueueFactory {
         }
 
         HttpsStack stack = null;
-        SSLContext sslContext = HttpsUtils.getSslContext(
-                HttpsUtils.createTrustManagerByCert(mCertificate));
-        if (sslContext != null) {
-            SSLSocketFactory factory = sslContext.getSocketFactory();
-            stack = new HttpsStack(null, factory, mHostnameVerifier);
+        if (!mCertificateList.isEmpty()) {
+            Certificate[] certs = mCertificateList.toArray(new Certificate[mCertificateList.size()]);
+            SSLContext sslContext = HttpsUtils.getSslContext(
+                    HttpsUtils.createTrustManagerByCerts(certs));
+
+            if (sslContext != null) {
+                SSLSocketFactory factory = sslContext.getSocketFactory();
+                stack = new HttpsStack(null, factory, mHostnameVerifier);
+            }
         }
 
         return Volley.newRequestQueue(mContext, stack);

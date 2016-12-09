@@ -37,8 +37,9 @@ import com.jungle.easyhttp.model.binary.DownloadRequestModel;
 import com.jungle.easyhttp.model.binary.UploadRequestModel;
 import com.jungle.easyhttp.model.text.JsonRequestModel;
 import com.jungle.easyhttp.model.text.TextRequestModel;
+import com.jungle.easyhttp.network.HttpsUtils;
 import com.jungle.easyhttp.request.EasyHttpManager;
-import com.jungle.easyhttp.request.queue.HttpRequestQueueFactory;
+import com.jungle.easyhttp.request.queue.HttpsRequestQueueFactory;
 
 import java.util.Map;
 
@@ -59,15 +60,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-        EasyHttpManager.getInstance().setRequestQueueFactory(new HttpRequestQueueFactory(this));
+        HttpsRequestQueueFactory factory = new HttpsRequestQueueFactory(
+                this, "github.cer", "githubusercontent.cer");
+        factory.setHostnameVerifier(new HttpsUtils.DomainHostNameVerifier(
+                "github.com", "githubusercontent.com"));
+        EasyHttpManager.getInstance().setRequestQueueFactory(factory);
     }
 
     private void showToast(int errorCode, String message) {
-        Log.e("Main", String.format("Error! errorCode = %d.", errorCode));
-
-        Toast.makeText(this,
-                String.format("Error: errorCode = %d, message = %s.", errorCode, message),
-                Toast.LENGTH_LONG).show();
+        message = String.format("Error: errorCode = %d, message = %s.", errorCode, message);
+        Log.e("Main", message);
+        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
     private Context getContext() {
