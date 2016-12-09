@@ -46,7 +46,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
     private static final String DEMO_WEB_URL =
-            "https://github.com/arnozhang/easy-http/blob/master/.gitignore";
+            "https://www.zhihu.com";
 
     private static final String DEMO_JSON_URL =
             "https://raw.githubusercontent.com/arnozhang/easy-http/master/docs/demo.json";
@@ -60,10 +60,20 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
-        HttpsRequestQueueFactory factory = new HttpsRequestQueueFactory(
-                this, "github.cer", "githubusercontent.cer");
-        factory.setHostnameVerifier(new HttpsUtils.DomainHostNameVerifier(
-                "github.com", "githubusercontent.com"));
+        String[] certs = {
+                "zhihu.cer",
+                "github.cer",
+                "githubusercontent.cer"
+        };
+
+        String[] domains = {
+                "zhihu.com",
+                "github.com",
+                "githubusercontent.com"
+        };
+
+        HttpsRequestQueueFactory factory = new HttpsRequestQueueFactory(this, certs);
+        factory.setHostnameVerifier(new HttpsUtils.DomainHostNameVerifier(domains));
         EasyHttpManager.getInstance().setRequestQueueFactory(factory);
     }
 
