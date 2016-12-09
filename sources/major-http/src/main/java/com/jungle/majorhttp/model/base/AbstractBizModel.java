@@ -105,7 +105,7 @@ public abstract class AbstractBizModel<Impl extends AbstractBizModel, Data> {
             return mRequestHeaders;
         }
 
-        public boolean getFillExtraHeader() {
+        public boolean isFillExtraHeader() {
             return mFillExtraHeader;
         }
 

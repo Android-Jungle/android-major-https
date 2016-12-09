@@ -44,7 +44,7 @@ TextRequestModel
         .method(ModelMethod.GET)
         .loadWithProgress(this, new BizModelListener<String>() {
             @Override
-            public void onSuccess(Map<String, String> headers, String response) {
+            public void onSuccess(NetworkResp networkResp, String response) {
                 TextViewerActivity.start(getContext(), response);
             }
 
@@ -78,7 +78,7 @@ JsonRequestModel
         .method(ModelMethod.GET)
         .load(new BizModelListener<GithubUserInfo>() {
             @Override
-            public void onSuccess(Map<String, String> headers, GithubUserInfo response) {
+            public void onSuccess(NetworkResp networkResp, GithubUserInfo response) {
                 String info = JSON.toJSONString(response, SerializerFeature.PrettyFormat);
                 info = "Load Json object success!\n\n" + info;
                 TextViewerActivity.start(getContext(), info);
@@ -102,7 +102,7 @@ DownloadRequestModel
         .method(ModelMethod.GET)
         .loadWithProgress(this, new BizModelListener<byte[]>() {
             @Override
-            public void onSuccess(Map<String, String> headers, byte[] response) {
+            public void onSuccess(NetworkResp networkResp, byte[] response) {
                 String content = new String(response);
                 TextViewerActivity.start(getContext(), content);
             }
@@ -133,7 +133,7 @@ DownloadFileRequestModel
         })
         .loadWithProgress(getContext(), loadingText, new BizModelListener<String>() {
             @Override
-            public void onSuccess(Map<String, String> headers, String response) {
+            public void onSuccess(NetworkResp networkResp, String response) {
                 Toast.makeText(getContext(), String.format(
                         "Download file SUCCESS! file = %s.", file), Toast.LENGTH_SHORT).show();
             }
@@ -156,7 +156,7 @@ UploadRequestModel
         .addFormItem(file)
         .loadWithProgress(this, "Uploading...", new BizModelListener<String>() {
             @Override
-            public void onSuccess(Map<String, String> headers, String response) {
+            public void onSuccess(NetworkResp networkResp, String response) {
                 Toast.makeText(getContext(), String.format(
                         "Upload file SUCCESS! file = %s.", file), Toast.LENGTH_SHORT).show();
             }

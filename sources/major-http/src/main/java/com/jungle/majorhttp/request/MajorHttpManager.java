@@ -197,10 +197,16 @@ public class MajorHttpManager {
         return seqId;
     }
 
+    public synchronized <T> int sendRequest(Request<?> request, BaseRequestListener<T> listener) {
+        int seqId = nextSeqId();
+        addRequestNode(seqId, null, request, listener);
+        return seqId;
+    }
+
     private void addRequestNode(
             int seqId,
             AbstractBizModel.Request modelRequest,
-            BizBaseRequest<?> request,
+            Request<?> request,
             BaseRequestListener listener) {
 
         if (mRequestQueue == null) {
@@ -216,8 +222,11 @@ public class MajorHttpManager {
             request.setRetryPolicy(mDefaultRetryPolicy);
         }
 
-        if (modelRequest.getFillExtraHeader()) {
-            request.setExtraHeadersFiller(mExtraHeadersFiller);
+        if (request instanceof BizBaseRequest) {
+            BizBaseRequest bizRequest = (BizBaseRequest) request;
+            if (modelRequest.isFillExtraHeader()) {
+                bizRequest.setExtraHeadersFiller(mExtraHeadersFiller);
+            }
         }
 
         mRequestList.put(seqId, new RequestNode(seqId, request, listener));
