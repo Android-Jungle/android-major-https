@@ -7,7 +7,7 @@
 - 对 Https 支持**自定义证书验证**、**域名验证**等；
 - 支持 Text、 Binary、 Json、 文件下载、 文件上传等；
 - 支持 Json 自动解析为 POJO；
-- 接口简洁易用。
+- 接口简洁友好，支持 Java8 Lambda。
 
 ### 1、Gradle 配置
 
@@ -36,11 +36,7 @@ private static final String DEMO_UPLOAD_URL =
 
 
 private void showError(int errorCode, String message) {
-    message = String.format(Locale.getDefault(),
-            "Error: errorCode = %d, message = %s.", errorCode, message);
-
-    Log.e("Main", message);
-    Toast.makeText(this, message, Toast.LENGTH_LONG).show();
+    // ...
 }
 ```
 
