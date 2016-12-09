@@ -18,12 +18,12 @@
 
 package com.jungle.majorhttp.model.base;
 
-import com.jungle.majorhttp.model.listener.BaseRequestListener;
+import com.jungle.majorhttp.model.listener.ModelRequestListener;
 import com.jungle.majorhttp.request.base.NetworkResp;
 
 public abstract class BaseModel<Impl extends BaseModel, Data>
         extends AbstractModel<Impl, Data>
-        implements BaseRequestListener<Data> {
+        implements ModelRequestListener<Data> {
 
     @Override
     public void onSuccess(int seqId, NetworkResp networkResp, Data response) {

@@ -29,7 +29,7 @@ import com.jungle.majorhttp.model.binary.BinaryRequestModel;
 import com.jungle.majorhttp.model.binary.DownloadFileRequestModel;
 import com.jungle.majorhttp.model.binary.DownloadRequestModel;
 import com.jungle.majorhttp.model.binary.UploadRequestModel;
-import com.jungle.majorhttp.model.listener.BaseRequestListener;
+import com.jungle.majorhttp.model.listener.ModelRequestListener;
 import com.jungle.majorhttp.network.CommonError;
 import com.jungle.majorhttp.request.base.BizBaseRequest;
 import com.jungle.majorhttp.request.base.BizBaseResponse;
@@ -74,11 +74,11 @@ public class MajorHttpManager {
         int mSeqId;
         Type mResponseType;
         Request<?> mVolleyRequest;
-        BaseRequestListener mListener;
+        ModelRequestListener mListener;
 
         public RequestNode(
                 int seqId, Request<?> request,
-                Type responseType, BaseRequestListener listener) {
+                Type responseType, ModelRequestListener listener) {
 
             mSeqId = seqId;
             mVolleyRequest = request;
@@ -86,7 +86,7 @@ public class MajorHttpManager {
             mListener = listener;
         }
 
-        public RequestNode(int seqId, Request<?> request, BaseRequestListener listener) {
+        public RequestNode(int seqId, Request<?> request, ModelRequestListener listener) {
             this(seqId, request, null, listener);
         }
     }
@@ -127,7 +127,7 @@ public class MajorHttpManager {
     }
 
     public synchronized int loadTextModel(
-            AbstractModel.Request request, BaseRequestListener<String> listener) {
+            AbstractModel.Request request, ModelRequestListener<String> listener) {
 
         int seqId = nextSeqId();
         request.seqId(seqId);
@@ -142,7 +142,7 @@ public class MajorHttpManager {
     }
 
     public synchronized int loadBinaryModel(
-            BinaryRequestModel.Request request, BaseRequestListener<byte[]> listener) {
+            BinaryRequestModel.Request request, ModelRequestListener<byte[]> listener) {
 
         int seqId = nextSeqId();
         request.seqId(seqId);
@@ -156,7 +156,7 @@ public class MajorHttpManager {
     }
 
     public synchronized int loadUploadModel(
-            UploadRequestModel.Request request, BaseRequestListener<String> listener) {
+            UploadRequestModel.Request request, ModelRequestListener<String> listener) {
 
         int seqId = nextSeqId();
         request.seqId(seqId);
@@ -170,7 +170,7 @@ public class MajorHttpManager {
     }
 
     public synchronized int loadDownloadModel(
-            DownloadRequestModel.Request request, BaseRequestListener<byte[]> listener) {
+            DownloadRequestModel.Request request, ModelRequestListener<byte[]> listener) {
 
         int seqId = nextSeqId();
         request.seqId(seqId);
@@ -184,7 +184,7 @@ public class MajorHttpManager {
     }
 
     public synchronized int loadDownloadFileModel(
-            DownloadFileRequestModel.Request request, BaseRequestListener<String> listener) {
+            DownloadFileRequestModel.Request request, ModelRequestListener<String> listener) {
 
         int seqId = nextSeqId();
         request.seqId(seqId);
@@ -207,7 +207,7 @@ public class MajorHttpManager {
             int seqId,
             AbstractModel.Request modelRequest,
             Request<?> request,
-            BaseRequestListener listener) {
+            ModelRequestListener listener) {
 
         if (mRequestQueue == null) {
             String message = "RequestQueue is null!"
@@ -255,7 +255,7 @@ public class MajorHttpManager {
             new WrappedRequestListener<BizTextResponse>() {
                 @Override
                 protected void handleSuccess(int seqId,
-                        BaseRequestListener<BizTextResponse> listener,
+                        ModelRequestListener<BizTextResponse> listener,
                         BizBaseResponse<BizTextResponse> response) {
 
                     if (response == null) {
@@ -271,7 +271,7 @@ public class MajorHttpManager {
             new WrappedRequestListener<BizBinaryResponse>() {
                 @Override
                 protected void handleSuccess(int seqId,
-                        BaseRequestListener<BizBinaryResponse> listener,
+                        ModelRequestListener<BizBinaryResponse> listener,
                         BizBaseResponse<BizBinaryResponse> response) {
 
                     if (response == null) {
@@ -287,7 +287,7 @@ public class MajorHttpManager {
             new WrappedRequestListener<BizMultipartResponse>() {
                 @Override
                 protected void handleSuccess(int seqId,
-                        BaseRequestListener<BizMultipartResponse> listener,
+                        ModelRequestListener<BizMultipartResponse> listener,
                         BizBaseResponse<BizMultipartResponse> response) {
 
                     if (response == null) {
@@ -303,7 +303,7 @@ public class MajorHttpManager {
             new WrappedRequestListener<BizDownloadResponse>() {
                 @Override
                 protected void handleSuccess(int seqId,
-                        BaseRequestListener<BizDownloadResponse> listener,
+                        ModelRequestListener<BizDownloadResponse> listener,
                         BizBaseResponse<BizDownloadResponse> response) {
 
                     if (response == null) {
@@ -319,7 +319,7 @@ public class MajorHttpManager {
             new WrappedRequestListener<BizDownloadFileResponse>() {
                 @Override
                 protected void handleSuccess(int seqId,
-                        BaseRequestListener<BizDownloadFileResponse> listener,
+                        ModelRequestListener<BizDownloadFileResponse> listener,
                         BizBaseResponse<BizDownloadFileResponse> response) {
 
                     if (response == null) {
@@ -335,7 +335,7 @@ public class MajorHttpManager {
     private abstract class WrappedRequestListener<T> implements BizRequestListener<T> {
 
         protected abstract void handleSuccess(
-                int seqId, BaseRequestListener<T> listener, BizBaseResponse<T> response);
+                int seqId, ModelRequestListener<T> listener, BizBaseResponse<T> response);
 
 
         @SuppressWarnings("unchecked")
@@ -347,7 +347,7 @@ public class MajorHttpManager {
                     return;
                 }
 
-                BaseRequestListener<T> listener = (BaseRequestListener<T>) node.mListener;
+                ModelRequestListener<T> listener = (ModelRequestListener<T>) node.mListener;
                 handleSuccess(seqId, listener, response);
             }
         }

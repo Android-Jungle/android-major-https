@@ -20,7 +20,7 @@ package com.jungle.majorhttp.model.listener;
 
 import com.jungle.majorhttp.request.base.NetworkResp;
 
-public interface BaseRequestListener<T> {
+public interface ModelRequestListener<T> {
 
     void onSuccess(int seqId, NetworkResp networkResp, T response);
 

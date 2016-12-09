@@ -20,11 +20,11 @@ package com.jungle.majorhttp.model.text;
 
 import com.jungle.majorhttp.manager.MajorHttpManager;
 import com.jungle.majorhttp.model.base.AbstractModel;
-import com.jungle.majorhttp.model.listener.BaseRequestListener;
+import com.jungle.majorhttp.model.listener.ModelRequestListener;
 
 public abstract class AbstractTextRequestModel<Impl extends AbstractTextRequestModel, Data>
         extends AbstractModel<AbstractTextRequestModel<Impl, Data>, Data>
-        implements BaseRequestListener<String> {
+        implements ModelRequestListener<String> {
 
     @Override
     protected AbstractModel.Request createRequest() {
