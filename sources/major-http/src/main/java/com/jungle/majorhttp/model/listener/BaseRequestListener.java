@@ -16,7 +16,9 @@
  * limitations under the License.
  */
 
-package com.jungle.majorhttp.request.base;
+package com.jungle.majorhttp.model.listener;
+
+import com.jungle.majorhttp.request.base.NetworkResp;
 
 public interface BaseRequestListener<T> {
 

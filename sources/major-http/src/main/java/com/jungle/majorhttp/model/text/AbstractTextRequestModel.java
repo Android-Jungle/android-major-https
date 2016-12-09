@@ -20,7 +20,7 @@ package com.jungle.majorhttp.model.text;
 
 import com.jungle.majorhttp.manager.MajorHttpManager;
 import com.jungle.majorhttp.model.base.AbstractModel;
-import com.jungle.majorhttp.request.base.BaseRequestListener;
+import com.jungle.majorhttp.model.listener.BaseRequestListener;
 
 public abstract class AbstractTextRequestModel<Impl extends AbstractTextRequestModel, Data>
         extends AbstractModel<AbstractTextRequestModel<Impl, Data>, Data>
