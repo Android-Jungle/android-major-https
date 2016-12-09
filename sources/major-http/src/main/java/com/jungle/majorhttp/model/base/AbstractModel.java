@@ -22,8 +22,11 @@ import android.content.Context;
 import android.support.annotation.StringRes;
 import com.jungle.majorhttp.manager.MajorHttpManager;
 import com.jungle.majorhttp.manager.MajorProgressLoadManager;
+import com.jungle.majorhttp.model.listener.ModelErrorListener;
 import com.jungle.majorhttp.model.listener.ModelListener;
 import com.jungle.majorhttp.model.listener.ModelLoadLifeListener;
+import com.jungle.majorhttp.model.listener.ModelSuccessListener;
+import com.jungle.majorhttp.request.base.NetworkResp;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -119,7 +122,8 @@ public abstract class AbstractModel<Impl extends AbstractModel, Data> {
 
     protected AbstractModel.Request mRequest;
     protected ModelRequestFiller mModelFiller;
-    protected ModelListener<Data> mListener;
+    protected ModelErrorListener mErrorListener;
+    protected ModelSuccessListener<Data> mSuccessListener;
     protected ModelLoadLifeListener<Impl> mLoadLifeListener;
 
 
@@ -181,7 +185,20 @@ public abstract class AbstractModel<Impl extends AbstractModel, Data> {
 
     @SuppressWarnings("unchecked")
     public Impl listener(ModelListener<Data> listener) {
-        mListener = listener;
+        mSuccessListener = listener;
+        mErrorListener = listener;
+        return (Impl) this;
+    }
+
+    @SuppressWarnings("unchecked")
+    public Impl success(ModelSuccessListener<Data> listener) {
+        mSuccessListener = listener;
+        return (Impl) this;
+    }
+
+    @SuppressWarnings("unchecked")
+    public Impl error(ModelErrorListener listener) {
+        mErrorListener = listener;
         return (Impl) this;
     }
 
@@ -248,11 +265,45 @@ public abstract class AbstractModel<Impl extends AbstractModel, Data> {
         MajorHttpManager.getInstance().cancelBizModel(mRequest.getSeqId());
     }
 
-    public ModelListener<Data> getListener() {
-        return mListener;
-    }
-
     public int getSeqId() {
         return mRequest.getSeqId();
+    }
+
+    public ModelSuccessListener<Data> getSuccessListener() {
+        return mSuccessListener;
+    }
+
+    public ModelErrorListener getErrorListener() {
+        return mErrorListener;
+    }
+
+    public ModelListener<Data> getListener() {
+        return new ModelListener<Data>() {
+            @Override
+            public void onError(int errorCode, String message) {
+                if (mErrorListener != null) {
+                    mErrorListener.onError(errorCode, message);
+                }
+            }
+
+            @Override
+            public void onSuccess(NetworkResp networkResp, Data response) {
+                if (mSuccessListener != null) {
+                    mSuccessListener.onSuccess(networkResp, response);
+                }
+            }
+        };
+    }
+
+    protected void doSuccess(NetworkResp networkResp, Data response) {
+        if (mSuccessListener != null) {
+            mSuccessListener.onSuccess(networkResp, response);
+        }
+    }
+
+    protected void doError(int errorCode, String message) {
+        if (mErrorListener != null) {
+            mErrorListener.onError(errorCode, message);
+        }
     }
 }

@@ -27,15 +27,11 @@ public abstract class BaseModel<Impl extends BaseModel, Data>
 
     @Override
     public void onSuccess(int seqId, NetworkResp networkResp, Data response) {
-        if (mListener != null) {
-            mListener.onSuccess(networkResp, response);
-        }
+        doSuccess(networkResp, response);
     }
 
     @Override
     public void onError(int seqId, int errorCode, String message) {
-        if (mListener != null) {
-            mListener.onError(errorCode, message);
-        }
+        doError(errorCode, message);
     }
 }

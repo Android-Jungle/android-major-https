@@ -56,21 +56,17 @@ public class JsonRequestModel<T> extends AbstractTextRequestModel<JsonRequestMod
 
     @Override
     public void onSuccess(int seqId, NetworkResp networkResp, String response) {
-        if (mListener == null) {
-            return;
-        }
-
         if (TextUtils.isEmpty(response)) {
-            mListener.onSuccess(networkResp, null);
+            doSuccess(networkResp, null);
             return;
         }
 
         try {
             T data = JSON.parseObject(response, mResponseDataClazz);
-            mListener.onSuccess(networkResp, data);
+            doSuccess(networkResp, data);
         } catch (Exception e) {
             e.printStackTrace();
-            mListener.onError(CommonError.PARSE_BODY_ERROR, e.getMessage());
+            doError(CommonError.PARSE_BODY_ERROR, e.getMessage());
         }
     }
 }

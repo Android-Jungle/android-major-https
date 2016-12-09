@@ -49,12 +49,8 @@ public class BizJsonRequestModel<T> extends JsonRequestModel<T> {
 
     @Override
     public void onSuccess(int seqId, NetworkResp networkResp, String response) {
-        if (mListener == null) {
-            return;
-        }
-
         if (TextUtils.isEmpty(response)) {
-            mListener.onSuccess(networkResp, null);
+            doSuccess(networkResp, null);
             return;
         }
 
@@ -64,21 +60,21 @@ public class BizJsonRequestModel<T> extends JsonRequestModel<T> {
             int retCode = json.getIntValue("ret");
             if (retCode != CommonError.SUCCESS) {
                 String message = json.getString("msg");
-                mListener.onError(CommonError.FAILED, message);
+                doError(CommonError.FAILED, message);
                 return;
             }
         } catch (Exception e) {
             e.printStackTrace();
-            mListener.onError(CommonError.PARSE_BODY_ERROR, e.getMessage());
+            doError(CommonError.PARSE_BODY_ERROR, e.getMessage());
             return;
         }
 
         try {
             T data = json.getObject("data", mResponseDataClazz);
-            mListener.onSuccess(networkResp, data);
+            doSuccess(networkResp, data);
         } catch (Exception e) {
             e.printStackTrace();
-            mListener.onError(CommonError.PARSE_BODY_ERROR, e.getMessage());
+            doError(CommonError.PARSE_BODY_ERROR, e.getMessage());
         }
     }
 }

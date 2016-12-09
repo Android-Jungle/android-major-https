@@ -29,6 +29,6 @@ public class TextRequestModel extends AbstractTextRequestModel<TextRequestModel,
 
     @Override
     public void onSuccess(int seqId, NetworkResp networkResp, String response) {
-        mListener.onSuccess(networkResp, response);
+        doSuccess(networkResp, response);
     }
 }

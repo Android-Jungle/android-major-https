@@ -38,6 +38,6 @@ public abstract class AbstractTextRequestModel<Impl extends AbstractTextRequestM
 
     @Override
     public void onError(int seqId, int errorCode, String message) {
-        mListener.onError(errorCode, message);
+        doError(errorCode, message);
     }
 }
