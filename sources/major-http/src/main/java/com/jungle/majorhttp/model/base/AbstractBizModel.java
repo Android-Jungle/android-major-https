@@ -20,8 +20,8 @@ package com.jungle.majorhttp.model.base;
 
 import android.content.Context;
 import android.support.annotation.StringRes;
-import com.jungle.majorhttp.model.ui.ProgressModelLoadManager;
-import com.jungle.majorhttp.request.MajorHttpManager;
+import com.jungle.majorhttp.manager.MajorProgressLoadManager;
+import com.jungle.majorhttp.manager.MajorHttpManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -215,7 +215,7 @@ public abstract class AbstractBizModel<Impl extends AbstractBizModel, Data> {
     }
 
     public int loadWithProgress(Context context) {
-        return ProgressModelLoadManager.getInstance().load(context, this, null);
+        return MajorProgressLoadManager.getInstance().load(context, this, null);
     }
 
     public int loadWithProgress(Context context, BizModelListener<Data> listener) {
@@ -224,7 +224,7 @@ public abstract class AbstractBizModel<Impl extends AbstractBizModel, Data> {
     }
 
     public int loadWithProgress(Context context, String loadingText) {
-        return ProgressModelLoadManager.getInstance().load(context, this, loadingText);
+        return MajorProgressLoadManager.getInstance().load(context, this, loadingText);
     }
 
     public int loadWithProgress(Context context, String loadingText, BizModelListener<Data> listener) {
@@ -233,7 +233,7 @@ public abstract class AbstractBizModel<Impl extends AbstractBizModel, Data> {
     }
 
     public int loadWithProgress(Context context, @StringRes int loadingText) {
-        return ProgressModelLoadManager.getInstance().load(
+        return MajorProgressLoadManager.getInstance().load(
                 context, this, context.getString(loadingText));
     }
 

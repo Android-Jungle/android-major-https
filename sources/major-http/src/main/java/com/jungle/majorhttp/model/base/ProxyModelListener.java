@@ -16,17 +16,17 @@
  * limitations under the License.
  */
 
-package com.jungle.majorhttp.model.ui;
+package com.jungle.majorhttp.model.base;
 
 import com.jungle.majorhttp.model.base.BizModelListener;
 import com.jungle.majorhttp.request.base.NetworkResp;
 
-public class ProxyBaseBizModelListener<T> implements BizModelListener<T> {
+public class ProxyModelListener<T> implements BizModelListener<T> {
 
     private BizModelListener<T> mImplListener;
 
 
-    public ProxyBaseBizModelListener(BizModelListener<T> listener) {
+    public ProxyModelListener(BizModelListener<T> listener) {
         mImplListener = listener;
     }
 

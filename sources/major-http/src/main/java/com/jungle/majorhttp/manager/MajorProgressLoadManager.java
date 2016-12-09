@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.jungle.majorhttp.model.ui;
+package com.jungle.majorhttp.manager;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -29,19 +29,20 @@ import android.widget.TextView;
 import com.jungle.majorhttp.R;
 import com.jungle.majorhttp.model.base.AbstractBizModel;
 import com.jungle.majorhttp.model.base.BizModelListener;
+import com.jungle.majorhttp.model.base.ProxyModelListener;
 import com.jungle.majorhttp.request.base.NetworkResp;
 
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class ProgressModelLoadManager {
+public class MajorProgressLoadManager {
 
-    private static ProgressModelLoadManager mInstance;
+    private static MajorProgressLoadManager mInstance;
 
-    public static ProgressModelLoadManager getInstance() {
+    public static MajorProgressLoadManager getInstance() {
         if (mInstance == null) {
-            mInstance = new ProgressModelLoadManager();
+            mInstance = new MajorProgressLoadManager();
             mInstance.onCreate();
         }
 
@@ -70,7 +71,7 @@ public class ProgressModelLoadManager {
     private LoadingDialogCreator mLoadingDialogCreator;
 
 
-    private ProgressModelLoadManager() {
+    private MajorProgressLoadManager() {
     }
 
     private void onCreate() {
@@ -91,7 +92,7 @@ public class ProgressModelLoadManager {
 
     public <T> int load(Context context, final AbstractBizModel<?, T> model, String loadingText) {
         BizModelListener<T> listener = model.getListener();
-        int seqId = model.load(new ProxyBaseBizModelListener<T>(listener) {
+        int seqId = model.load(new ProxyModelListener<T>(listener) {
             @Override
             public void onSuccess(NetworkResp networkResp, T response) {
                 hideLoading(model.getSeqId());
@@ -109,7 +110,7 @@ public class ProgressModelLoadManager {
         return seqId;
     }
 
-    private synchronized void showLoading(Context context, int seqId, String loadingText) {
+    public synchronized void showLoading(Context context, int seqId, String loadingText) {
         if (mLoadingDialog == null) {
             mLoadingDialog = createLoadingDialog(context);
         }
@@ -160,7 +161,7 @@ public class ProgressModelLoadManager {
         return dialog;
     }
 
-    private synchronized void hideLoading(int seqId) {
+    public synchronized void hideLoading(int seqId) {
         if (mLoadingDialog == null) {
             return;
         }

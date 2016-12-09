@@ -20,7 +20,7 @@ package com.jungle.majorhttp.model.binary;
 
 import com.jungle.majorhttp.model.base.AbstractBizModel;
 import com.jungle.majorhttp.model.base.BaseBizModel;
-import com.jungle.majorhttp.request.MajorHttpManager;
+import com.jungle.majorhttp.manager.MajorHttpManager;
 import com.jungle.majorhttp.request.upload.BinaryUploadFormItem;
 import com.jungle.majorhttp.request.upload.FileUploadFormItem;
 import com.jungle.majorhttp.request.upload.UploadFormItem;

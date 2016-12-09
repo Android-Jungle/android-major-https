@@ -16,7 +16,7 @@
  * limitations under the License.
  */
 
-package com.jungle.majorhttp.request;
+package com.jungle.majorhttp.manager;
 
 import android.annotation.SuppressLint;
 import com.android.volley.DefaultRetryPolicy;
@@ -197,9 +197,9 @@ public class MajorHttpManager {
         return seqId;
     }
 
-    public synchronized <T> int sendRequest(Request<?> request, BaseRequestListener<T> listener) {
+    public synchronized int sendRequest(Request<?> request) {
         int seqId = nextSeqId();
-        addRequestNode(seqId, null, request, listener);
+        addRequestNode(seqId, null, request, null);
         return seqId;
     }
 
@@ -229,7 +229,10 @@ public class MajorHttpManager {
             }
         }
 
-        mRequestList.put(seqId, new RequestNode(seqId, request, listener));
+        if (listener != null) {
+            mRequestList.put(seqId, new RequestNode(seqId, request, listener));
+        }
+
         mRequestQueue.add(request);
     }
 

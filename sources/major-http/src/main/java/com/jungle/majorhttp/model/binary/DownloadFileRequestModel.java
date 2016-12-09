@@ -20,7 +20,7 @@ package com.jungle.majorhttp.model.binary;
 
 import com.jungle.majorhttp.model.base.AbstractBizModel;
 import com.jungle.majorhttp.model.base.BaseBizModel;
-import com.jungle.majorhttp.request.MajorHttpManager;
+import com.jungle.majorhttp.manager.MajorHttpManager;
 
 public class DownloadFileRequestModel extends BaseBizModel<DownloadFileRequestModel, String> {
 
