@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         MajorHttpManager.getInstance().setRequestQueueFactory(factory);
     }
 
-    private void showToast(int errorCode, String message) {
+    private void showError(int errorCode, String message) {
         message = String.format(Locale.getDefault(),
                 "Error: errorCode = %d, message = %s.", errorCode, message);
 
@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
                 .url(DEMO_WEB_URL)
                 .method(ModelMethod.GET)
                 .success((networkResp, response) -> TextViewerActivity.start(getContext(), response))
-                .error(this::showToast)
+                .error(this::showError)
                 .loadWithProgress(this);
     }
 
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(int errorCode, String message) {
-                        showToast(errorCode, message);
+                        showError(errorCode, message);
                     }
                 });
     }
@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(int errorCode, String message) {
-                        showToast(errorCode, message);
+                        showError(errorCode, message);
                     }
                 });
     }
@@ -168,7 +168,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(int errorCode, String message) {
-                        showToast(errorCode, message);
+                        showError(errorCode, message);
                     }
                 });
     }
@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(int errorCode, String message) {
-                        showToast(errorCode, message);
+                        showError(errorCode, message);
                     }
                 });
     }
