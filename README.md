@@ -22,6 +22,8 @@ compile 'com.jungle.majorhttp:major-http:1.0.0'
 > **load** 只是在后台加载，界面上没有任何表现。
 > **loadWithProgress** 在加载的时候会弹出一个加载展示 Dialog，并在后台加载。请求返回后，将自动关闭 Dialog。
 
+<br>
+
 ```java
 private static final String DEMO_WEB_URL =
         "https://www.zhihu.com";
@@ -33,7 +35,7 @@ private static final String DEMO_UPLOAD_URL =
         "https://raw.githubusercontent.com/upload_test";
 ```
 
-- 文本请求，使用 `TextRequestModel`：
+- 文本请求，使用 **`TextRequestModel`**：
 
 ```java
 TextRequestModel
@@ -53,7 +55,7 @@ TextRequestModel
         });
 ```
 
-- Json 请求，使用 `JsonRequestModel`：
+- Json 请求，使用 **`JsonRequestModel`**：
 
 ```java
 public class GithubUserInfo {
@@ -91,7 +93,7 @@ JsonRequestModel
 
 > Json 解析为 POJO 的过程，使用 [fastjson](https://github.com/alibaba/fastjson)。
 
-- Binary / DownloadRequestModel 二进制数据请求，使用 `DownloadRequestModel`：
+- Binary / DownloadRequestModel 二进制数据请求，使用 **`DownloadRequestModel`**：
 
 ```java
 DownloadRequestModel
@@ -112,7 +114,7 @@ DownloadRequestModel
         });
 ```
 
-- 文件下载请求，使用 `DownloadFileRequestModel`：
+- 文件下载请求，使用 **`DownloadFileRequestModel`**：
 
 ```java
 final String file = getDemoFilePath();
@@ -144,7 +146,7 @@ DownloadFileRequestModel
         });
 ```
 
-- 文件上传请求，使用 `UploadRequestModel`：
+- 文件上传请求，使用 **`UploadRequestModel`**：
 
 ```java
 final String file = getDemoFilePath();
@@ -169,7 +171,7 @@ UploadRequestModel
 
 ### 3、Http / Https 支持
 
-通过 `MajorHttpManager` 这个组件可以配置 Http / Https：
+通过 **`MajorHttpManager`** 这个组件可以配置 Http / Https：
 
 |方法|解释|
 |---|---|
@@ -181,7 +183,7 @@ UploadRequestModel
 #### 3.1、Http 支持
 
 ```java
-MajorHttpManager.getInstance().setRequestQueueFactory(new HttpsRequestQueueFactory(context));
+MajorHttpManager.getInstance().setRequestQueueFactory(new HttpRequestQueueFactory(context));
 ```
 
 #### 3.2、Https 支持
@@ -205,11 +207,11 @@ factory.setHostnameVerifier(new HttpsUtils.DomainHostNameVerifier(domains));
 MajorHttpManager.getInstance().setRequestQueueFactory(factory);
 ```
 
-> Https 可以将证书文件放在 assets 文件夹下，或者放在 res/raw 文件夹下，然后在代码中创建相应的 `HttpsRequestQueueFactory`。通过 `HttpsRequestQueueFactory.setHostnameVerifier` 可以设置域名验证。
+> Https 可以将证书文件放在 **assets** 文件夹下，或者放在 **res/raw** 文件夹下，然后在代码中创建相应的 **`HttpsRequestQueueFactory`**。通过 **`HttpsRequestQueueFactory.setHostnameVerifier`** 可以设置域名验证。
 
 #### 3.3、Https 验证失败异常
 
-如果请求的 URL 证书验证不通过，则错误如下：
+如果请求的 URL **证书验证**不通过，则错误如下：
 
 ```
 com.android.volley.NoConnectionError:
@@ -218,7 +220,7 @@ com.android.volley.NoConnectionError:
             Trust anchor for certification path not found..
 ```
 
-如果请求的 URL 域名验证不通过，则错误如下：
+如果请求的 URL **域名验证**不通过，则错误如下：
 
 ```
 com.android.volley.NoConnectionError:
