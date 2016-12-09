@@ -1,11 +1,11 @@
 # major-http
 
-**major-http** 是一款 Android 上的 Http/Https 组件。内部使用 [Volley](https://android.googlesource.com/platform/frameworks/volley/) 作为底层 Http 组件。支持：
+**major-http** 是一款 Android 上的 Http/Https 组件。内部使用 [Volley](https://android.googlesource.com/platform/frameworks/volley/) 作为底层 Http 组件。主要特性有：
 
-- 支持 GET, POST, DELETE, PUT, HEAD 等；
-- 支持 Http, Https；
+- 支持 GET、 POST、 DELETE、 PUT、 HEAD 等；
+- 支持 Http、 Https；
 - 对 Https 支持自定义证书验证、域名验证等；
-- 支持 Text, Binary, Json, 文件下载, 文件上传等；
+- 支持 Text、 Binary、 Json、 文件下载、 文件上传等；
 - 支持 Json 自动解析为 POJO；
 - 接口简洁易用。
 
