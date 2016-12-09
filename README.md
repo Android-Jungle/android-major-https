@@ -7,7 +7,7 @@
 - 对 Https 支持**自定义证书验证**、**域名验证**等；
 - 支持 Text、 Binary、 Json、 文件下载、 文件上传等；
 - 支持 Json 自动解析为 POJO；
-- 接口简洁友好，支持 Java8 Lambda。
+- 接口简洁易用，支持 Java8 **Lambda**。
 
 ### 1、Gradle 配置
 
