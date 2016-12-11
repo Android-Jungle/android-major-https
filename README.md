@@ -132,7 +132,7 @@ JsonRequestModel
 
 > Json 解析为 POJO 的过程，使用 [fastjson](https://github.com/alibaba/fastjson)。
 
-- Binary / DownloadRequestModel 二进制数据请求，使用 **`DownloadRequestModel`**：
+- Binary / Download 二进制数据请求，使用 **`DownloadRequestModel`**：
 
 ```java
 DownloadRequestModel
