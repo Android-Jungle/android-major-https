@@ -20,7 +20,7 @@ package com.jungle.majorhttp.model.base;
 
 import android.content.Context;
 import android.support.annotation.StringRes;
-import com.jungle.majorhttp.manager.MajorHttpManager;
+import com.jungle.majorhttp.manager.MajorHttpClient;
 import com.jungle.majorhttp.manager.MajorProgressLoadManager;
 import com.jungle.majorhttp.model.listener.BothProxyModelListener;
 import com.jungle.majorhttp.model.listener.ModelErrorListener;
@@ -126,6 +126,7 @@ public abstract class AbstractModel<Impl extends AbstractModel, Data> {
     protected ModelErrorListener mErrorListener;
     protected ModelSuccessListener<Data> mSuccessListener;
     protected ModelLoadLifeListener<Impl> mLoadLifeListener;
+    protected MajorHttpClient mHttpClient;
 
 
     public AbstractModel() {
@@ -216,6 +217,12 @@ public abstract class AbstractModel<Impl extends AbstractModel, Data> {
     }
 
     @SuppressWarnings("unchecked")
+    public Impl client(MajorHttpClient client) {
+        mHttpClient = client;
+        return (Impl) this;
+    }
+
+    @SuppressWarnings("unchecked")
     public int load() {
         if (mLoadLifeListener != null) {
             mLoadLifeListener.onBeforeLoad((Impl) this);
@@ -282,7 +289,7 @@ public abstract class AbstractModel<Impl extends AbstractModel, Data> {
     }
 
     public void cancel() {
-        MajorHttpManager.getInstance().cancelBizModel(mRequest.getSeqId());
+        getHttpClient().cancelBizModel(mRequest.getSeqId());
     }
 
     public int getSeqId() {
@@ -311,5 +318,9 @@ public abstract class AbstractModel<Impl extends AbstractModel, Data> {
         if (mErrorListener != null) {
             mErrorListener.onError(errorCode, message);
         }
+    }
+
+    protected MajorHttpClient getHttpClient() {
+        return mHttpClient != null ? mHttpClient : MajorHttpClient.getDefault();
     }
 }

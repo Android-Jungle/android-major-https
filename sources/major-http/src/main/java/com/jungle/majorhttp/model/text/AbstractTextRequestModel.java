@@ -18,7 +18,6 @@
 
 package com.jungle.majorhttp.model.text;
 
-import com.jungle.majorhttp.manager.MajorHttpManager;
 import com.jungle.majorhttp.model.base.AbstractModel;
 import com.jungle.majorhttp.model.listener.ModelRequestListener;
 
@@ -33,7 +32,7 @@ public abstract class AbstractTextRequestModel<Impl extends AbstractTextRequestM
 
     @Override
     public int loadInternal() {
-        return MajorHttpManager.getInstance().loadTextModel((Request) mRequest, this);
+        return getHttpClient().loadTextModel((Request) mRequest, this);
     }
 
     @Override

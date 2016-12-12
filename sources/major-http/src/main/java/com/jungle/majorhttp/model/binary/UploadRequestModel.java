@@ -18,7 +18,6 @@
 
 package com.jungle.majorhttp.model.binary;
 
-import com.jungle.majorhttp.manager.MajorHttpManager;
 import com.jungle.majorhttp.model.base.AbstractModel;
 import com.jungle.majorhttp.model.base.BaseModel;
 import com.jungle.majorhttp.request.upload.BinaryMultipartFormItem;
@@ -79,6 +78,6 @@ public class UploadRequestModel extends BaseModel<UploadRequestModel, String> {
 
     @Override
     public int loadInternal() {
-        return MajorHttpManager.getInstance().loadUploadModel((Request) mRequest, this);
+        return getHttpClient().loadUploadModel((Request) mRequest, this);
     }
 }

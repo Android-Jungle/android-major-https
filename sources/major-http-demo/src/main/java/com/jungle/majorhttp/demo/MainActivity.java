@@ -29,7 +29,7 @@ import android.view.View;
 import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.jungle.majorhttp.manager.MajorHttpManager;
+import com.jungle.majorhttp.manager.MajorHttpClient;
 import com.jungle.majorhttp.model.base.ModelMethod;
 import com.jungle.majorhttp.model.binary.DownloadFileRequestModel;
 import com.jungle.majorhttp.model.binary.DownloadRequestModel;
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
         HttpsRequestQueueFactory factory = new HttpsRequestQueueFactory(this, certs);
         factory.setHostnameVerifier(new HttpsUtils.DomainHostNameVerifier(domains));
-        MajorHttpManager.getInstance().setRequestQueueFactory(factory);
+        MajorHttpClient.getDefault().setRequestQueueFactory(factory);
     }
 
     private void showError(int errorCode, String message) {

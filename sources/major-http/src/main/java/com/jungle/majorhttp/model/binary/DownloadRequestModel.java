@@ -18,7 +18,6 @@
 
 package com.jungle.majorhttp.model.binary;
 
-import com.jungle.majorhttp.manager.MajorHttpManager;
 import com.jungle.majorhttp.model.base.BaseModel;
 
 public class DownloadRequestModel extends BaseModel<DownloadRequestModel, byte[]> {
@@ -35,6 +34,6 @@ public class DownloadRequestModel extends BaseModel<DownloadRequestModel, byte[]
 
     @Override
     public int loadInternal() {
-        return MajorHttpManager.getInstance().loadDownloadModel(mRequest, this);
+        return getHttpClient().loadDownloadModel(mRequest, this);
     }
 }

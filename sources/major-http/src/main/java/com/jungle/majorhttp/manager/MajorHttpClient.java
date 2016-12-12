@@ -50,21 +50,20 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class MajorHttpManager {
+public class MajorHttpClient {
 
-    private static final int DEFAULT_TIMEOUT_MS = 20 * 1000;
-    private static final int UPLOAD_TIMEOUT_MS = 40 * 1000;
+    public static final int DEFAULT_TIMEOUT_MS = 20 * 1000;
+    public static final int UPLOAD_TIMEOUT_MS = 40 * 1000;
 
 
-    private static MajorHttpManager mInstance;
+    private static MajorHttpClient mDefaultInstance;
 
-    public static MajorHttpManager getInstance() {
-        if (mInstance == null) {
-            mInstance = new MajorHttpManager();
-            mInstance.onCreate();
+    public static MajorHttpClient getDefault() {
+        if (mDefaultInstance == null) {
+            mDefaultInstance = new MajorHttpClient();
         }
 
-        return mInstance;
+        return mDefaultInstance;
     }
 
 
@@ -99,9 +98,18 @@ public class MajorHttpManager {
     private ExtraHeadersFiller mExtraHeadersFiller;
 
 
-    private void onCreate() {
-        setUploadTimeoutMilliseconds(UPLOAD_TIMEOUT_MS);
-        setDefaultTimeoutMilliseconds(DEFAULT_TIMEOUT_MS);
+    public MajorHttpClient() {
+        this(null);
+    }
+
+    public MajorHttpClient(RequestQueueFactory factory) {
+        this(DEFAULT_TIMEOUT_MS, UPLOAD_TIMEOUT_MS, factory);
+    }
+
+    public MajorHttpClient(int defaultTimeoutMs, int uploadTimeoutMs, RequestQueueFactory factory) {
+        setUploadTimeoutMilliseconds(uploadTimeoutMs);
+        setDefaultTimeoutMilliseconds(defaultTimeoutMs);
+        setRequestQueueFactory(factory);
     }
 
     public void onTerminate() {
@@ -342,7 +350,7 @@ public class MajorHttpManager {
         @SuppressWarnings("unchecked")
         @Override
         public void onSuccess(int seqId, BizBaseResponse<T> response) {
-            synchronized (MajorHttpManager.this) {
+            synchronized (MajorHttpClient.this) {
                 RequestNode node = mRequestList.remove(seqId);
                 if (node == null || node.mListener == null) {
                     return;

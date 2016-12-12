@@ -18,7 +18,6 @@
 
 package com.jungle.majorhttp.model.binary;
 
-import com.jungle.majorhttp.manager.MajorHttpManager;
 import com.jungle.majorhttp.model.base.BaseModel;
 
 public class BinaryRequestModel extends BaseModel<BinaryRequestModel, byte[]> {
@@ -30,6 +29,6 @@ public class BinaryRequestModel extends BaseModel<BinaryRequestModel, byte[]> {
 
     @Override
     public int loadInternal() {
-        return MajorHttpManager.getInstance().loadBinaryModel(mRequest, this);
+        return getHttpClient().loadBinaryModel(mRequest, this);
     }
 }
