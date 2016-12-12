@@ -117,7 +117,9 @@ public class MajorHttpClient {
     }
 
     public void setRequestQueueFactory(RequestQueueFactory factory) {
-        mRequestQueue = factory.createRequestQueue();
+        if (factory != null) {
+            mRequestQueue = factory.createRequestQueue();
+        }
     }
 
     public void setUploadTimeoutMilliseconds(int milliseconds) {
