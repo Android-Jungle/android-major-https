@@ -46,7 +46,6 @@ private void showError(int errorCode, String message) {
 TextRequestModel
         .newModel()
         .url(DEMO_WEB_URL)
-        .method(ModelMethod.GET)
         .success(new ModelSuccessListener<String>() {
             @Override
             public void onSuccess(NetworkResp networkResp, String response) {
@@ -68,7 +67,6 @@ TextRequestModel
 TextRequestModel
         .newModel()
         .url(DEMO_WEB_URL)
-        .method(ModelMethod.GET)
         .load(new ModelListener<String>() {
             @Override
             public void onSuccess(NetworkResp networkResp, String response) {
@@ -88,7 +86,6 @@ TextRequestModel
 TextRequestModel
         .newModel()
         .url(DEMO_WEB_URL)
-        .method(ModelMethod.GET)
         .success((networkResp, response) -> TextViewerActivity.start(getContext(), response))
         .error(this::showError)
         .load();
@@ -209,7 +206,7 @@ UploadRequestModel
 
 ### 3、Http / Https 支持
 
-通过 **`MajorHttpManager`** 这个组件可以配置 Http / Https：
+通过 **`MajorHttpClient`** 这个组件可以配置 Http / Https：
 
 |方法|解释|
 |---|---|
@@ -221,7 +218,7 @@ UploadRequestModel
 #### 3.1、Http 支持
 
 ```java
-MajorHttpManager.getInstance().setRequestQueueFactory(new HttpRequestQueueFactory(context));
+MajorHttpClient.getDefault().setRequestQueueFactory(new HttpRequestQueueFactory(context));
 ```
 
 #### 3.2、Https 支持
@@ -242,7 +239,7 @@ String[] domains = {
 HttpsRequestQueueFactory factory = new HttpsRequestQueueFactory(this, certs);
 factory.setHostnameVerifier(new HttpsUtils.DomainHostNameVerifier(domains));
 
-MajorHttpManager.getInstance().setRequestQueueFactory(factory);
+MajorHttpClient.getDefault().setRequestQueueFactory(factory);
 ```
 
 > Https 可以将证书文件放在 **assets** 文件夹下，或者放在 **res/raw** 文件夹下，然后在代码中创建相应的 **`HttpsRequestQueueFactory`**。通过 **`HttpsRequestQueueFactory.setHostnameVerifier`** 可以设置域名验证。
