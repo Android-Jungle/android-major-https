@@ -128,6 +128,10 @@ public abstract class BizBaseRequest<T extends BizBaseResponse> extends Request<
             return;
         }
 
+        if (mRequestParams.isEmpty()) {
+            return;
+        }
+
         String url = getOriginalUrl();
         if (TextUtils.isEmpty(url)) {
             return;
