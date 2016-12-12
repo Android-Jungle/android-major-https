@@ -1,6 +1,6 @@
 # major-http
 
-**major-http** 是一款 Android 上的 Http/Https 组件。内部使用 [Volley](https://android.googlesource.com/platform/frameworks/volley/) 作为底层 Http 组件。主要特性有：
+**major-http** 是一款 Android 上的 Http/Https 组件。内部使用 **[Volley](https://android.googlesource.com/platform/frameworks/volley/)** 作为底层 Http 组件。主要特性有：
 
 - 支持 GET、 POST、 DELETE、 PUT、 HEAD 等；
 - 支持 Http、 **Https**；
@@ -23,6 +23,21 @@ compile 'com.jungle.majorhttp:major-http:1.0.0'
 > **loadWithProgress** 在加载的时候会弹出一个加载展示 Dialog（该对话框样式可自定义），并在后台加载。请求返回后，将自动关闭 Dialog。
 
 <br>
+预定义的 Model 列表如下：
+
+|请求类型|Model|数据结果|
+|---|---|---|
+|文本请求|TextRequestModel|String|
+|Json POJO 请求|JsonRequestModel|POJO Java 对象|
+|二进制数据请求|BinaryRequestModel|byte[]|
+|数据下载（获取）请求|DownloadRequestModel|byte[]|
+|文件下载请求|DownloadFileRequestModel|String 下载好的文件路径|
+|上传请求|UploadRequestModel|String 服务器返回的上传结果|
+|JsonObject 请求|JsonObjectRequestModel|JSONObject|
+|JsonArray 请求|JsonArrayRequestModel|JSONArray|
+
+<br>
+具体代码示例如下：
 
 ```java
 private static final String DEMO_WEB_URL =
@@ -91,7 +106,7 @@ TextRequestModel
         .load();
 ```
 
-- Json 请求，使用 **`JsonRequestModel`**：
+- Json POJO 请求，使用 **`JsonRequestModel`**：
 
 ```java
 public class GithubUserInfo {
@@ -127,28 +142,7 @@ JsonRequestModel
         });
 ```
 
-> Json 解析为 POJO 的过程，使用 [fastjson](https://github.com/alibaba/fastjson)。
-
-- Binary / Download 二进制数据请求，使用 **`DownloadRequestModel`**：
-
-```java
-DownloadRequestModel
-        .newModel()
-        .url(DEMO_JSON_URL)
-        .method(ModelMethod.GET)
-        .loadWithProgress(this, new BizModelListener<byte[]>() {
-            @Override
-            public void onSuccess(NetworkResp networkResp, byte[] response) {
-                String content = new String(response);
-                TextViewerActivity.start(getContext(), content);
-            }
-
-            @Override
-            public void onError(int errorCode, String message) {
-                showError(errorCode, message);
-            }
-        });
-```
+> Json 解析为 POJO 的过程，使用第三方 Json 库 **[fastjson](https://github.com/alibaba/fastjson)**。
 
 - 文件下载请求，使用 **`DownloadFileRequestModel`**：
 
