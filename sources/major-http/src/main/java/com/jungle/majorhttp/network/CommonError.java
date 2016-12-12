@@ -26,6 +26,8 @@ public class CommonError {
     public static final int FAILED = -4000;
     public static final int PARSE_BODY_ERROR = -40001;
     public static final int REQUEST_QUEUE_NOT_INITIALIZED = -4002;
+    public static final int PARSE_JSON_OBJECT_FAILED = -4003;
+    public static final int PARSE_JSON_ARRAY_FAILED = -4004;
 
 
     public static int fromError(VolleyError error) {
