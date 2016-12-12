@@ -237,7 +237,7 @@ String[] domains = {
 };
 
 HttpsRequestQueueFactory factory = new HttpsRequestQueueFactory(this, certs);
-factory.setHostnameVerifier(new HttpsUtils.DomainHostNameVerifier(domains));
+factory.setHostnameVerifier(new HttpsUtils.DomainHostnameVerifier(domains));
 
 MajorHttpClient.getDefault().setRequestQueueFactory(factory);
 ```
