@@ -38,7 +38,7 @@ public class HttpsRequestQueueFactory implements RequestQueueFactory {
             Context context, String certAssetName, String... domains) {
 
         HttpsRequestQueueFactory factory = new HttpsRequestQueueFactory(context, certAssetName);
-        factory.setHostnameVerifier(new HttpsUtils.DomainHostNameVerifier(domains));
+        factory.setHostnameVerifier(new HttpsUtils.DomainHostnameVerifier(domains));
         return factory;
     }
 
@@ -46,7 +46,7 @@ public class HttpsRequestQueueFactory implements RequestQueueFactory {
             Context context, @RawRes int certRawResId, String... domains) {
 
         HttpsRequestQueueFactory factory = new HttpsRequestQueueFactory(context, certRawResId);
-        factory.setHostnameVerifier(new HttpsUtils.DomainHostNameVerifier(domains));
+        factory.setHostnameVerifier(new HttpsUtils.DomainHostnameVerifier(domains));
         return factory;
     }
 
@@ -97,7 +97,7 @@ public class HttpsRequestQueueFactory implements RequestQueueFactory {
     @Override
     public RequestQueue createRequestQueue() {
         if (mHostnameVerifier == null) {
-            mHostnameVerifier = new HttpsUtils.DefaultHostNameVerifier();
+            mHostnameVerifier = new HttpsUtils.DefaultHostnameVerifier();
         }
 
         VolleyHttpsStack stack = null;

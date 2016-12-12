@@ -44,14 +44,14 @@ import java.security.cert.X509Certificate;
 
 public class HttpsUtils {
 
-    public static class DomainHostNameVerifier implements HostnameVerifier {
+    public static class DomainHostnameVerifier implements HostnameVerifier {
 
         /**
          * Verifier domain name, such as `biz.main.com`.
          */
         private String[] mVerifyDomain;
 
-        public DomainHostNameVerifier(String... domain) {
+        public DomainHostnameVerifier(String... domain) {
             mVerifyDomain = domain;
         }
 
@@ -68,7 +68,7 @@ public class HttpsUtils {
         }
     }
 
-    public static class DefaultHostNameVerifier implements HostnameVerifier {
+    public static class DefaultHostnameVerifier implements HostnameVerifier {
 
         @Override
         public boolean verify(String s, SSLSession sslSession) {
