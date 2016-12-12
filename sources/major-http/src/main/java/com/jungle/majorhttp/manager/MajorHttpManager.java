@@ -25,9 +25,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.RetryPolicy;
 import com.android.volley.VolleyError;
 import com.jungle.majorhttp.model.base.AbstractModel;
-import com.jungle.majorhttp.model.binary.BinaryRequestModel;
 import com.jungle.majorhttp.model.binary.DownloadFileRequestModel;
-import com.jungle.majorhttp.model.binary.DownloadRequestModel;
 import com.jungle.majorhttp.model.binary.UploadRequestModel;
 import com.jungle.majorhttp.model.listener.ModelRequestListener;
 import com.jungle.majorhttp.network.CommonError;
@@ -142,7 +140,7 @@ public class MajorHttpManager {
     }
 
     public synchronized int loadBinaryModel(
-            BinaryRequestModel.Request request, ModelRequestListener<byte[]> listener) {
+            AbstractModel.Request request, ModelRequestListener<byte[]> listener) {
 
         int seqId = nextSeqId();
         request.seqId(seqId);
@@ -170,7 +168,7 @@ public class MajorHttpManager {
     }
 
     public synchronized int loadDownloadModel(
-            DownloadRequestModel.Request request, ModelRequestListener<byte[]> listener) {
+            AbstractModel.Request request, ModelRequestListener<byte[]> listener) {
 
         int seqId = nextSeqId();
         request.seqId(seqId);
