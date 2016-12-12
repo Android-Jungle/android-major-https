@@ -32,7 +32,10 @@ import com.jungle.majorhttp.request.base.NetworkResp;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class AbstractModel<Impl extends AbstractModel, Data> {
+public abstract class AbstractModel<
+        Impl extends AbstractModel,
+        Req extends AbstractModel.Request,
+        Data> {
 
     public static final int INVALID_SEQ_ID = -1;
 
@@ -81,6 +84,11 @@ public abstract class AbstractModel<Impl extends AbstractModel, Data> {
             return this;
         }
 
+        public Request addParams(Map<String, Object> params) {
+            mRequestParams.putAll(params);
+            return this;
+        }
+
         public Request fillExtraHeader(boolean fill) {
             mFillExtraHeader = fill;
             return this;
@@ -121,11 +129,11 @@ public abstract class AbstractModel<Impl extends AbstractModel, Data> {
     }
 
 
-    protected AbstractModel.Request mRequest;
-    protected ModelRequestFiller mModelFiller;
+    protected Req mRequest;
     protected ModelErrorListener mErrorListener;
     protected ModelSuccessListener<Data> mSuccessListener;
     protected ModelLoadLifeListener<Impl> mLoadLifeListener;
+    protected ModelRequestFiller<Req> mModelFiller;
     protected MajorHttpClient mHttpClient;
 
 
@@ -133,8 +141,8 @@ public abstract class AbstractModel<Impl extends AbstractModel, Data> {
         mRequest = createRequest();
     }
 
-    protected AbstractModel.Request createRequest() {
-        return new AbstractModel.Request();
+    protected Req createRequest() {
+        return (Req) new Request();
     }
 
     @SuppressWarnings("unchecked")
@@ -175,12 +183,12 @@ public abstract class AbstractModel<Impl extends AbstractModel, Data> {
 
     @SuppressWarnings("unchecked")
     public Impl addParams(Map<String, Object> params) {
-        mRequest.mRequestParams.putAll(params);
+        mRequest.addParams(params);
         return (Impl) this;
     }
 
     @SuppressWarnings("unchecked")
-    public Impl filler(ModelRequestFiller filler) {
+    public Impl filler(ModelRequestFiller<Req> filler) {
         mModelFiller = filler;
         return (Impl) this;
     }

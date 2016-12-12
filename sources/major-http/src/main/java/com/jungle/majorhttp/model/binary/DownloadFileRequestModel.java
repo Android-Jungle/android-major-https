@@ -21,7 +21,8 @@ package com.jungle.majorhttp.model.binary;
 import com.jungle.majorhttp.model.base.AbstractModel;
 import com.jungle.majorhttp.model.base.BaseModel;
 
-public class DownloadFileRequestModel extends BaseModel<DownloadFileRequestModel, String> {
+public class DownloadFileRequestModel
+        extends BaseModel<DownloadFileRequestModel, DownloadFileRequestModel.Request, String> {
 
     public static DownloadFileRequestModel newModel() {
         return new DownloadFileRequestModel();
@@ -43,7 +44,7 @@ public class DownloadFileRequestModel extends BaseModel<DownloadFileRequestModel
     }
 
     public DownloadFileRequestModel filePath(String filePath) {
-        ((Request) mRequest).filePath(filePath);
+        mRequest.filePath(filePath);
         return this;
     }
 
@@ -54,6 +55,6 @@ public class DownloadFileRequestModel extends BaseModel<DownloadFileRequestModel
 
     @Override
     public int loadInternal() {
-        return getHttpClient().loadDownloadFileModel((Request) mRequest, this);
+        return getHttpClient().loadDownloadFileModel(mRequest, this);
     }
 }

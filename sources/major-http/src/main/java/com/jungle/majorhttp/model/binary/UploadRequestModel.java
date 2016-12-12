@@ -29,7 +29,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UploadRequestModel extends BaseModel<UploadRequestModel, String> {
+public class UploadRequestModel
+        extends BaseModel<UploadRequestModel, UploadRequestModel.Request, String> {
 
     public static UploadRequestModel newModel() {
         return new UploadRequestModel();
@@ -57,7 +58,7 @@ public class UploadRequestModel extends BaseModel<UploadRequestModel, String> {
     }
 
     public UploadRequestModel addFormItem(MultipartFormItem item) {
-        ((Request) mRequest).addFormItem(item);
+        mRequest.addFormItem(item);
         return this;
     }
 
@@ -78,12 +79,12 @@ public class UploadRequestModel extends BaseModel<UploadRequestModel, String> {
     }
 
     @Override
-    protected AbstractModel.Request createRequest() {
+    protected Request createRequest() {
         return new Request();
     }
 
     @Override
     public int loadInternal() {
-        return getHttpClient().loadUploadModel((Request) mRequest, this);
+        return getHttpClient().loadUploadModel(mRequest, this);
     }
 }

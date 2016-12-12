@@ -22,17 +22,12 @@ import com.jungle.majorhttp.model.base.AbstractModel;
 import com.jungle.majorhttp.model.listener.ModelRequestListener;
 
 public abstract class AbstractTextRequestModel<Impl extends AbstractTextRequestModel, Data>
-        extends AbstractModel<AbstractTextRequestModel<Impl, Data>, Data>
+        extends AbstractModel<AbstractTextRequestModel<Impl, Data>, AbstractModel.Request, Data>
         implements ModelRequestListener<String> {
 
     @Override
-    protected AbstractModel.Request createRequest() {
-        return new Request();
-    }
-
-    @Override
     public int loadInternal() {
-        return getHttpClient().loadTextModel((Request) mRequest, this);
+        return getHttpClient().loadTextModel(mRequest, this);
     }
 
     @Override

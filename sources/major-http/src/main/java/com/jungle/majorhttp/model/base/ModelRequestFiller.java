@@ -18,7 +18,7 @@
 
 package com.jungle.majorhttp.model.base;
 
-public interface ModelRequestFiller {
+public interface ModelRequestFiller<Req extends AbstractModel.Request> {
 
-    void fill(AbstractModel.Request request);
+    void fill(Req request);
 }

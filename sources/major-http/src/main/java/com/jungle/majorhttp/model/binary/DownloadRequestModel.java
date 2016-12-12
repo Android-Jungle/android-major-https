@@ -18,19 +18,16 @@
 
 package com.jungle.majorhttp.model.binary;
 
+import com.jungle.majorhttp.model.base.AbstractModel;
 import com.jungle.majorhttp.model.base.BaseModel;
 
-public class DownloadRequestModel extends BaseModel<DownloadRequestModel, byte[]> {
+public class DownloadRequestModel
+        extends BaseModel<DownloadRequestModel, AbstractModel.Request, byte[]> {
 
     public static DownloadRequestModel newModel() {
         return new DownloadRequestModel();
     }
 
-
-    @Override
-    protected Request createRequest() {
-        return new Request();
-    }
 
     @Override
     public int loadInternal() {

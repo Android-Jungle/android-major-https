@@ -21,8 +21,8 @@ package com.jungle.majorhttp.model.base;
 import com.jungle.majorhttp.model.listener.ModelRequestListener;
 import com.jungle.majorhttp.request.base.NetworkResp;
 
-public abstract class BaseModel<Impl extends BaseModel, Data>
-        extends AbstractModel<Impl, Data>
+public abstract class BaseModel<Impl extends BaseModel, Req extends AbstractModel.Request, Data>
+        extends AbstractModel<Impl, Req, Data>
         implements ModelRequestListener<Data> {
 
     @Override

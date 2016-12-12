@@ -90,7 +90,7 @@ public class MajorProgressLoadManager {
         mLoadingDialogCreator = creator;
     }
 
-    public <T> int load(Context context, final AbstractModel<?, T> model, String loadingText) {
+    public <T> int load(Context context, final AbstractModel<?, ?, T> model, String loadingText) {
         ModelListener<T> listener = model.getListener();
         int seqId = model.load(new ProxyModelListener<T>(listener) {
             @Override
