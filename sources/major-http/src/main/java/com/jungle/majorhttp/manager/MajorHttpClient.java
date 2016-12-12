@@ -155,7 +155,8 @@ public class MajorHttpClient {
         int seqId = nextSeqId();
         request.seqId(seqId);
         BizBinaryRequest binaryRequest = new BizBinaryRequest(
-                seqId, request.getUrl(), request.getRequestParams(),
+                seqId, request.getRequestMethod().toVolleyMethod(),
+                request.getUrl(), request.getRequestParams(),
                 request.getRequestHeaders(), request.getBody(),
                 mBizBinaryRequestListener);
 
@@ -169,7 +170,8 @@ public class MajorHttpClient {
         int seqId = nextSeqId();
         request.seqId(seqId);
         BizMultipartRequest uploadRequest = new BizMultipartRequest(
-                seqId, request.getUrl(), request.getFormItems(),
+                seqId, request.getRequestMethod().toVolleyMethod(),
+                request.getUrl(), request.getFormItems(),
                 request.getRequestHeaders(),
                 mBizUploadRequestListener);
 
@@ -183,7 +185,8 @@ public class MajorHttpClient {
         int seqId = nextSeqId();
         request.seqId(seqId);
         BizDownloadRequest downloadRequest = new BizDownloadRequest(
-                seqId, request.getUrl(), request.getRequestParams(),
+                seqId, request.getRequestMethod().toVolleyMethod(),
+                request.getUrl(), request.getRequestParams(),
                 request.getRequestHeaders(),
                 mBizDownloadRequestListener);
 
@@ -197,7 +200,8 @@ public class MajorHttpClient {
         int seqId = nextSeqId();
         request.seqId(seqId);
         BizDownloadFileRequest downloadFileRequest = new BizDownloadFileRequest(
-                seqId, request.getUrl(), request.getRequestParams(),
+                seqId, request.getRequestMethod().toVolleyMethod(),
+                request.getUrl(), request.getRequestParams(),
                 request.getRequestHeaders(), request.getFilePath(),
                 mBizDownloadFileRequestListener);
 

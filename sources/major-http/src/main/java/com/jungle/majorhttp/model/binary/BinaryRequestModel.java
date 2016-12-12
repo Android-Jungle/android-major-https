@@ -19,6 +19,7 @@
 package com.jungle.majorhttp.model.binary;
 
 import com.jungle.majorhttp.model.base.BaseModel;
+import com.jungle.majorhttp.model.base.ModelMethod;
 
 public class BinaryRequestModel extends BaseModel<BinaryRequestModel, byte[]> {
 
@@ -26,6 +27,11 @@ public class BinaryRequestModel extends BaseModel<BinaryRequestModel, byte[]> {
         return new BinaryRequestModel();
     }
 
+
+    public BinaryRequestModel() {
+        super();
+        method(ModelMethod.POST);
+    }
 
     @Override
     public int loadInternal() {

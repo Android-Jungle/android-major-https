@@ -37,11 +37,11 @@ public class BizBinaryRequest extends BizBaseRequest<BizBinaryResponse> {
 
 
     public BizBinaryRequest(
-            int seqId, String url,
+            int seqId, int method, String url,
             Map<String, Object> params, Map<String, String> headers, byte[] data,
             BizRequestListener<BizBinaryResponse> listener) {
 
-        super(seqId, Method.POST, url, params, headers, listener);
+        super(seqId, method, url, params, headers, listener);
         mData = data;
     }
 

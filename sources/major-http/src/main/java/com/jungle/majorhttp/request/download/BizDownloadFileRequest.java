@@ -39,10 +39,10 @@ public class BizDownloadFileRequest extends BizBaseRequest<BizDownloadFileRespon
 
 
     public BizDownloadFileRequest(
-            int seqId, String url, Map<String, ?> params, Map<String, String> headers,
+            int seqId, int method, String url, Map<String, ?> params, Map<String, String> headers,
             String filePath, BizRequestListener<BizDownloadFileResponse> listener) {
 
-        super(seqId, Method.GET, url, params, headers, listener);
+        super(seqId, method, url, params, headers, listener);
         mFilePath = filePath;
     }
 

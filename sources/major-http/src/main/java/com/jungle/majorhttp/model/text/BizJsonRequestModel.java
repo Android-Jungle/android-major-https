@@ -21,6 +21,7 @@ package com.jungle.majorhttp.model.text;
 import android.text.TextUtils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.jungle.majorhttp.model.base.ModelMethod;
 import com.jungle.majorhttp.network.CommonError;
 import com.jungle.majorhttp.request.base.NetworkResp;
 
@@ -45,6 +46,7 @@ public class BizJsonRequestModel<T> extends JsonRequestModel<T> {
 
     public BizJsonRequestModel(Class<T> clazz) {
         super(clazz);
+        method(ModelMethod.POST);
     }
 
     @Override

@@ -40,11 +40,11 @@ public class BizMultipartRequest extends BizBaseRequest<BizMultipartResponse> {
 
 
     public BizMultipartRequest(
-            int seqId, String url, List<MultipartFormItem> list,
+            int seqId, int method, String url, List<MultipartFormItem> list,
             Map<String, String> headers,
             BizRequestListener<BizMultipartResponse> listener) {
 
-        super(seqId, Method.POST, url, null, headers, listener);
+        super(seqId, method, url, null, headers, listener);
 
         mFormItems = list;
         setShouldCache(false);

@@ -29,10 +29,10 @@ import java.util.Map;
 public class BizDownloadRequest extends BizBaseRequest<BizDownloadResponse> {
 
     public BizDownloadRequest(
-            int seqId, String url, Map<String, ?> params, Map<String, String> headers,
+            int seqId, int method, String url, Map<String, ?> params, Map<String, String> headers,
             BizRequestListener<BizDownloadResponse> listener) {
 
-        super(seqId, Method.GET, url, params, headers, listener);
+        super(seqId, method, url, params, headers, listener);
     }
 
     @Override

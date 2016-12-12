@@ -20,6 +20,7 @@ package com.jungle.majorhttp.model.binary;
 
 import com.jungle.majorhttp.model.base.AbstractModel;
 import com.jungle.majorhttp.model.base.BaseModel;
+import com.jungle.majorhttp.model.base.ModelMethod;
 import com.jungle.majorhttp.request.upload.BinaryMultipartFormItem;
 import com.jungle.majorhttp.request.upload.FileUploadFormItem;
 import com.jungle.majorhttp.request.upload.MultipartFormItem;
@@ -49,6 +50,11 @@ public class UploadRequestModel extends BaseModel<UploadRequestModel, String> {
         }
     }
 
+
+    public UploadRequestModel() {
+        super();
+        method(ModelMethod.POST);
+    }
 
     public UploadRequestModel addFormItem(MultipartFormItem item) {
         ((Request) mRequest).addFormItem(item);
