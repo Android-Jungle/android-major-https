@@ -41,7 +41,7 @@ public abstract class AbstractModel<Impl extends AbstractModel, Data> {
 
         private int mSeqId;
         private String mUrl;
-        private ModelMethod mRequestMethod = ModelMethod.POST;
+        private ModelMethod mRequestMethod = ModelMethod.GET;
         private Map<String, Object> mRequestParams = new HashMap<>();
         private Map<String, String> mRequestHeaders = new HashMap<>();
         private byte[] mBody;

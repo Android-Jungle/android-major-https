@@ -30,7 +30,6 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.jungle.majorhttp.manager.MajorHttpClient;
-import com.jungle.majorhttp.model.base.ModelMethod;
 import com.jungle.majorhttp.model.binary.DownloadFileRequestModel;
 import com.jungle.majorhttp.model.binary.DownloadRequestModel;
 import com.jungle.majorhttp.model.binary.UploadRequestModel;
@@ -94,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
         TextRequestModel
                 .newModel()
                 .url(DEMO_WEB_URL)
-                .method(ModelMethod.GET)
                 .success((networkResp, response) -> TextViewerActivity.start(getContext(), response))
                 .error(this::showError)
                 .loadWithProgress(this);
@@ -104,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
         JsonRequestModel
                 .newModel(GithubUserInfo.class)
                 .url(DEMO_JSON_URL)
-                .method(ModelMethod.GET)
                 .error(this::showError)
                 .load(new ModelSuccessListener<GithubUserInfo>() {
                     @Override
@@ -120,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
         DownloadRequestModel
                 .newModel()
                 .url(DEMO_JSON_URL)
-                .method(ModelMethod.GET)
                 .loadWithProgress(this, new ModelListener<byte[]>() {
                     @Override
                     public void onSuccess(NetworkResp networkResp, byte[] response) {
