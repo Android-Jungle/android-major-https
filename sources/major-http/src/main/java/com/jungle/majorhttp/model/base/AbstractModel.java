@@ -282,6 +282,10 @@ public abstract class AbstractModel<
     }
 
     public int loadWithProgress(Context context, @StringRes int loadingText) {
+        if (context == null) {
+            return load();
+        }
+
         return MajorProgressLoadManager.getInstance().load(
                 context, this, context.getString(loadingText));
     }

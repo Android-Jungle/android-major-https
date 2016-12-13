@@ -91,6 +91,10 @@ public class MajorProgressLoadManager {
     }
 
     public <T> int load(Context context, final AbstractModel<?, ?, T> model, String loadingText) {
+        if (context == null) {
+            return model.load();
+        }
+
         ModelListener<T> listener = model.getListener();
         int seqId = model.load(new ProxyModelListener<T>(listener) {
             @Override
