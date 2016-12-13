@@ -22,5 +22,5 @@ import java.util.Map;
 
 public interface ExtraHeadersFiller {
 
-    void fillHeaders(Map<String, String> params);
+    void fillHeaders(Map<String, String> headers);
 }
