@@ -329,7 +329,7 @@ public abstract class AbstractModel<
     }
 
     protected void doError(int errorCode, String message) {
-        Log.e(TAG, String.format("doError! errorCode=%d, url=%s, message=[%s].",
+        Log.e(TAG, String.format("doError! errorCode=%d, url=%s, message=[ %s ].",
                 errorCode, mRequest.getUrl(), message));
 
         if (mErrorListener != null) {
