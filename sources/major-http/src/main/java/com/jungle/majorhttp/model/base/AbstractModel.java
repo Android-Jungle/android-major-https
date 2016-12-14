@@ -20,6 +20,7 @@ package com.jungle.majorhttp.model.base;
 
 import android.content.Context;
 import android.support.annotation.StringRes;
+import android.util.Log;
 import com.jungle.majorhttp.manager.MajorHttpClient;
 import com.jungle.majorhttp.manager.MajorProgressLoadManager;
 import com.jungle.majorhttp.model.listener.BothProxyModelListener;
@@ -38,6 +39,7 @@ public abstract class AbstractModel<
         Data> {
 
     public static final int INVALID_SEQ_ID = -1;
+    public static final String TAG = "AbstractModel";
 
 
     public static class Request {
@@ -327,6 +329,7 @@ public abstract class AbstractModel<
     }
 
     protected void doError(int errorCode, String message) {
+        Log.e(TAG, String.format("doError! errorCode=[%d], message=[%s].", errorCode, message));
         if (mErrorListener != null) {
             mErrorListener.onError(errorCode, message);
         }
