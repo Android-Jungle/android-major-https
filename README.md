@@ -1,6 +1,6 @@
-# major-http
+# android-major-https
 
-**major-http** 是一款 Android 上的 Http/Https 组件。内部使用 **[Volley](https://android.googlesource.com/platform/frameworks/volley/)** 作为底层 Http 组件。主要特性有：
+**android-major-https** 是一款 Android 上的 Http/Https 组件。内部使用 **[Volley](https://android.googlesource.com/platform/frameworks/volley/)** 作为底层 Http 组件。主要特性有：
 
 - 支持 GET、 POST、 DELETE、 PUT、 HEAD 等；
 - 支持 Http、 **Https**；
