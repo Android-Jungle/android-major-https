@@ -12,7 +12,7 @@
 ### 1、Gradle 配置
 
 ```
-compile 'com.jungle.majorhttp:major-http:1.0.0'
+compile 'com.jungle.majorhttps:android-major-https:1.0.0'
 ```
 
 ### 2、使用方法
