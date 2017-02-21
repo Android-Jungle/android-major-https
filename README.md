@@ -265,7 +265,7 @@ com.android.volley.NoConnectionError:
 
 ```
 /**
- * Android Jungle-Major-Http framework project.
+ * Android Jungle-Major-Https framework project.
  *
  * Copyright 2016 Arno Zhang <zyfgood12@163.com>
  *
