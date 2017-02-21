@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             "https://www.zhihu.com";
 
     private static final String DEMO_JSON_URL =
-            "https://raw.githubusercontent.com/arnozhang/major-http/master/docs/demo.json";
+            "https://raw.githubusercontent.com/arnozhang/android-major-https/master/docs/demo.json";
 
     private static final String DEMO_UPLOAD_URL =
             "https://raw.githubusercontent.com/upload_test";

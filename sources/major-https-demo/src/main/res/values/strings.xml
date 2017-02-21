@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">major-http-demo</string>
+    <string name="app_name">major-https-demo</string>
     <string name="title_text_viewer">TextViewer</string>
 </resources>
