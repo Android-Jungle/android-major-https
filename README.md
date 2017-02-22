@@ -44,7 +44,7 @@ private static final String DEMO_WEB_URL =
         "https://www.zhihu.com";
 
 private static final String DEMO_JSON_URL =
-        "https://raw.githubusercontent.com/arnozhang/major-http/master/docs/demo.json";
+        "https://raw.githubusercontent.com/arnozhang/android-major-https/master/docs/demo.json";
 
 private static final String DEMO_UPLOAD_URL =
         "https://raw.githubusercontent.com/upload_test";
@@ -265,7 +265,7 @@ com.android.volley.NoConnectionError:
 
 ```
 /**
- * Android Jungle-Major-Http framework project.
+ * Android Jungle-Major-Https framework project.
  *
  * Copyright 2016 Arno Zhang <zyfgood12@163.com>
  *
