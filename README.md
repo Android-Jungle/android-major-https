@@ -13,6 +13,9 @@
 
 ```
 compile 'com.jungle.majorhttps:android-major-https:1.0'
+
+compile 'com.android.volley:volley:1.0.0'
+compile 'com.alibaba:fastjson:1.1.54.android'
 ```
 
 ### 2、使用方法
