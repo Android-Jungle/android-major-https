@@ -49,7 +49,7 @@ install {
                 version projectVersionName
                 packaging projectPackaging
                 url projectSiteUrl
-                description
+                description projectDescription
 
                 licenses {
                     license {

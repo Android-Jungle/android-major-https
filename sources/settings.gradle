@@ -1,1 +1,1 @@
-include ':major-https-demo', ':major-https'
+include ':major-https-demo', ':android-major-https'
