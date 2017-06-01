@@ -86,11 +86,20 @@ public class HttpsUtils {
     }
 
     public static X509Certificate createCertificateByCrtFile(String fileName) {
+        InputStream stream = null;
         try {
-            InputStream stream = new FileInputStream(fileName);
+            stream = new FileInputStream(fileName);
             return createCertificateByStream(stream);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        } finally {
+            if (stream != null) {
+                try {
+                    stream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
         return null;
