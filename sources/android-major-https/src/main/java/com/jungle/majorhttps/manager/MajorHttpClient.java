@@ -139,13 +139,13 @@ public class MajorHttpClient {
 
         int seqId = nextSeqId();
         request.seqId(seqId);
-        BizTextRequest jsonRequest = new BizTextRequest(
+        BizTextRequest textRequest = new BizTextRequest(
                 seqId, request.getRequestMethod().toVolleyMethod(),
                 request.getUrl(), request.getRequestParams(),
                 request.getRequestHeaders(), request.getBody(),
                 mBizTextRequestListener);
 
-        addRequestNode(seqId, request, jsonRequest, listener);
+        addRequestNode(seqId, request, textRequest, listener);
         return seqId;
     }
 

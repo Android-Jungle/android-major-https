@@ -22,7 +22,7 @@ import com.jungle.majorhttps.model.base.AbstractModel;
 import com.jungle.majorhttps.model.listener.ModelRequestListener;
 
 public abstract class AbstractTextRequestModel<Impl extends AbstractTextRequestModel, Data>
-        extends AbstractModel<AbstractTextRequestModel<Impl, Data>, AbstractModel.Request, Data>
+        extends AbstractModel<Impl, AbstractModel.Request, Data>
         implements ModelRequestListener<String> {
 
     @Override
