@@ -161,7 +161,7 @@ public class HttpsUtils {
         return null;
     }
 
-    public static SSLContext getSslContext(TrustManager... trustManagers) {
+    public static SSLContext getSSLContext(TrustManager... trustManagers) {
         try {
             SSLContext sslContext = SSLContext.getInstance("TLS");
             sslContext.init(null, trustManagers, null);

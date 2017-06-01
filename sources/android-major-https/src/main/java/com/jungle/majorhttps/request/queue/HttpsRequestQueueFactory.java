@@ -103,7 +103,7 @@ public class HttpsRequestQueueFactory implements RequestQueueFactory {
         VolleyHttpsStack stack = null;
         if (!mCertificateList.isEmpty()) {
             Certificate[] certs = mCertificateList.toArray(new Certificate[mCertificateList.size()]);
-            SSLContext sslContext = HttpsUtils.getSslContext(
+            SSLContext sslContext = HttpsUtils.getSSLContext(
                     HttpsUtils.createTrustManagerByCerts(certs));
 
             if (sslContext != null) {
