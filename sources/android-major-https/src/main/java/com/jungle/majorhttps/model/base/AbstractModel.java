@@ -288,8 +288,7 @@ public abstract class AbstractModel<
             return load();
         }
 
-        return MajorProgressLoadManager.getInstance().load(
-                context, this, context.getString(loadingText));
+        return loadWithProgress(context, context.getString(loadingText));
     }
 
     public int loadWithProgress(Context context, @StringRes int loadingText, ModelListener<Data> listener) {
