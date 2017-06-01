@@ -179,7 +179,7 @@ public abstract class AbstractModel<
 
     @SuppressWarnings("unchecked")
     public Impl paramCheckNull(String key, Object obj) {
-        mRequest.param(key, obj);
+        mRequest.paramCheckNull(key, obj);
         return (Impl) this;
     }
 
