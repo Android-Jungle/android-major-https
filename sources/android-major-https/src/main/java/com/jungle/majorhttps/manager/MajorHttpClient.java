@@ -34,16 +34,11 @@ import com.jungle.majorhttps.request.base.BizBaseResponse;
 import com.jungle.majorhttps.request.base.BizRequestListener;
 import com.jungle.majorhttps.request.base.ExtraHeadersFiller;
 import com.jungle.majorhttps.request.binary.BizBinaryRequest;
-import com.jungle.majorhttps.request.binary.BizBinaryResponse;
 import com.jungle.majorhttps.request.download.BizDownloadFileRequest;
-import com.jungle.majorhttps.request.download.BizDownloadFileResponse;
 import com.jungle.majorhttps.request.download.BizDownloadRequest;
-import com.jungle.majorhttps.request.download.BizDownloadResponse;
 import com.jungle.majorhttps.request.queue.RequestQueueFactory;
 import com.jungle.majorhttps.request.text.BizTextRequest;
-import com.jungle.majorhttps.request.text.BizTextResponse;
 import com.jungle.majorhttps.request.upload.BizMultipartRequest;
-import com.jungle.majorhttps.request.upload.BizMultipartResponse;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -266,12 +261,12 @@ public class MajorHttpClient {
         return mSeqIdGenerator.addAndGet(1);
     }
 
-    private WrappedRequestListener<BizTextResponse> mBizTextRequestListener =
-            new WrappedRequestListener<BizTextResponse>() {
+    private WrappedRequestListener<String> mBizTextRequestListener =
+            new WrappedRequestListener<String>() {
                 @Override
                 protected void handleSuccess(int seqId,
-                        ModelRequestListener<BizTextResponse> listener,
-                        BizBaseResponse<BizTextResponse> response) {
+                        ModelRequestListener<String> listener,
+                        BizBaseResponse<String> response) {
 
                     if (response == null) {
                         listener.onSuccess(seqId, null, null);
@@ -282,12 +277,12 @@ public class MajorHttpClient {
                 }
             };
 
-    private WrappedRequestListener<BizBinaryResponse> mBizBinaryRequestListener =
-            new WrappedRequestListener<BizBinaryResponse>() {
+    private WrappedRequestListener<byte[]> mBizBinaryRequestListener =
+            new WrappedRequestListener<byte[]>() {
                 @Override
                 protected void handleSuccess(int seqId,
-                        ModelRequestListener<BizBinaryResponse> listener,
-                        BizBaseResponse<BizBinaryResponse> response) {
+                        ModelRequestListener<byte[]> listener,
+                        BizBaseResponse<byte[]> response) {
 
                     if (response == null) {
                         listener.onSuccess(seqId, null, null);
@@ -298,12 +293,13 @@ public class MajorHttpClient {
                 }
             };
 
-    private WrappedRequestListener<BizMultipartResponse> mBizUploadRequestListener =
-            new WrappedRequestListener<BizMultipartResponse>() {
+    private WrappedRequestListener<String> mBizUploadRequestListener =
+            new WrappedRequestListener<String>() {
+
                 @Override
                 protected void handleSuccess(int seqId,
-                        ModelRequestListener<BizMultipartResponse> listener,
-                        BizBaseResponse<BizMultipartResponse> response) {
+                        ModelRequestListener<String> listener,
+                        BizBaseResponse<String> response) {
 
                     if (response == null) {
                         listener.onSuccess(seqId, null, null);
@@ -314,12 +310,12 @@ public class MajorHttpClient {
                 }
             };
 
-    private WrappedRequestListener<BizDownloadResponse> mBizDownloadRequestListener =
-            new WrappedRequestListener<BizDownloadResponse>() {
+    private WrappedRequestListener<byte[]> mBizDownloadRequestListener =
+            new WrappedRequestListener<byte[]>() {
                 @Override
                 protected void handleSuccess(int seqId,
-                        ModelRequestListener<BizDownloadResponse> listener,
-                        BizBaseResponse<BizDownloadResponse> response) {
+                        ModelRequestListener<byte[]> listener,
+                        BizBaseResponse<byte[]> response) {
 
                     if (response == null) {
                         listener.onSuccess(seqId, null, null);
@@ -330,12 +326,12 @@ public class MajorHttpClient {
                 }
             };
 
-    private WrappedRequestListener<BizDownloadFileResponse> mBizDownloadFileRequestListener =
-            new WrappedRequestListener<BizDownloadFileResponse>() {
+    private WrappedRequestListener<String> mBizDownloadFileRequestListener =
+            new WrappedRequestListener<String>() {
                 @Override
                 protected void handleSuccess(int seqId,
-                        ModelRequestListener<BizDownloadFileResponse> listener,
-                        BizBaseResponse<BizDownloadFileResponse> response) {
+                        ModelRequestListener<String> listener,
+                        BizBaseResponse<String> response) {
 
                     if (response == null) {
                         listener.onSuccess(seqId, null, null);

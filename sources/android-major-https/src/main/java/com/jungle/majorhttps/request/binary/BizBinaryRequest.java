@@ -20,14 +20,12 @@ package com.jungle.majorhttps.request.binary;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
-import com.android.volley.Response;
-import com.android.volley.toolbox.HttpHeaderParser;
 import com.jungle.majorhttps.request.base.BizBaseRequest;
 import com.jungle.majorhttps.request.base.BizRequestListener;
 
 import java.util.Map;
 
-public class BizBinaryRequest extends BizBaseRequest<BizBinaryResponse> {
+public class BizBinaryRequest extends BizBaseRequest<byte[]> {
 
     private static final String CONTENT_TYPE_BINARY = "application/octet-stream";
     private static final String CONTENT_TYPE_PROTOBUF = "application/x-protobuf";
@@ -39,7 +37,7 @@ public class BizBinaryRequest extends BizBaseRequest<BizBinaryResponse> {
     public BizBinaryRequest(
             int seqId, int method, String url,
             Map<String, Object> params, Map<String, String> headers, byte[] data,
-            BizRequestListener<BizBinaryResponse> listener) {
+            BizRequestListener<byte[]> listener) {
 
         super(seqId, method, url, params, headers, listener);
         mData = data;
@@ -56,9 +54,7 @@ public class BizBinaryRequest extends BizBaseRequest<BizBinaryResponse> {
     }
 
     @Override
-    protected Response<BizBinaryResponse> parseNetworkResponse(NetworkResponse response) {
-        return Response.success(
-                new BizBinaryResponse(response, response.data),
-                HttpHeaderParser.parseCacheHeaders(response));
+    protected byte[] parseResponseContent(NetworkResponse response) {
+        return response.data;
     }
 }

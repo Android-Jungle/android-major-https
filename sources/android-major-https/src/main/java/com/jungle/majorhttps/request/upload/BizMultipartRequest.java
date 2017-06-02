@@ -20,8 +20,6 @@ package com.jungle.majorhttps.request.upload;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
-import com.android.volley.Response;
-import com.android.volley.toolbox.HttpHeaderParser;
 import com.jungle.majorhttps.request.base.BizBaseRequest;
 import com.jungle.majorhttps.request.base.BizRequestListener;
 
@@ -30,7 +28,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-public class BizMultipartRequest extends BizBaseRequest<BizMultipartResponse> {
+public class BizMultipartRequest extends BizBaseRequest<String> {
 
     private static final String UPLOAD_CONTENT_TYPE = "multipart/form-data";
     private static final String UPLOAD_BOUNDARY = "biz-upload-request-";
@@ -42,7 +40,7 @@ public class BizMultipartRequest extends BizBaseRequest<BizMultipartResponse> {
     public BizMultipartRequest(
             int seqId, int method, String url, List<MultipartFormItem> list,
             Map<String, String> headers,
-            BizRequestListener<BizMultipartResponse> listener) {
+            BizRequestListener<String> listener) {
 
         super(seqId, method, url, null, headers, listener);
 
@@ -125,9 +123,7 @@ public class BizMultipartRequest extends BizBaseRequest<BizMultipartResponse> {
     }
 
     @Override
-    protected Response<BizMultipartResponse> parseNetworkResponse(NetworkResponse response) {
-        return Response.success(
-                new BizMultipartResponse(response, getResponseContent(response)),
-                HttpHeaderParser.parseCacheHeaders(response));
+    protected String parseResponseContent(NetworkResponse response) {
+        return parseResponseToStringContent(response);
     }
 }

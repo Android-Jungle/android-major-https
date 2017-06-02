@@ -22,6 +22,7 @@ import android.text.TextUtils;
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
+import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 
@@ -30,7 +31,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
-public abstract class BizBaseRequest<T extends BizBaseResponse> extends Request<T> {
+public abstract class BizBaseRequest<T> extends Request<BizBaseResponse<T>> {
 
     protected int mSeqId;
     private String mRedirectUrl;
@@ -97,9 +98,33 @@ public abstract class BizBaseRequest<T extends BizBaseResponse> extends Request<
         return (Map<String, String>) mRequestParams;
     }
 
+    @Override
+    protected Response<BizBaseResponse<T>> parseNetworkResponse(NetworkResponse response) {
+        return Response.success(
+                createBizResponse(response),
+                HttpHeaderParser.parseCacheHeaders(response));
+    }
+
+    protected BizBaseResponse<T> createBizResponse(NetworkResponse response) {
+        return new BizBaseResponse<>(response, parseResponseContent(response));
+    }
+
+    protected abstract T parseResponseContent(NetworkResponse response);
+
+    protected String parseResponseToStringContent(NetworkResponse response) {
+        String content;
+        try {
+            content = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
+        } catch (UnsupportedEncodingException e) {
+            content = new String(response.data);
+        }
+
+        return content;
+    }
+
     @SuppressWarnings("unchecked")
     @Override
-    protected void deliverResponse(T response) {
+    protected void deliverResponse(BizBaseResponse<T> response) {
         if (mListener != null) {
             mListener.onSuccess(mSeqId, response);
         }
@@ -110,17 +135,6 @@ public abstract class BizBaseRequest<T extends BizBaseResponse> extends Request<
         if (mListener != null) {
             mListener.onError(mSeqId, error);
         }
-    }
-
-    protected String getResponseContent(NetworkResponse response) {
-        String content;
-        try {
-            content = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
-        } catch (UnsupportedEncodingException e) {
-            content = new String(response.data);
-        }
-
-        return content;
     }
 
     protected void redirectRequest() {

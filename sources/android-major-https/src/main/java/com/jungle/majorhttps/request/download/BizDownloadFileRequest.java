@@ -22,8 +22,8 @@ import android.text.TextUtils;
 import com.android.volley.NetworkResponse;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.HttpHeaderParser;
 import com.jungle.majorhttps.request.base.BizBaseRequest;
+import com.jungle.majorhttps.request.base.BizBaseResponse;
 import com.jungle.majorhttps.request.base.BizRequestListener;
 
 import java.io.BufferedOutputStream;
@@ -33,21 +33,21 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Map;
 
-public class BizDownloadFileRequest extends BizBaseRequest<BizDownloadFileResponse> {
+public class BizDownloadFileRequest extends BizBaseRequest<String> {
 
     private String mFilePath;
 
 
     public BizDownloadFileRequest(
             int seqId, int method, String url, Map<String, ?> params, Map<String, String> headers,
-            String filePath, BizRequestListener<BizDownloadFileResponse> listener) {
+            String filePath, BizRequestListener<String> listener) {
 
         super(seqId, method, url, params, headers, listener);
         mFilePath = filePath;
     }
 
     @Override
-    protected Response<BizDownloadFileResponse> parseNetworkResponse(NetworkResponse response) {
+    protected Response<BizBaseResponse<String>> parseNetworkResponse(NetworkResponse response) {
         if (TextUtils.isEmpty(mFilePath)) {
             return Response.error(new VolleyError("Download file path must not be null!"));
         }
@@ -86,8 +86,11 @@ public class BizDownloadFileRequest extends BizBaseRequest<BizDownloadFileRespon
             }
         }
 
-        return Response.success(
-                new BizDownloadFileResponse(response, mFilePath),
-                HttpHeaderParser.parseCacheHeaders(response));
+        return super.parseNetworkResponse(response);
+    }
+
+    @Override
+    protected String parseResponseContent(NetworkResponse response) {
+        return mFilePath;
     }
 }

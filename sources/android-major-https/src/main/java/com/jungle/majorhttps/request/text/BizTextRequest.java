@@ -19,14 +19,12 @@
 package com.jungle.majorhttps.request.text;
 
 import com.android.volley.NetworkResponse;
-import com.android.volley.Response;
-import com.android.volley.toolbox.HttpHeaderParser;
 import com.jungle.majorhttps.request.base.BizBaseRequest;
 import com.jungle.majorhttps.request.base.BizRequestListener;
 
 import java.util.Map;
 
-public class BizTextRequest extends BizBaseRequest<BizTextResponse> {
+public class BizTextRequest extends BizBaseRequest<String> {
 
     private static final String PROTOCOL_CHARSET = "utf-8";
     private static final String PROTOCOL_CONTENT_TYPE =
@@ -39,7 +37,7 @@ public class BizTextRequest extends BizBaseRequest<BizTextResponse> {
     public BizTextRequest(
             int seqId, int method, String url,
             Map<String, Object> params, Map<String, String> headers, byte[] requestBody,
-            BizRequestListener<BizTextResponse> listener) {
+            BizRequestListener<String> listener) {
 
         super(seqId, method, url, params, headers, listener);
         mRequestBody = requestBody;
@@ -56,9 +54,7 @@ public class BizTextRequest extends BizBaseRequest<BizTextResponse> {
     }
 
     @Override
-    protected Response<BizTextResponse> parseNetworkResponse(NetworkResponse response) {
-        return Response.success(
-                new BizTextResponse(response, getResponseContent(response)),
-                HttpHeaderParser.parseCacheHeaders(response));
+    protected String parseResponseContent(NetworkResponse response) {
+        return parseResponseToStringContent(response);
     }
 }

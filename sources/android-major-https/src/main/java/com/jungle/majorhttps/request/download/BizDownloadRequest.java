@@ -19,26 +19,22 @@
 package com.jungle.majorhttps.request.download;
 
 import com.android.volley.NetworkResponse;
-import com.android.volley.Response;
-import com.android.volley.toolbox.HttpHeaderParser;
 import com.jungle.majorhttps.request.base.BizBaseRequest;
 import com.jungle.majorhttps.request.base.BizRequestListener;
 
 import java.util.Map;
 
-public class BizDownloadRequest extends BizBaseRequest<BizDownloadResponse> {
+public class BizDownloadRequest extends BizBaseRequest<byte[]> {
 
     public BizDownloadRequest(
             int seqId, int method, String url, Map<String, ?> params, Map<String, String> headers,
-            BizRequestListener<BizDownloadResponse> listener) {
+            BizRequestListener<byte[]> listener) {
 
         super(seqId, method, url, params, headers, listener);
     }
 
     @Override
-    protected Response<BizDownloadResponse> parseNetworkResponse(NetworkResponse response) {
-        return Response.success(
-                new BizDownloadResponse(response, response.data),
-                HttpHeaderParser.parseCacheHeaders(response));
+    protected byte[] parseResponseContent(NetworkResponse response) {
+        return response.data;
     }
 }
