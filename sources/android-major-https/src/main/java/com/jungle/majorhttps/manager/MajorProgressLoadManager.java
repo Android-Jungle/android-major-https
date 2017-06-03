@@ -28,8 +28,8 @@ import android.view.Window;
 import android.widget.TextView;
 import com.jungle.majorhttps.R;
 import com.jungle.majorhttps.model.base.AbstractModel;
+import com.jungle.majorhttps.model.listener.BothProxyModelListener;
 import com.jungle.majorhttps.model.listener.ModelListener;
-import com.jungle.majorhttps.model.listener.ProxyModelListener;
 import com.jungle.majorhttps.request.base.NetworkResp;
 
 import java.util.Iterator;
@@ -96,7 +96,7 @@ public class MajorProgressLoadManager {
         }
 
         ModelListener<T> listener = model.getListener();
-        int seqId = model.load(new ProxyModelListener<T>(listener) {
+        int seqId = model.load(new BothProxyModelListener<T>(listener) {
             @Override
             public void onSuccess(NetworkResp networkResp, T response) {
                 hideLoading(model.getSeqId());
