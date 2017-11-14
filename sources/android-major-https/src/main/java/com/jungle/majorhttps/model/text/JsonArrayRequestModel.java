@@ -26,6 +26,11 @@ import com.jungle.majorhttps.request.base.NetworkResp;
 public class JsonArrayRequestModel
         extends AbstractTextRequestModel<JsonArrayRequestModel, JSONArray> {
 
+    public static JsonArrayRequestModel newModel() {
+        return new JsonArrayRequestModel();
+    }
+
+
     @Override
     public void onSuccess(int seqId, NetworkResp networkResp, String response) {
         JSONArray json;

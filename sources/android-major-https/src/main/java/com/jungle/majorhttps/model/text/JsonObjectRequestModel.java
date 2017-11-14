@@ -26,6 +26,11 @@ import com.jungle.majorhttps.request.base.NetworkResp;
 public class JsonObjectRequestModel
         extends AbstractTextRequestModel<JsonObjectRequestModel, JSONObject> {
 
+    public static JsonObjectRequestModel newModel() {
+        return new JsonObjectRequestModel();
+    }
+
+
     @Override
     public void onSuccess(int seqId, NetworkResp networkResp, String response) {
         JSONObject json;

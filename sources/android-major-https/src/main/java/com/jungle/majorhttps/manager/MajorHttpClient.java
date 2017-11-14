@@ -19,6 +19,7 @@
 package com.jungle.majorhttps.manager;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -36,6 +37,7 @@ import com.jungle.majorhttps.request.base.ExtraHeadersFiller;
 import com.jungle.majorhttps.request.binary.BizBinaryRequest;
 import com.jungle.majorhttps.request.download.BizDownloadFileRequest;
 import com.jungle.majorhttps.request.download.BizDownloadRequest;
+import com.jungle.majorhttps.request.queue.HttpRequestQueueFactory;
 import com.jungle.majorhttps.request.queue.RequestQueueFactory;
 import com.jungle.majorhttps.request.text.BizTextRequest;
 import com.jungle.majorhttps.request.upload.BizMultipartRequest;
@@ -94,7 +96,11 @@ public class MajorHttpClient {
 
 
     public MajorHttpClient() {
-        this(null);
+        this((RequestQueueFactory) null);
+    }
+
+    public MajorHttpClient(Context context) {
+        this(new HttpRequestQueueFactory(context));
     }
 
     public MajorHttpClient(RequestQueueFactory factory) {
@@ -219,7 +225,8 @@ public class MajorHttpClient {
         if (mRequestQueue == null) {
             if (listener != null) {
                 String message = "RequestQueue is null!"
-                        + "use **setRequestQueueFactory** to initialize RequestQueue first!";
+                        + "use **MajorHttpClient.getInstance().setRequestQueueFactory(...)** "
+                        + "to initialize RequestQueue first!";
                 listener.onError(seqId, CommonError.REQUEST_QUEUE_NOT_INITIALIZED, message);
             }
 

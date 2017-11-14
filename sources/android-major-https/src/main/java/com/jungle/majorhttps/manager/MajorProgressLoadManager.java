@@ -20,6 +20,7 @@ package com.jungle.majorhttps.manager;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
@@ -31,10 +32,6 @@ import com.jungle.majorhttps.model.base.AbstractModel;
 import com.jungle.majorhttps.model.listener.BothProxyModelListener;
 import com.jungle.majorhttps.model.listener.ModelListener;
 import com.jungle.majorhttps.request.base.NetworkResp;
-
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
 
 public class MajorProgressLoadManager {
 
@@ -67,7 +64,6 @@ public class MajorProgressLoadManager {
 
 
     private Dialog mLoadingDialog;
-    private List<LoadingInfo> mLoadingInfoList = new LinkedList<>();
     private LoadingDialogCreator mLoadingDialogCreator;
 
 
@@ -78,12 +74,7 @@ public class MajorProgressLoadManager {
     }
 
     public void onTerminate() {
-        mLoadingInfoList.clear();
-
-        if (mLoadingDialog != null) {
-            mLoadingDialog.dismiss();
-            mLoadingDialog = null;
-        }
+        hideLoading();
     }
 
     public void setLoadingDialogCreator(LoadingDialogCreator creator) {
@@ -99,13 +90,13 @@ public class MajorProgressLoadManager {
         int seqId = model.load(new BothProxyModelListener<T>(listener) {
             @Override
             public void onSuccess(NetworkResp networkResp, T response) {
-                hideLoading(model.getSeqId());
+                hideLoading();
                 super.onSuccess(networkResp, response);
             }
 
             @Override
             public void onError(int errorCode, String message) {
-                hideLoading(model.getSeqId());
+                hideLoading();
                 super.onError(errorCode, message);
             }
         });
@@ -115,26 +106,24 @@ public class MajorProgressLoadManager {
     }
 
     public synchronized void showLoading(Context context, int seqId, String loadingText) {
-        if (mLoadingDialog == null) {
-            mLoadingDialog = createLoadingDialog(context);
+        if (mLoadingDialog != null) {
+            mLoadingDialog.dismiss();
         }
 
+        mLoadingDialog = createLoadingDialog(context);
         if (TextUtils.isEmpty(loadingText)) {
             loadingText = context.getString(R.string.loading_now);
         }
 
         updateLoadingText(loadingText);
-        mLoadingInfoList.add(new LoadingInfo(seqId, loadingText));
 
-        if (!mLoadingDialog.isShowing()) {
-            View iconView = mLoadingDialog.findViewById(R.id.request_loading_icon);
-            Drawable drawable = iconView.getBackground();
-            if (drawable instanceof AnimationDrawable) {
-                ((AnimationDrawable) drawable).start();
-            }
-
-            mLoadingDialog.show();
+        View iconView = mLoadingDialog.findViewById(R.id.request_loading_icon);
+        Drawable drawable = iconView.getBackground();
+        if (drawable instanceof AnimationDrawable) {
+            ((AnimationDrawable) drawable).start();
         }
+
+        mLoadingDialog.show();
     }
 
     private void updateLoadingText(String loadingText) {
@@ -162,28 +151,20 @@ public class MajorProgressLoadManager {
 
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(true);
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                mLoadingDialog = null;
+            }
+        });
+
         return dialog;
     }
 
-    public synchronized void hideLoading(int seqId) {
-        if (mLoadingDialog == null) {
-            return;
-        }
-
-        for (Iterator<LoadingInfo> iterator = mLoadingInfoList.iterator(); iterator.hasNext(); ) {
-            LoadingInfo info = iterator.next();
-            if (info.mSeqId == seqId) {
-                iterator.remove();
-                break;
-            }
-        }
-
-        if (mLoadingInfoList.isEmpty()) {
+    public synchronized void hideLoading() {
+        if (mLoadingDialog != null) {
             mLoadingDialog.dismiss();
             mLoadingDialog = null;
-        } else {
-            LoadingInfo last = mLoadingInfoList.get(mLoadingInfoList.size() - 1);
-            updateLoadingText(last.mLoadingText);
         }
     }
 }
