@@ -5,9 +5,9 @@
 
     <item
         android:duration="200"
-        android:drawable="@drawable/loading_animation1"/>
+        android:drawable="@drawable/majorhttps_loading_animation1"/>
 
     <item
         android:duration="200"
-        android:drawable="@drawable/loading_animation2"/>
+        android:drawable="@drawable/majorhttps_loading_animation2"/>
 </animation-list>

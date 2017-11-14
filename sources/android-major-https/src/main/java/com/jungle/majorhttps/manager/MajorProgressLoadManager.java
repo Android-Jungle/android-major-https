@@ -112,12 +112,12 @@ public class MajorProgressLoadManager {
 
         mLoadingDialog = createLoadingDialog(context);
         if (TextUtils.isEmpty(loadingText)) {
-            loadingText = context.getString(R.string.loading_now);
+            loadingText = context.getString(R.string.majorhttps_loading_now);
         }
 
         updateLoadingText(loadingText);
 
-        View iconView = mLoadingDialog.findViewById(R.id.request_loading_icon);
+        View iconView = mLoadingDialog.findViewById(R.id.majorhttps_request_loading_icon);
         Drawable drawable = iconView.getBackground();
         if (drawable instanceof AnimationDrawable) {
             ((AnimationDrawable) drawable).start();
@@ -127,7 +127,7 @@ public class MajorProgressLoadManager {
     }
 
     private void updateLoadingText(String loadingText) {
-        TextView loadingTextView = (TextView) mLoadingDialog.findViewById(R.id.request_loading_text);
+        TextView loadingTextView = (TextView) mLoadingDialog.findViewById(R.id.majorhttps_request_loading_text);
         if (loadingTextView != null) {
             loadingTextView.setText(loadingText);
         }
@@ -141,7 +141,7 @@ public class MajorProgressLoadManager {
 
         if (dialog == null) {
             dialog = new Dialog(context);
-            dialog.setContentView(R.layout.dialog_loading_request);
+            dialog.setContentView(R.layout.majorhttps_dialog_loading_request);
 
             Window window = dialog.getWindow();
             if (window != null) {

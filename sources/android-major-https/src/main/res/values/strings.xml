@@ -1,4 +1,3 @@
 <resources>
-    <string name="app_name">major-httpss</string>
-    <string name="loading_now">Loading…</string>
+    <string name="majorhttps_loading_now">Loading…</string>
 </resources>

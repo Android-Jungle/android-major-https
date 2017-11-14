@@ -10,20 +10,20 @@
     android:paddingRight="20dp"
     android:paddingTop="15dp"
     android:paddingBottom="15dp"
-    android:background="@drawable/loading_background">
+    android:background="@drawable/majorhttps_loading_background">
 
     <View
-        android:id="@id/request_loading_icon"
+        android:id="@id/majorhttps_request_loading_icon"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:background="@drawable/loading_animation"/>
+        android:background="@drawable/majorhttps_loading_animation"/>
 
     <TextView
-        android:id="@id/request_loading_text"
+        android:id="@id/majorhttps_request_loading_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="@string/loading_now"
+        android:text="@string/majorhttps_loading_now"
         android:textSize="13sp"
         android:textColor="@android:color/white"/>
 </LinearLayout>
